@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
@@ -10,13 +10,32 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { 
-  MapPin, 
   Mail, 
   Phone, 
   Clock,
   Send,
-  CheckCircle2
+  CheckCircle2,
+  MessageSquare
 } from 'lucide-react'
+
+function AnimatedSection({ children, className = '', delay = 0 }) {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), delay)
+    return () => clearTimeout(timer)
+  }, [delay])
+
+  return (
+    <div 
+      className={`${className} transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+    >
+      {children}
+    </div>
+  )
+}
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,7 +50,6 @@ export default function ContactPage() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000))
     
     setIsSubmitting(false)
@@ -45,22 +63,29 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/10 via-background to-accent/10 py-20 lg:py-28">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-                Contact Us
+        <section className="relative overflow-hidden py-20 lg:py-28">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
+          <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
+          
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+            <AnimatedSection className="mx-auto max-w-3xl text-center">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
+                <MessageSquare className="h-4 w-4" />
+                Get in Touch
+              </div>
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+                <span className="gradient-text">Contact Us</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
                 Have questions or ready to get started? We&apos;d love to hear from you. 
                 Reach out to our team and we&apos;ll get back to you as soon as possible.
               </p>
-            </div>
+            </AnimatedSection>
           </div>
         </section>
 
@@ -69,8 +94,8 @@ export default function ContactPage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
               {/* Contact Form */}
-              <div>
-                <Card>
+              <AnimatedSection delay={100}>
+                <Card className="hover-glow">
                   <CardHeader>
                     <CardTitle>Send us a message</CardTitle>
                     <CardDescription>
@@ -80,7 +105,7 @@ export default function ContactPage() {
                   <CardContent>
                     {isSubmitted ? (
                       <div className="flex flex-col items-center justify-center py-8 text-center">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 animate-scale-in">
                           <CheckCircle2 className="h-8 w-8 text-primary" />
                         </div>
                         <h3 className="mt-4 text-lg font-semibold text-foreground">Message Sent!</h3>
@@ -88,7 +113,7 @@ export default function ContactPage() {
                           Thank you for reaching out. We&apos;ll get back to you soon.
                         </p>
                         <Button 
-                          className="mt-6" 
+                          className="mt-6 hover-lift" 
                           variant="outline"
                           onClick={() => setIsSubmitted(false)}
                         >
@@ -107,6 +132,7 @@ export default function ContactPage() {
                             value={formData.name}
                             onChange={handleChange}
                             required
+                            className="transition-all duration-300 focus:ring-2 focus:ring-primary"
                           />
                         </div>
                         
@@ -120,6 +146,7 @@ export default function ContactPage() {
                             value={formData.email}
                             onChange={handleChange}
                             required
+                            className="transition-all duration-300 focus:ring-2 focus:ring-primary"
                           />
                         </div>
                         
@@ -133,10 +160,11 @@ export default function ContactPage() {
                             value={formData.message}
                             onChange={handleChange}
                             required
+                            className="transition-all duration-300 focus:ring-2 focus:ring-primary"
                           />
                         </div>
                         
-                        <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full hover-lift" disabled={isSubmitting}>
                           {isSubmitting ? (
                             'Sending...'
                           ) : (
@@ -150,13 +178,13 @@ export default function ContactPage() {
                     )}
                   </CardContent>
                 </Card>
-              </div>
+              </AnimatedSection>
 
               {/* Contact Info */}
-              <div className="space-y-8">
+              <AnimatedSection delay={200} className="space-y-8">
                 <div>
-                  <h2 className="text-2xl font-bold tracking-tight text-foreground">
-                    Get in Touch
+                  <h2 className="text-2xl font-bold tracking-tight">
+                    <span className="gradient-text">Get in Touch</span>
                   </h2>
                   <p className="mt-4 text-muted-foreground">
                     Our team is here to help you achieve your app growth goals. 
@@ -166,21 +194,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                      <MapPin className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground">Headquarters</h3>
-                      <p className="mt-1 text-muted-foreground">
-                        Brickell, Miami, Florida<br />
-                        United States
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <div className="flex gap-4 hover-lift p-4 rounded-lg glass">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/20">
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -191,8 +206,8 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <div className="flex gap-4 hover-lift p-4 rounded-lg glass">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/20">
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -203,33 +218,32 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <div className="flex gap-4 hover-lift p-4 rounded-lg glass">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/20">
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground">Business Hours</h3>
                       <p className="mt-1 text-muted-foreground">
-                        Monday - Friday: 9:00 AM - 6:00 PM EST<br />
-                        Saturday - Sunday: Closed
+                        Monday - Sunday: 9:00 AM - 5:30 PM (ET)
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <Card className="bg-primary/5 border-primary/20">
+                <Card className="glass border-primary/20 hover-glow">
                   <CardContent className="pt-6">
                     <h3 className="font-semibold text-foreground">Remote Work Opportunities</h3>
                     <p className="mt-2 text-sm text-muted-foreground">
                       Interested in joining our team? We offer flexible remote work positions 
                       with competitive compensation. Contact us to learn more about opportunities.
                     </p>
-                    <Button variant="outline" className="mt-4" asChild>
+                    <Button variant="outline" className="mt-4 hover-lift" asChild>
                       <Link href="/">View Opportunities</Link>
                     </Button>
                   </CardContent>
                 </Card>
-              </div>
+              </AnimatedSection>
             </div>
           </div>
         </section>
