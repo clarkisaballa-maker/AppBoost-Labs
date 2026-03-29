@@ -1,0 +1,55 @@
+Create a fully functional Next.js website (no TypeScript) for a company called "AppBoost Labs". Use the color scheme "Tech Blue" throughout the website. The website should be responsive and modern. Include the following pages:
+
+1. **Homepage**
+   - Introduce the company and its services.
+   - Highlight the company's headquarters in Brickell, Miami, Florida, USA.
+   - Include a brief overview of AppBoost Labs' mission: helping apps optimize performance, increase user engagement, and achieve growth through data-driven strategies.
+   - Add sections for workflow, profit model, and income opportunities.
+
+2. **About Us**
+   - Provide a detailed introduction to AppBoost Labs.
+   - Mention company’s focus on app optimization, user experience, data analysis, and promotion.
+   - Include information about leveraging Brickell, Miami as a business and technology hub.
+   - Describe the company's mission and approach to helping startups and enterprises.
+
+3. **Contact Us**
+   - Include a simple contact form (Name, Email, Message).
+   - Include company headquarters location and any general contact information.
+
+4. **Privacy Policy**
+   - Standard privacy policy text (basic template or placeholder if needed).
+
+5. **Terms and Conditions**
+   - Standard terms and conditions text (basic template or placeholder if needed).
+
+**Content Sections to Include:**
+
+- **Workflow**
+  - Clear daily tasks structure (10 tasks/day, 10 am EST start, last task 5:30 pm).
+  - Task completion time 1–2 minutes.
+  - Check-in reward: $10 per day.
+  - Trial period: $5 per regular task, Official member: $10 per regular task.
+  - Node tasks: higher reward, limited time, guidance provided.
+
+- **Profit Model**
+  - Focus on increasing app traffic: clicks → higher ranking → more exposure → more users → higher revenue.
+  - Emphasize data-driven growth.
+
+- **Node Tasks**
+  - High-reward special tasks.
+  - Limited availability, professional guidance, higher income opportunities.
+
+- **Salary and Income**
+  - Transparent income system.
+  - Trial period vs official member earnings.
+  - Daily income estimates and growth potential.
+  - Flexible remote work model.
+
+**Design and Functionality Notes:**
+- Use Tech Blue as the primary color.
+- Clean, modern, professional look suitable for a tech company.
+- Ensure smooth navigation between pages.
+- Homepage should include hero section, workflow summary, profit model, and key income highlights.
+- Add buttons, links, and calls-to-action where relevant (e.g., "Join Now", "Contact Us").
+
+Generate all pages and components in Next.js (no TypeScript). Ensure content matches the details above and is presented clearly.
