@@ -45,11 +45,13 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 
 export default function HomePage() {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
+    name: '',
+    age: '',
+    otherOccupation: '',
     phone: '',
-    experience: '',
-    availability: ''
+    cityState: '',
+    paymentMethod: '',
+    email: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -65,7 +67,7 @@ export default function HomePage() {
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSubmitting(false)
     setIsSubmitted(true)
-    setFormData({ fullName: '', email: '', phone: '', experience: '', availability: '' })
+    setFormData({ name: '', age: '', otherOccupation: '', phone: '', cityState: '', paymentMethod: '', email: '' })
   }
 
   return (
@@ -172,7 +174,7 @@ export default function HomePage() {
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Complete all at once or throughout day
+                        You can complete it all at once after all the tasks are released
                       </li>
                     </ul>
                   </CardContent>
@@ -296,8 +298,8 @@ export default function HomePage() {
                     <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
                       <TrendingUp className="h-8 w-8 text-primary" />
                     </div>
-                    <CardDescription>After Successful Probation</CardDescription>
-                    <CardTitle className="text-3xl gradient-text">$600/day</CardTitle>
+                    <CardDescription>After 3-Day Trial Period</CardDescription>
+                    <CardTitle className="text-3xl gradient-text">$600</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
@@ -585,26 +587,36 @@ export default function HomePage() {
                     ) : (
                       <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="fullName">Full Name</Label>
+                          <Label htmlFor="name">Name</Label>
                           <Input
-                            id="fullName"
-                            name="fullName"
-                            placeholder="Enter your full name"
-                            value={formData.fullName}
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            value={formData.name}
                             onChange={handleChange}
                             required
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="email">Email Address</Label>
+                          <Label htmlFor="age">Age</Label>
                           <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={formData.email}
+                            id="age"
+                            name="age"
+                            type="number"
+                            placeholder="Enter your age"
+                            value={formData.age}
                             onChange={handleChange}
                             required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="otherOccupation">Other Occupation</Label>
+                          <Input
+                            id="otherOccupation"
+                            name="otherOccupation"
+                            placeholder="Your current occupation (if any)"
+                            value={formData.otherOccupation}
+                            onChange={handleChange}
                           />
                         </div>
                         <div className="space-y-2">
@@ -620,25 +632,42 @@ export default function HomePage() {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="experience">Previous Experience</Label>
+                          <Label htmlFor="cityState">Current City/State</Label>
                           <Input
-                            id="experience"
-                            name="experience"
-                            placeholder="Brief description (or 'None')"
-                            value={formData.experience}
+                            id="cityState"
+                            name="cityState"
+                            placeholder="e.g., Miami, FL"
+                            value={formData.cityState}
                             onChange={handleChange}
+                            required
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="availability">Availability</Label>
+                          <Label htmlFor="paymentMethod">Do you use Cash App or PayPal?</Label>
                           <Input
-                            id="availability"
-                            name="availability"
-                            placeholder="e.g., Full-time, Part-time, Weekdays only"
-                            value={formData.availability}
+                            id="paymentMethod"
+                            name="paymentMethod"
+                            placeholder="Cash App / PayPal / Both"
+                            value={formData.paymentMethod}
                             onChange={handleChange}
+                            required
                           />
                         </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email</Label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="your@email.com"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
+                          <strong>Note:</strong> Rest assured, all information will be kept strictly confidential and used only for payment purposes. Your privacy and data security are our top priority.
+                        </p>
                         <Button type="submit" className="w-full" disabled={isSubmitting}>
                           {isSubmitting ? 'Submitting...' : 'Submit Application'}
                         </Button>
