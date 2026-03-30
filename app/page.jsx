@@ -18,10 +18,11 @@ import {
   CheckCircle2,
   ArrowRight,
   Star,
-  MessageSquare,
-  Video,
-  Upload,
-  Briefcase
+  Briefcase,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Images
 } from 'lucide-react'
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
@@ -43,6 +44,145 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   )
 }
 
+const galleryImages = [
+  {
+    src: 'https://res.cloudinary.com/dm2zkwqqb/image/upload/v1774915578/photo_2026-03-30_19-56-30_qi3cbj.webp',
+    alt: 'Company Gallery 1'
+  },
+  {
+    src: 'https://res.cloudinary.com/dm2zkwqqb/image/upload/v1774915579/photo_2026-03-30_19-56-28_wjp1hl.webp',
+    alt: 'Company Gallery 2'
+  },
+  {
+    src: 'https://res.cloudinary.com/dm2zkwqqb/image/upload/v1774915579/photo_2026-03-30_19-56-28_2_mrd0fl.webp',
+    alt: 'Company Gallery 3'
+  },
+  {
+    src: 'https://res.cloudinary.com/dm2zkwqqb/image/upload/v1774915578/photo_2026-03-30_19-56-29_2_e1uuqw.webp',
+    alt: 'Company Gallery 4'
+  },
+  {
+    src: 'https://res.cloudinary.com/dm2zkwqqb/image/upload/v1774915578/photo_2026-03-30_19-56-29_dbkrn1.webp',
+    alt: 'Company Gallery 5'
+  }
+]
+
+function SuccessGallery() {
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const openLightbox = (index) => {
+    setCurrentIndex(index)
+    setLightboxOpen(true)
+  }
+
+  const closeLightbox = () => {
+    setLightboxOpen(false)
+  }
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightboxOpen) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') goToPrevious()
+      if (e.key === 'ArrowRight') goToNext()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [lightboxOpen])
+
+  return (
+    <section className="bg-card/30 py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
+            <Images className="h-4 w-4" />
+            Our Company
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <span className="gradient-text">Company Gallery</span>
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Take a look inside AppBoost Labs. Click any image to view in full screen.
+          </p>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {galleryImages.map((image, index) => (
+            <AnimatedSection key={index} delay={100 + index * 50}>
+              <div 
+                className="relative aspect-[3/4] rounded-xl overflow-hidden cursor-pointer group hover-lift"
+                onClick={() => openLightbox(index)}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
+      </div>
+
+      {/* Lightbox Modal */}
+      {lightboxOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+          onClick={closeLightbox}
+        >
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+            aria-label="Close lightbox"
+          >
+            <X className="h-6 w-6 text-white" />
+          </button>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+            className="absolute left-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="h-8 w-8 text-white" />
+          </button>
+
+          <div 
+            className="max-w-4xl max-h-[90vh] mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={galleryImages[currentIndex].src}
+              alt={galleryImages[currentIndex].alt}
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
+            <p className="text-center text-white/70 mt-4 text-sm">
+              {currentIndex + 1} / {galleryImages.length}
+            </p>
+          </div>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); goToNext(); }}
+            className="absolute right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+            aria-label="Next image"
+          >
+            <ChevronRight className="h-8 w-8 text-white" />
+          </button>
+        </div>
+      )}
+    </section>
+  )
+}
+
 export default function HomePage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -55,18 +195,63 @@ export default function HomePage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [phoneError, setPhoneError] = useState('')
+
+  const formatPhoneNumber = (value) => {
+    const phoneNumber = value.replace(/\D/g, '')
+    const phoneNumberLength = phoneNumber.length
+    
+    if (phoneNumberLength < 4) return phoneNumber
+    if (phoneNumberLength < 7) {
+      return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`
+    }
+    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
+  }
+
+  const validateUSAPhone = (phone) => {
+    const phoneNumber = phone.replace(/\D/g, '')
+    if (phoneNumber.length !== 10) return false
+    const firstDigit = phoneNumber[0]
+    if (firstDigit === '0' || firstDigit === '1') return false
+    return true
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target
+    
+    if (name === 'phone') {
+      const formattedPhone = formatPhoneNumber(value)
+      setFormData(prev => ({ ...prev, phone: formattedPhone }))
+      
+      const rawPhone = value.replace(/\D/g, '')
+      if (rawPhone.length === 10) {
+        if (!validateUSAPhone(value)) {
+          setPhoneError('Please enter a valid USA phone number')
+        } else {
+          setPhoneError('')
+        }
+      } else if (rawPhone.length > 0) {
+        setPhoneError('')
+      }
+      return
+    }
+    
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    if (!validateUSAPhone(formData.phone)) {
+      setPhoneError('Please enter a valid 10-digit USA phone number')
+      return
+    }
+    
     setIsSubmitting(true)
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSubmitting(false)
     setIsSubmitted(true)
+    setPhoneError('')
     setFormData({ name: '', age: '', otherOccupation: '', phone: '', cityState: '', paymentMethod: '', email: '' })
   }
 
@@ -127,8 +312,8 @@ export default function HomePage() {
                 <p className="mt-1 text-sm text-muted-foreground">Active Members</p>
               </AnimatedSection>
               <AnimatedSection delay={400} className="text-center hover-lift p-4 rounded-lg">
-                <p className="text-3xl font-bold gradient-text">24/7</p>
-                <p className="mt-1 text-sm text-muted-foreground">Support Available</p>
+                <p className="text-xl font-bold gradient-text">9:30AM - 9:30PM</p>
+                <p className="mt-1 text-sm text-muted-foreground">Support Hours (ET)</p>
               </AnimatedSection>
             </div>
           </div>
@@ -462,71 +647,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Video & Screenshots Section */}
-        <section className="bg-card/30 py-20 lg:py-28">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                <span className="gradient-text">Success Stories & Testimonials</span>
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                See real results from our community members through videos and chat screenshots.
-              </p>
-            </AnimatedSection>
-
-            <div className="grid gap-8 md:grid-cols-2">
-              <AnimatedSection delay={100}>
-                <Card className="hover-lift hover-glow h-full">
-                  <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                        <Video className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle>Video Testimonials</CardTitle>
-                        <CardDescription>Watch success stories from our members</CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-border">
-                      <div className="text-center p-6">
-                        <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                        <p className="text-muted-foreground">Video content area</p>
-                        <p className="text-sm text-muted-foreground mt-2">Member success videos will be displayed here</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-
-              <AnimatedSection delay={200}>
-                <Card className="hover-lift hover-glow h-full">
-                  <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                        <MessageSquare className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle>Chat Screenshots</CardTitle>
-                        <CardDescription>Real conversations from satisfied members</CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-border">
-                      <div className="text-center p-6">
-                        <Upload className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                        <p className="text-muted-foreground">Screenshot gallery area</p>
-                        <p className="text-sm text-muted-foreground mt-2">Member chat screenshots will be displayed here</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-            </div>
-          </div>
-        </section>
+        {/* Success Stories Image Gallery Section */}
+        <SuccessGallery />
 
         {/* Customer Information Form */}
         <section className="py-20 lg:py-28">
@@ -620,16 +742,21 @@ export default function HomePage() {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="phone">Phone Number</Label>
+                          <Label htmlFor="phone">Phone Number (USA)</Label>
                           <Input
                             id="phone"
                             name="phone"
                             type="tel"
-                            placeholder="+1 (555) 000-0000"
+                            placeholder="(555) 123-4567"
                             value={formData.phone}
                             onChange={handleChange}
                             required
+                            maxLength={14}
+                            className={phoneError ? 'border-red-500 focus-visible:ring-red-500' : ''}
                           />
+                          {phoneError && (
+                            <p className="text-sm text-red-500">{phoneError}</p>
+                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="cityState">Current City/State</Label>

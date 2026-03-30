@@ -87,7 +87,7 @@ export default function TermsPage() {
                       </p>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
                         <li><strong className="text-foreground">Probation Period:</strong> 3-day probation at $200 base salary per day</li>
-                        <li><strong className="text-foreground">After Probation:</strong> $600 per day upon successful completion</li>
+                        <li><strong className="text-foreground">After Probation:</strong> You&apos;ll receive $600 as a lump sum for the 3-day probation period</li>
                         <li><strong className="text-foreground">Full-Time Staff:</strong> $6,000 monthly base salary</li>
                         <li>Daily check-in rewards of $10 per day</li>
                         <li>Additional earnings through regular tasks and Node tasks</li>
