@@ -81,7 +81,7 @@ const Index = () => {
         setIsSubmitting(true)
 
         try {
-            const response = await fetch("http://localhost:5000/api/applications", {
+            const response = await fetch("https://app-boost-labs-backend.vercel.app/api/applications", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
