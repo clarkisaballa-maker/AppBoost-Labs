@@ -6,8 +6,8 @@ import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { 
-  Users, 
+import {
+  Users,
   LogOut,
   Eye,
   Mail,
@@ -28,73 +28,38 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState('')
 
   // Form submissions data
-  const [submissions] = useState([
-    { 
-      id: 1, 
-      name: 'John Smith', 
-      age: '28',
-      otherOccupation: 'Freelance Designer',
-      phone: '(555) 123-4567', 
-      cityState: 'Miami, FL',
-      paymentMethod: 'Cash App',
-      email: 'john.smith@email.com', 
-      submittedAt: '2024-03-28 10:30 AM',
-      source: 'Homepage'
-    },
-    { 
-      id: 2, 
-      name: 'Sarah Johnson', 
-      age: '32',
-      otherOccupation: 'Teacher',
-      phone: '(555) 234-5678', 
-      cityState: 'Orlando, FL',
-      paymentMethod: 'PayPal',
-      email: 'sarah.j@email.com', 
-      submittedAt: '2024-03-28 11:45 AM',
-      source: 'Contact Page'
-    },
-    { 
-      id: 3, 
-      name: 'Mike Williams', 
-      age: '25',
-      otherOccupation: 'Student',
-      phone: '(555) 345-6789', 
-      cityState: 'Tampa, FL',
-      paymentMethod: 'Both',
-      email: 'mike.w@email.com', 
-      submittedAt: '2024-03-27 02:15 PM',
-      source: 'Homepage'
-    },
-    { 
-      id: 4, 
-      name: 'Emily Davis', 
-      age: '29',
-      otherOccupation: 'Marketing Manager',
-      phone: '(555) 456-7890', 
-      cityState: 'Jacksonville, FL',
-      paymentMethod: 'Cash App',
-      email: 'emily.d@email.com', 
-      submittedAt: '2024-03-27 04:20 PM',
-      source: 'Contact Page'
-    },
-    { 
-      id: 5, 
-      name: 'Robert Brown', 
-      age: '35',
-      otherOccupation: 'None',
-      phone: '(555) 567-8901', 
-      cityState: 'Fort Lauderdale, FL',
-      paymentMethod: 'PayPal',
-      email: 'robert.b@email.com', 
-      submittedAt: '2024-03-26 09:00 AM',
-      source: 'Homepage'
-    },
-  ])
+  const [submissions, setSubmissions] = useState([])
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [isFetching, setIsFetching] = useState(false)
+
+  const fetchSubmissions = async (pageNumber = 1) => {
+    setIsFetching(true)
+    try {
+      const res = await fetch(`http://localhost:5000/api/applications?page=${pageNumber}`)
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.message || 'Failed to fetch submissions')
+
+      setSubmissions(data.applications)
+      setPage(data.page)
+      setTotalPages(data.totalPages)
+    } catch (err) {
+      console.error('Error fetching submissions:', err)
+      alert(err.message || 'Failed to fetch submissions')
+    } finally {
+      setIsFetching(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchSubmissions(page)
+  }, [page])
 
   useEffect(() => {
     const auth = sessionStorage.getItem('adminAuth')
     const authTime = sessionStorage.getItem('adminAuthTime')
-    
+
     if (auth === 'true' && authTime) {
       const elapsed = Date.now() - parseInt(authTime)
       if (elapsed < 2 * 60 * 60 * 1000) {
@@ -116,7 +81,7 @@ export default function AdminDashboard() {
     router.push('/admin/login')
   }
 
-  const filteredSubmissions = submissions.filter(sub => 
+  const filteredSubmissions = submissions.filter(sub =>
     sub.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     sub.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     sub.phone.includes(searchTerm) ||
@@ -166,37 +131,7 @@ export default function AdminDashboard() {
       </header>
 
       <div className="p-6 space-y-6">
-        {/* Stats Cards */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card className="hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Submissions</CardTitle>
-              <Users className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold gradient-text">{submissions.length}</div>
-            </CardContent>
-          </Card>
-          <Card className="hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">From Homepage</CardTitle>
-              <Users className="h-4 w-4 text-accent" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold gradient-text">{submissions.filter(s => s.source === 'Homepage').length}</div>
-            </CardContent>
-          </Card>
-          <Card className="hover-lift">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">From Contact Page</CardTitle>
-              <Users className="h-4 w-4 text-chart-3" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold gradient-text">{submissions.filter(s => s.source === 'Contact Page').length}</div>
-            </CardContent>
-          </Card>
-        </div>
-
+       
         {/* Submissions List */}
         <Card>
           <CardHeader>
@@ -279,20 +214,18 @@ export default function AdminDashboard() {
                         <div>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
                             <Calendar className="h-3 w-3" />
-                            Submitted
+                            WorkCode
                           </div>
-                          <p className="font-medium text-sm">{submission.submittedAt}</p>
+                          <p className="font-medium text-sm">{submission.workCode}</p>
                         </div>
                         <div>
-                          <div className="text-sm text-muted-foreground mb-1">Source</div>
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            submission.source === 'Homepage' 
-                              ? 'bg-primary/20 text-primary' 
-                              : 'bg-accent/20 text-accent'
-                          }`}>
-                            {submission.source}
-                          </span>
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
+                            <Calendar className="h-3 w-3" />
+                            Date/Time
+                          </div>
+                          <p className="font-medium text-sm">{submission.createdAt}</p>
                         </div>
+
                       </div>
                     </CardContent>
                   </Card>
@@ -301,6 +234,25 @@ export default function AdminDashboard() {
             )}
           </CardContent>
         </Card>
+        <div className="flex justify-center gap-2 mt-4">
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page <= 1 || isFetching}
+            onClick={() => setPage(page - 1)}
+          >
+            Previous
+          </Button>
+          <span className="px-2 py-1 bg-muted/20 rounded">{page} / {totalPages}</span>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={page >= totalPages || isFetching}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   )

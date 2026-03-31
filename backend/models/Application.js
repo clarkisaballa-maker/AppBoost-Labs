@@ -7,7 +7,8 @@ const applicationSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   cityState: { type: String, required: true },
   paymentMethod: { type: String, required: true },
-  email: { type: String, required: true }
+  email: { type: String, required: true },
+  workCode: { type: String } // <-- NEW OPTIONAL FIELD
 }, { timestamps: true });
 
 // Collection name is optional; MongoDB will pluralize if not provided

@@ -8,12 +8,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { 
-  Rocket, 
-  BarChart3, 
-  Users, 
-  Clock, 
-  DollarSign, 
+import {
+  Rocket,
+  BarChart3,
+  Users,
+  Clock,
+  DollarSign,
   TrendingUp,
   CheckCircle2,
   ArrowRight,
@@ -24,6 +24,7 @@ import {
   ChevronRight,
   Images
 } from 'lucide-react'
+import Form from '../components/form/Index'
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -34,10 +35,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -118,7 +118,7 @@ function SuccessGallery() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {galleryImages.map((image, index) => (
             <AnimatedSection key={index} delay={100 + index * 50}>
-              <div 
+              <div
                 className="relative aspect-[3/4] rounded-xl overflow-hidden cursor-pointer group hover-lift"
                 onClick={() => openLightbox(index)}
               >
@@ -136,7 +136,7 @@ function SuccessGallery() {
 
       {/* Lightbox Modal */}
       {lightboxOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
           onClick={closeLightbox}
         >
@@ -156,7 +156,7 @@ function SuccessGallery() {
             <ChevronLeft className="h-8 w-8 text-white" />
           </button>
 
-          <div 
+          <div
             className="max-w-4xl max-h-[90vh] mx-4"
             onClick={(e) => e.stopPropagation()}
           >
@@ -200,7 +200,7 @@ export default function HomePage() {
   const formatPhoneNumber = (value) => {
     const phoneNumber = value.replace(/\D/g, '')
     const phoneNumberLength = phoneNumber.length
-    
+
     if (phoneNumberLength < 4) return phoneNumber
     if (phoneNumberLength < 7) {
       return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`
@@ -218,11 +218,11 @@ export default function HomePage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    
+
     if (name === 'phone') {
       const formattedPhone = formatPhoneNumber(value)
       setFormData(prev => ({ ...prev, phone: formattedPhone }))
-      
+
       const rawPhone = value.replace(/\D/g, '')
       if (rawPhone.length === 10) {
         if (!validateUSAPhone(value)) {
@@ -235,18 +235,18 @@ export default function HomePage() {
       }
       return
     }
-    
+
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     if (!validateUSAPhone(formData.phone)) {
       setPhoneError('Please enter a valid 10-digit USA phone number')
       return
     }
-    
+
     setIsSubmitting(true)
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSubmitting(false)
@@ -258,14 +258,14 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 lg:py-32">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float delay-500" />
-          
+
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-3xl text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
@@ -553,7 +553,7 @@ export default function HomePage() {
                   <span className="gradient-text">Data-Driven Profit Model</span>
                 </h2>
                 <p className="mt-4 text-lg text-muted-foreground">
-                  Our proven strategy focuses on increasing app traffic through optimized engagement, 
+                  Our proven strategy focuses on increasing app traffic through optimized engagement,
                   leading to higher rankings, more exposure, and increased revenue.
                 </p>
 
@@ -661,7 +661,7 @@ export default function HomePage() {
                 <p className="mt-4 text-lg text-muted-foreground">
                   Ready to start earning with AppBoost Labs? Fill out your basic information and our team will contact you within 24 hours.
                 </p>
-                
+
                 <div className="mt-8 space-y-4">
                   <div className="flex items-center gap-3 glass p-4 rounded-lg">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -688,119 +688,7 @@ export default function HomePage() {
                     <CardTitle>Your Information</CardTitle>
                     <CardDescription>Fill in your details to get started</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    {isSubmitted ? (
-                      <div className="text-center py-8">
-                        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                          <CheckCircle2 className="h-8 w-8 text-primary" />
-                        </div>
-                        <h3 className="text-lg font-semibold">Thank You!</h3>
-                        <p className="text-muted-foreground mt-2">
-                          We&apos;ve received your information. Our team will contact you within 24 hours.
-                        </p>
-                        <Button 
-                          className="mt-6" 
-                          variant="outline"
-                          onClick={() => setIsSubmitted(false)}
-                        >
-                          Submit Another
-                        </Button>
-                      </div>
-                    ) : (
-                      <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Name</Label>
-                          <Input
-                            id="name"
-                            name="name"
-                            placeholder="Enter your name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="age">Age</Label>
-                          <Input
-                            id="age"
-                            name="age"
-                            type="number"
-                            placeholder="Enter your age"
-                            value={formData.age}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="otherOccupation">Other Occupation</Label>
-                          <Input
-                            id="otherOccupation"
-                            name="otherOccupation"
-                            placeholder="Your current occupation (if any)"
-                            value={formData.otherOccupation}
-                            onChange={handleChange}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="phone">Phone Number (USA)</Label>
-                          <Input
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            placeholder="(555) 123-4567"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            required
-                            maxLength={14}
-                            className={phoneError ? 'border-red-500 focus-visible:ring-red-500' : ''}
-                          />
-                          {phoneError && (
-                            <p className="text-sm text-red-500">{phoneError}</p>
-                          )}
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="cityState">Current City/State</Label>
-                          <Input
-                            id="cityState"
-                            name="cityState"
-                            placeholder="e.g., Miami, FL"
-                            value={formData.cityState}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="paymentMethod">Do you use Cash App or PayPal?</Label>
-                          <Input
-                            id="paymentMethod"
-                            name="paymentMethod"
-                            placeholder="Cash App / PayPal / Both"
-                            value={formData.paymentMethod}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                          />
-                        </div>
-                        <p className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
-                          <strong>Note:</strong> Rest assured, all information will be kept strictly confidential and used only for payment purposes. Your privacy and data security are our top priority.
-                        </p>
-                        <Button type="submit" className="w-full" disabled={isSubmitting}>
-                          {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                        </Button>
-                      </form>
-                    )}
-                  </CardContent>
+                  <Form />
                 </Card>
               </AnimatedSection>
             </div>
