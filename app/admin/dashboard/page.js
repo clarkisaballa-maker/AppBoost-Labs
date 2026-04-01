@@ -46,31 +46,32 @@ export default function AdminDashboard() {
   }
 
   const updateNotes = async (id) => {
-    setSavingNotes(prev => ({ ...prev, [id]: true }))
-    try {
-      const updatedNotes = notesMap[id] ?? ""
+  setSavingNotes(prev => ({ ...prev, [id]: true }));
+  try {
+    // Use the updated note if available, otherwise keep the current note
+    const currentSubmission = submissions.find(sub => sub._id === id);
+    const updatedNotes = notesMap[id] !== undefined ? notesMap[id] : currentSubmission?.notes ?? "";
 
-      const res = await fetch("https://app-boost-labs-backend.vercel.app/api/applications/updateNotes", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, notes: updatedNotes }),
-      })
+    const res = await fetch("https://app-boost-labs-backend.vercel.app/api/applications/updateNotes", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, notes: updatedNotes }),
+    });
 
-      const data = await res.json()
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Failed to update notes");
 
-      if (!res.ok) throw new Error(data.message || "Failed to update notes")
-
-      // Update local submissions state
-      setSubmissions((prev) =>
-        prev.map((sub) => (sub._id === id ? { ...sub, notes: updatedNotes } : sub))
-      )
-    } catch (err) {
-      console.error("Error updating notes:", err.message)
-      alert(err.message || "Error updating notes")
-    } finally {
-      setSavingNotes(prev => ({ ...prev, [id]: false }))
-    }
+    // Update local submissions state
+    setSubmissions((prev) =>
+      prev.map((sub) => (sub._id === id ? { ...sub, notes: updatedNotes } : sub))
+    );
+  } catch (err) {
+    console.error("Error updating notes:", err.message);
+    alert(err.message || "Error updating notes");
+  } finally {
+    setSavingNotes(prev => ({ ...prev, [id]: false }));
   }
+};
 
   const fetchSubmissions = async (pageNumber = 1) => {
     setIsFetching(true)
