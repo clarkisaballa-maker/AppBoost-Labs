@@ -102,6 +102,36 @@ app.put("/api/applications/updateNotes", async (req, res) => {
   }
 });
 
+// DELETE application by ID
+app.delete("/api/applications/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Check if ID exists
+    if (!id) {
+      return res.status(400).json({ message: "Application ID is required" });
+    }
+
+    // Find and delete
+    const application = await Application.findByIdAndDelete(id);
+
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    res.status(200).json({
+      message: "Application deleted successfully",
+      data: application,
+    });
+  } catch (err) {
+    console.error("Error deleting application:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
+
 // Start server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
