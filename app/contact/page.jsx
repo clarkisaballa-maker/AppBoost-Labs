@@ -108,7 +108,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-foreground">Email</h3>
                       <p className="mt-1 text-muted-foreground">
-                        contact@appboostlabs.com
+                        contact@appboostlabs.org
                       </p>
                     </div>
                   </div>

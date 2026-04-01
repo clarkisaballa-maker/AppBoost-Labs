@@ -122,7 +122,7 @@ export default function PrivacyPage() {
                     <div>
                       <h2 className="text-xl font-bold text-foreground">7. Contact Us</h2>
                       <p className="mt-4 text-muted-foreground">
-                        If you have questions about this Privacy Policy, please contact us at contact@appboostlabs.com
+                        If you have questions about this Privacy Policy, please contact us at contact@appboostlabs.org
                       </p>
                     </div>
                   </div>

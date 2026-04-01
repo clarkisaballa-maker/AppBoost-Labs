@@ -156,7 +156,7 @@ export default function TermsPage() {
                     <div>
                       <h2 className="text-xl font-bold text-foreground">10. Contact Us</h2>
                       <p className="mt-4 text-muted-foreground">
-                        If you have any questions about these Terms, please contact us at contact@appboostlabs.com
+                        If you have any questions about these Terms, please contact us at contact@appboostlabs.org
                       </p>
                     </div>
                   </div>
