@@ -22,7 +22,11 @@ import {
   FileText,
   ChevronLeft,
   ChevronRight,
-  LayoutDashboard
+  LayoutDashboard,
+  Trash2,
+  AlertTriangle,
+  X,
+  Loader2
 } from 'lucide-react'
 import moment from 'moment-timezone'
 
@@ -37,8 +41,13 @@ export default function AdminDashboard() {
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
+  const [isInitialLoading, setIsInitialLoading] = useState(true)
   const [notesMap, setNotesMap] = useState({})
   const [savingNotes, setSavingNotes] = useState({})
+
+  // Delete confirmation state
+  const [deleteConfirm, setDeleteConfirm] = useState({ open: false, id: null, name: '' })
+  const [isDeleting, setIsDeleting] = useState(false)
 
   // Called when textarea changes - use _id consistently
   const handleNotesChange = (id, value) => {
@@ -46,34 +55,36 @@ export default function AdminDashboard() {
   }
 
   const updateNotes = async (id) => {
-  setSavingNotes(prev => ({ ...prev, [id]: true }));
-  try {
-    // Use the updated note if available, otherwise keep the current note
-    const currentSubmission = submissions.find(sub => sub._id === id);
-    const updatedNotes = notesMap[id] !== undefined ? notesMap[id] : currentSubmission?.notes ?? "";
+    setSavingNotes(prev => ({ ...prev, [id]: true }))
+    try {
+      const currentSubmission = submissions.find(sub => sub._id === id)
+      const updatedNotes = notesMap[id] !== undefined ? notesMap[id] : currentSubmission?.notes ?? ""
 
-    const res = await fetch("https://app-boost-labs-backend.vercel.app/api/applications/updateNotes", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, notes: updatedNotes }),
-    });
+      const res = await fetch("https://app-boost-labs-backend.vercel.app/api/applications/updateNotes", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, notes: updatedNotes }),
+      })
 
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || "Failed to update notes");
+      const data = await res.json()
 
-    // Update local submissions state
-    setSubmissions((prev) =>
-      prev.map((sub) => (sub._id === id ? { ...sub, notes: updatedNotes } : sub))
-    );
-  } catch (err) {
-    console.error("Error updating notes:", err.message);
-    alert(err.message || "Error updating notes");
-  } finally {
-    setSavingNotes(prev => ({ ...prev, [id]: false }));
+      if (!res.ok) throw new Error(data.message || "Failed to update notes")
+
+      setSubmissions((prev) =>
+        prev.map((sub) => (sub._id === id ? { ...sub, notes: updatedNotes } : sub))
+      )
+    } catch (err) {
+      console.error("Error updating notes:", err.message)
+      alert(err.message || "Error updating notes")
+    } finally {
+      setSavingNotes(prev => ({ ...prev, [id]: false }))
+    }
   }
-};
 
-  const fetchSubmissions = async (pageNumber = 1) => {
+  const fetchSubmissions = async (pageNumber = 1, isInitial = false) => {
+    if (isInitial) {
+      setIsInitialLoading(true)
+    }
     setIsFetching(true)
     try {
       const res = await fetch(`https://app-boost-labs-backend.vercel.app/api/applications?page=${pageNumber}`)
@@ -88,11 +99,45 @@ export default function AdminDashboard() {
       console.error('Error fetching submissions:', err)
     } finally {
       setIsFetching(false)
+      setIsInitialLoading(false)
     }
   }
 
+  // Delete application
+  const handleDeleteClick = (id, name) => {
+    setDeleteConfirm({ open: true, id, name })
+  }
+
+  const confirmDelete = async () => {
+    if (!deleteConfirm.id) return
+    
+    setIsDeleting(true)
+    try {
+      const res = await fetch(`https://app-boost-labs-backend.vercel.app/api/applications/${deleteConfirm.id}`, {
+        method: 'DELETE',
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.message || 'Failed to delete application')
+
+      // Remove from local state
+      setSubmissions(prev => prev.filter(sub => sub._id !== deleteConfirm.id))
+      setDeleteConfirm({ open: false, id: null, name: '' })
+    } catch (err) {
+      console.error('Error deleting application:', err)
+      alert(err.message || 'Error deleting application')
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
+  const cancelDelete = () => {
+    setDeleteConfirm({ open: false, id: null, name: '' })
+  }
+
   useEffect(() => {
-    fetchSubmissions(page)
+    fetchSubmissions(page, page === 1)
   }, [page])
 
   useEffect(() => {
@@ -144,6 +189,64 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm.open && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={cancelDelete}
+          />
+          <div className="relative bg-background border border-border rounded-2xl shadow-2xl max-w-md w-full mx-4 p-6 animate-in fade-in zoom-in-95 duration-200">
+            <button
+              onClick={cancelDelete}
+              className="absolute top-4 right-4 p-1 rounded-full hover:bg-muted transition-colors"
+            >
+              <X className="h-5 w-5 text-muted-foreground" />
+            </button>
+            
+            <div className="flex flex-col items-center text-center">
+              <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
+                <AlertTriangle className="h-8 w-8 text-red-500" />
+              </div>
+              
+              <h3 className="text-xl font-bold mb-2">Delete Application</h3>
+              <p className="text-muted-foreground mb-6">
+                Are you sure you want to delete the application from <span className="font-semibold text-foreground">{deleteConfirm.name}</span>? This action cannot be undone.
+              </p>
+              
+              <div className="flex gap-3 w-full">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={cancelDelete}
+                  disabled={isDeleting}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="destructive"
+                  className="flex-1 gap-2"
+                  onClick={confirmDelete}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="h-4 w-4" />
+                      Delete
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
@@ -215,7 +318,17 @@ export default function AdminDashboard() {
             </div>
           </CardHeader>
           <CardContent className="p-6">
-            {filteredSubmissions.length === 0 ? (
+            {/* Initial Loading State */}
+            {isInitialLoading ? (
+              <div className="flex flex-col items-center justify-center py-20">
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 border-4 border-primary/20 rounded-full"></div>
+                  <div className="w-20 h-20 border-4 border-primary border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
+                </div>
+                <p className="text-lg font-medium text-muted-foreground">Loading Records</p>
+                <p className="text-sm text-muted-foreground/70 mt-1">Please wait while we fetch the submissions...</p>
+              </div>
+            ) : filteredSubmissions.length === 0 ? (
               <div className="text-center py-16">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted/50 flex items-center justify-center">
                   <Users className="h-10 w-10 text-muted-foreground/50" />
@@ -232,6 +345,19 @@ export default function AdminDashboard() {
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <CardContent className="pt-6">
+                      {/* Header with Delete Button */}
+                      <div className="flex justify-end mb-4">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-red-500 hover:text-red-600 hover:bg-red-500/10 gap-2"
+                          onClick={() => handleDeleteClick(submission._id, submission.name)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                          Delete
+                        </Button>
+                      </div>
+
                       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {/* Name & Age */}
                         <div className="space-y-1">
@@ -316,7 +442,6 @@ export default function AdminDashboard() {
                               .format("h:mm A [ET]")}
                           </p>
                         </div>
-
                       </div>
                       
                       {/* Notes field - Full Width */}
@@ -358,34 +483,36 @@ export default function AdminDashboard() {
         </Card>
         
         {/* Pagination */}
-        <div className="flex items-center justify-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={page <= 1 || isFetching}
-            onClick={() => setPage(page - 1)}
-            className="gap-2 hover-lift"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            Previous
-          </Button>
-          <div className="flex items-center gap-1 px-4 py-2 rounded-lg bg-muted/30 border border-border/50">
-            <span className="text-sm text-muted-foreground">Page</span>
-            <span className="font-bold text-primary mx-1">{page}</span>
-            <span className="text-sm text-muted-foreground">of</span>
-            <span className="font-bold mx-1">{totalPages}</span>
+        {!isInitialLoading && (
+          <div className="flex items-center justify-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page <= 1 || isFetching}
+              onClick={() => setPage(page - 1)}
+              className="gap-2 hover-lift"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Previous
+            </Button>
+            <div className="flex items-center gap-1 px-4 py-2 rounded-lg bg-muted/30 border border-border/50">
+              <span className="text-sm text-muted-foreground">Page</span>
+              <span className="font-bold text-primary mx-1">{page}</span>
+              <span className="text-sm text-muted-foreground">of</span>
+              <span className="font-bold mx-1">{totalPages}</span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={page >= totalPages || isFetching}
+              onClick={() => setPage(page + 1)}
+              className="gap-2 hover-lift"
+            >
+              Next
+              <ChevronRight className="h-4 w-4" />
+            </Button>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={page >= totalPages || isFetching}
-            onClick={() => setPage(page + 1)}
-            className="gap-2 hover-lift"
-          >
-            Next
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
+        )}
       </div>
     </div>
   )
