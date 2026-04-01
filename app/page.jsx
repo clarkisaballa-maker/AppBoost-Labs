@@ -313,7 +313,7 @@ export default function HomePage() {
               </AnimatedSection>
               <AnimatedSection delay={400} className="text-center hover-lift p-4 rounded-lg">
                 <p className="text-xl font-bold gradient-text">9:30AM - 9:30PM</p>
-                <p className="mt-1 text-sm text-muted-foreground">Support Hours (ET)</p>
+                <p className="mt-1 text-sm text-muted-foreground">Support Hours (EST)</p>
               </AnimatedSection>
             </div>
           </div>

@@ -44,7 +44,7 @@ const upcomingEvents = [
     title: 'App Growth Summit 2026',
     description: 'Join industry leaders for a comprehensive summit on app growth strategies, featuring keynote speakers and networking opportunities.',
     date: 'April 15, 2026',
-    time: '10:00 AM - 4:00 PM ET',
+    time: '10:00 AM - 4:00 PM EST',
     type: 'Summit',
     attendees: 500,
     image: '/images/event-summit.jpg',
@@ -55,7 +55,7 @@ const upcomingEvents = [
     title: 'ASO Mastery Workshop',
     description: 'Learn advanced App Store Optimization techniques from our expert team. Hands-on workshop with practical exercises.',
     date: 'April 22, 2026',
-    time: '2:00 PM - 5:00 PM ET',
+    time: '2:00 PM - 5:00 PM EST',
     type: 'Workshop',
     attendees: 100,
     image: '/images/event-workshop.jpg',
@@ -66,7 +66,7 @@ const upcomingEvents = [
     title: 'Member Networking Night',
     description: 'Connect with fellow members, share experiences, and build valuable relationships in our exclusive networking event.',
     date: 'May 5, 2026',
-    time: '6:00 PM - 9:00 PM ET',
+    time: '6:00 PM - 9:00 PM EST',
     type: 'Networking',
     attendees: 150,
     image: '/images/event-networking.jpg',
@@ -77,7 +77,7 @@ const upcomingEvents = [
     title: 'Weekly Webinar: Task Excellence',
     description: 'Our weekly webinar covering best practices for task completion, tips for maximizing earnings, and Q&A session.',
     date: 'Every Thursday',
-    time: '3:00 PM ET',
+    time: '3:00 PM EST',
     type: 'Webinar',
     attendees: 200,
     image: '/images/event-webinar.jpg',
@@ -177,7 +177,7 @@ export default function EventsPage() {
                       </div>
                       <div className="flex items-center gap-2">
                         <Clock className="h-4 w-4 text-primary" />
-                        10:00 AM - 4:00 PM ET
+                        10:00 AM - 4:00 PM EST
                       </div>
                       <div className="flex items-center gap-2">
                         <Users className="h-4 w-4 text-primary" />
@@ -186,7 +186,7 @@ export default function EventsPage() {
                     </div>
                     <div className="mt-8">
                       <Button className="hover-lift animate-pulse-glow">
-                        Register Now
+                        Coming soon
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </div>
@@ -263,7 +263,7 @@ export default function EventsPage() {
                           </div>
                         </div>
                         <Button variant="outline" className="w-full mt-4 hover-lift">
-                          Learn More
+                          Coming soon
                         </Button>
                       </CardContent>
                     </Card>
@@ -328,7 +328,7 @@ export default function EventsPage() {
                     <h3 className="font-semibold">Monday</h3>
                     <p className="text-sm text-muted-foreground mt-2">
                       Onboarding Session<br />
-                      <span className="text-primary">10:00 AM ET</span>
+                      <span className="text-primary">10:00 AM EST</span>
                     </p>
                   </CardContent>
                 </Card>
@@ -343,7 +343,7 @@ export default function EventsPage() {
                     <h3 className="font-semibold">Wednesday</h3>
                     <p className="text-sm text-muted-foreground mt-2">
                       Team Check-in<br />
-                      <span className="text-primary">2:00 PM ET</span>
+                      <span className="text-primary">2:00 PM EST</span>
                     </p>
                   </CardContent>
                 </Card>
@@ -358,7 +358,7 @@ export default function EventsPage() {
                     <h3 className="font-semibold">Thursday</h3>
                     <p className="text-sm text-muted-foreground mt-2">
                       Weekly Webinar<br />
-                      <span className="text-primary">3:00 PM ET</span>
+                      <span className="text-primary">3:00 PM EST</span>
                     </p>
                   </CardContent>
                 </Card>
@@ -373,7 +373,7 @@ export default function EventsPage() {
                     <h3 className="font-semibold">Friday</h3>
                     <p className="text-sm text-muted-foreground mt-2">
                       Q&A Session<br />
-                      <span className="text-primary">4:00 PM ET</span>
+                      <span className="text-primary">4:00 PM EST</span>
                     </p>
                   </CardContent>
                 </Card>
