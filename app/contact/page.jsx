@@ -120,7 +120,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-foreground">Phone</h3>
                       <p className="mt-1 text-muted-foreground">
-                        +1 212-555-1234
+                        +1 404-409-8036
                       </p>
                     </div>
                   </div>
