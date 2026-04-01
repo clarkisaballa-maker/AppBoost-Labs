@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 shrink-0 text-primary" />
-                <span>+14044098036</span>
+                <span>+1 212-555-1234</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
