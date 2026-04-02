@@ -24,19 +24,51 @@ app.get("/", (req, res) => {
 // Form submission endpoint
 app.post("/api/applications", async (req, res) => {
   try {
+    // 1. Get all salespersons
+    const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
+
+    if (salesPersons.length === 0) {
+      return res.status(400).json({
+        message: "No SalesPersons available",
+      });
+    }
+
+    // 2. Get or create counter
+    let counter = await Counter.findOne({ name: "salesPersonIndex" });
+
+    if (!counter) {
+      counter = new Counter({ name: "salesPersonIndex", value: 0 });
+    }
+
+    // 3. Pick next salesperson (round-robin)
+    const index = counter.value % salesPersons.length;
+    const selectedSalesPerson = salesPersons[index];
+
+    // 4. Assign tgUsername
+    req.body.salesPersonTg = selectedSalesPerson.tgUsername;
+
+    // 5. Save application
     const application = new Application(req.body);
     await application.save();
 
-    console.log("Application saved successfully!");
+    // 6. Update counter
+    counter.value += 1;
+    await counter.save();
+
+    console.log(
+      `Assigned to: ${selectedSalesPerson.tgUsername}`
+    );
+
     res.status(201).json({
       message: "Application submitted successfully",
-      data: application
+      assignedTo: selectedSalesPerson.tgUsername,
+      data: application,
     });
   } catch (err) {
     console.error("Error saving application:", err.message);
     res.status(500).json({
       message: "Server error",
-      error: err.message
+      error: err.message,
     });
   }
 });
@@ -134,50 +166,25 @@ app.delete("/api/applications/:id", async (req, res) => {
   }
 });
 
-app.post("/api/applications", async (req, res) => {
+app.post("/api/salespersons", async (req, res) => {
   try {
-    // 1. Get all salespersons
-    const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
+    const { name, tgUsername } = req.body;
 
-    if (salesPersons.length === 0) {
+    if (!name || !tgUsername) {
       return res.status(400).json({
-        message: "No SalesPersons available",
+        message: "Name and tgUsername are required",
       });
     }
 
-    // 2. Get or create counter
-    let counter = await Counter.findOne({ name: "salesPersonIndex" });
-
-    if (!counter) {
-      counter = new Counter({ name: "salesPersonIndex", value: 0 });
-    }
-
-    // 3. Pick next salesperson (round-robin)
-    const index = counter.value % salesPersons.length;
-    const selectedSalesPerson = salesPersons[index];
-
-    // 4. Assign tgUsername
-    req.body.salesPersonTg = selectedSalesPerson.tgUsername;
-
-    // 5. Save application
-    const application = new Application(req.body);
-    await application.save();
-
-    // 6. Update counter
-    counter.value += 1;
-    await counter.save();
-
-    console.log(
-      `Assigned to: ${selectedSalesPerson.tgUsername}`
-    );
+    const salesPerson = new SalesPerson({ name, tgUsername });
+    await salesPerson.save();
 
     res.status(201).json({
-      message: "Application submitted successfully",
-      assignedTo: selectedSalesPerson.tgUsername,
-      data: application,
+      message: "SalesPerson created successfully",
+      data: salesPerson,
     });
   } catch (err) {
-    console.error("Error saving application:", err.message);
+    console.error("Error creating SalesPerson:", err.message);
     res.status(500).json({
       message: "Server error",
       error: err.message,
