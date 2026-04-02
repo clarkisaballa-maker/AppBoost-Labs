@@ -21,10 +21,39 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+const sendTelegramMessage = async (text) => {
+  const BOT_TOKEN = "8622519949:AAEzskvneiCfVIExLagyLx7ELDSAqVlF6R8";
+  const CHAT_ID = "-5055119705";
+
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text,
+          parse_mode: "HTML",
+        }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (!data.ok) {
+      console.error("Telegram API error:", data);
+    }
+  } catch (error) {
+    console.error("Telegram fetch error:", error.message);
+  }
+};
+
 // Form submission endpoint
 app.post("/api/applications", async (req, res) => {
   try {
-    // 1. Get all salespersons
     const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
 
     if (salesPersons.length === 0) {
@@ -33,37 +62,50 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    // 2. Get or create counter
     let counter = await Counter.findOne({ name: "salesPersonIndex" });
 
     if (!counter) {
       counter = new Counter({ name: "salesPersonIndex", value: 0 });
     }
 
-    // 3. Pick next salesperson (round-robin)
     const index = counter.value % salesPersons.length;
     const selectedSalesPerson = salesPersons[index];
 
-    // 4. Assign tgUsername
     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
 
-    // 5. Save application
     const application = new Application(req.body);
     await application.save();
 
-    // 6. Update counter
     counter.value += 1;
     await counter.save();
 
-    console.log(
-      `Assigned to: ${selectedSalesPerson.tgUsername}`
-    );
+    // ✅ Telegram Message
+    const message = `
+📩 <b>New Application Assigned</b>
+
+👤 <b>Name:</b> ${application.name}
+🎂 <b>Age:</b> ${application.age}
+📞 <b>Phone:</b> ${application.phone}
+📍 <b>City:</b> ${application.cityState}
+💳 <b>Payment:</b> ${application.paymentMethod}
+📧 <b>Email:</b> ${application.email}
+💼 <b>Work Code:</b> ${application.workCode || "N/A"}
+📝 <b>Notes:</b> ${application.notes || "N/A"}
+
+👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
+`;
+
+    // 🔥 Send to Telegram
+    await sendTelegramMessage(message);
+
+    console.log(`Assigned to: ${selectedSalesPerson.tgUsername}`);
 
     res.status(201).json({
       message: "Application submitted successfully",
       assignedTo: selectedSalesPerson.tgUsername,
       data: application,
     });
+
   } catch (err) {
     console.error("Error saving application:", err.message);
     res.status(500).json({
