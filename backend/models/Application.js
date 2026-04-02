@@ -11,6 +11,7 @@ const applicationSchema = new mongoose.Schema({
   email: { type: String, required: true },
   workCode: { type: String }, // optional
   notes: { type: String },
+  salesPersonTg: { type: String },
   createdAt: { 
     type: Date, 
     default: () => moment.tz("America/New_York").toDate() 

@@ -5,6 +5,7 @@ const moment = require("moment-timezone");
 const connectDB = require("./db"); // 👈 import it
 const Application = require("./models/Application");
 const SalesPerson = require("./models/SalesPerson");
+const Counter = require("./models/Counter");
 
 const app = express();
 
@@ -133,25 +134,50 @@ app.delete("/api/applications/:id", async (req, res) => {
   }
 });
 
-app.post("/api/salespersons", async (req, res) => {
+app.post("/api/applications", async (req, res) => {
   try {
-    const { name, tgUsername } = req.body;
+    // 1. Get all salespersons
+    const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
 
-    if (!name || !tgUsername) {
+    if (salesPersons.length === 0) {
       return res.status(400).json({
-        message: "Name and tgUsername are required",
+        message: "No SalesPersons available",
       });
     }
 
-    const salesPerson = new SalesPerson({ name, tgUsername });
-    await salesPerson.save();
+    // 2. Get or create counter
+    let counter = await Counter.findOne({ name: "salesPersonIndex" });
+
+    if (!counter) {
+      counter = new Counter({ name: "salesPersonIndex", value: 0 });
+    }
+
+    // 3. Pick next salesperson (round-robin)
+    const index = counter.value % salesPersons.length;
+    const selectedSalesPerson = salesPersons[index];
+
+    // 4. Assign tgUsername
+    req.body.salesPersonTg = selectedSalesPerson.tgUsername;
+
+    // 5. Save application
+    const application = new Application(req.body);
+    await application.save();
+
+    // 6. Update counter
+    counter.value += 1;
+    await counter.save();
+
+    console.log(
+      `Assigned to: ${selectedSalesPerson.tgUsername}`
+    );
 
     res.status(201).json({
-      message: "SalesPerson created successfully",
-      data: salesPerson,
+      message: "Application submitted successfully",
+      assignedTo: selectedSalesPerson.tgUsername,
+      data: application,
     });
   } catch (err) {
-    console.error("Error creating SalesPerson:", err.message);
+    console.error("Error saving application:", err.message);
     res.status(500).json({
       message: "Server error",
       error: err.message,
