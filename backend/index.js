@@ -4,6 +4,7 @@ const moment = require("moment-timezone");
 
 const connectDB = require("./db"); // 👈 import it
 const Application = require("./models/Application");
+const SalesPerson = require("./models/SalesPerson");
 
 const app = express();
 
@@ -125,6 +126,101 @@ app.delete("/api/applications/:id", async (req, res) => {
     });
   } catch (err) {
     console.error("Error deleting application:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
+
+app.post("/api/salespersons", async (req, res) => {
+  try {
+    const { name, tgUsername } = req.body;
+
+    if (!name || !tgUsername) {
+      return res.status(400).json({
+        message: "Name and tgUsername are required",
+      });
+    }
+
+    const salesPerson = new SalesPerson({ name, tgUsername });
+    await salesPerson.save();
+
+    res.status(201).json({
+      message: "SalesPerson created successfully",
+      data: salesPerson,
+    });
+  } catch (err) {
+    console.error("Error creating SalesPerson:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
+
+app.get("/api/salespersons", async (req, res) => {
+  try {
+    const salesPersons = await SalesPerson.find().sort({ createdAt: -1 });
+
+    res.status(200).json({
+      total: salesPersons.length,
+      data: salesPersons,
+    });
+  } catch (err) {
+    console.error("Error fetching SalesPersons:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
+
+app.put("/api/salespersons/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, tgUsername } = req.body;
+
+    const salesPerson = await SalesPerson.findById(id);
+
+    if (!salesPerson) {
+      return res.status(404).json({ message: "SalesPerson not found" });
+    }
+
+    if (name) salesPerson.name = name;
+    if (tgUsername) salesPerson.tgUsername = tgUsername;
+
+    await salesPerson.save();
+
+    res.status(200).json({
+      message: "SalesPerson updated successfully",
+      data: salesPerson,
+    });
+  } catch (err) {
+    console.error("Error updating SalesPerson:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
+
+app.delete("/api/salespersons/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const salesPerson = await SalesPerson.findByIdAndDelete(id);
+
+    if (!salesPerson) {
+      return res.status(404).json({ message: "SalesPerson not found" });
+    }
+
+    res.status(200).json({
+      message: "SalesPerson deleted successfully",
+      data: salesPerson,
+    });
+  } catch (err) {
+    console.error("Error deleting SalesPerson:", err.message);
     res.status(500).json({
       message: "Server error",
       error: err.message,
