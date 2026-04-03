@@ -208,6 +208,41 @@ app.delete("/api/applications/:id", async (req, res) => {
   }
 });
 
+// GET applications by date range
+app.get("/api/applications/by-date", async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        message: "Both startDate and endDate are required in YYYY-MM-DD format"
+      });
+    }
+
+    // Convert to Date objects
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    // Make sure end includes the whole day
+    end.setHours(23, 59, 59, 999);
+
+    const applications = await Application.find({
+      createdAt: { $gte: start, $lte: end },
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      total: applications.length,
+      applications,
+    });
+  } catch (err) {
+    console.error("Error fetching applications by date:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
+
 app.post("/api/salespersons", async (req, res) => {
   try {
     const { name, tgUsername } = req.body;
