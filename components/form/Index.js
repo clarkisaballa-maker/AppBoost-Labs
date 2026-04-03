@@ -99,7 +99,6 @@ const Index = () => {
             }
 
             // ✅ Success
-            setIsSubmitted(true)
             setFormData({
                 name: '',
                 age: '',
@@ -107,7 +106,8 @@ const Index = () => {
                 phone: '',
                 cityState: '',
                 paymentMethod: '',
-                email: ''
+                email: '',
+                workCode: ''   // ✅ ADD THIS
             })
             setPhoneError('')
 
@@ -140,7 +140,7 @@ const Index = () => {
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* <div className="space-y-2">
+                    <div className="space-y-2">
                         <Label htmlFor="workCode">Please enter your work code</Label>
                         <Input
                             id="workCode"
@@ -149,7 +149,7 @@ const Index = () => {
                             value={formData.workCode}
                             onChange={handleChange}
                         />
-                    </div> */}
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="name">Name</Label>
                         <Input
