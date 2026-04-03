@@ -53,6 +53,110 @@ export default function AdminDashboard() {
   const [notesMap, setNotesMap] = useState({})
   const [savingNotes, setSavingNotes] = useState({})
 
+  // Date filter state
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [isDateFiltering, setIsDateFiltering] = useState(false)
+  const [filteredCount, setFilteredCount] = useState(0)
+  const [activeFilterLabel, setActiveFilterLabel] = useState('')
+
+  // Helper functions for date formatting - Using USA Eastern Time
+  const getUSAEasternDate = () => {
+    // Get current date in USA Eastern Time
+    const now = new Date()
+    const usaDateStr = now.toLocaleDateString('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+    // Parse MM/DD/YYYY format
+    const [month, day, year] = usaDateStr.split('/')
+    return new Date(year, month - 1, day)
+  }
+
+  const formatDateToAPI = (date) => {
+    const d = new Date(date)
+    const year = d.getFullYear()
+    const month = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+  }
+
+  const formatDateToUSA = (dateStr) => {
+    if (!dateStr) return ''
+    const [year, month, day] = dateStr.split('-')
+    return `${month}/${day}/${year}`
+  }
+
+  const getQuickDateRange = (type) => {
+    // Use USA Eastern Time for all date calculations
+    const today = getUSAEasternDate()
+    let start, end, label
+
+    switch (type) {
+      case 'today':
+        start = end = formatDateToAPI(today)
+        label = 'Today (ET)'
+        break
+      case 'yesterday':
+        const yesterday = new Date(today)
+        yesterday.setDate(yesterday.getDate() - 1)
+        start = end = formatDateToAPI(yesterday)
+        label = 'Yesterday (ET)'
+        break
+      case 'thisWeek':
+        const startOfWeek = new Date(today)
+        startOfWeek.setDate(today.getDate() - today.getDay())
+        start = formatDateToAPI(startOfWeek)
+        end = formatDateToAPI(today)
+        label = 'This Week (ET)'
+        break
+      case 'lastWeek':
+        const lastWeekEnd = new Date(today)
+        lastWeekEnd.setDate(today.getDate() - today.getDay() - 1)
+        const lastWeekStart = new Date(lastWeekEnd)
+        lastWeekStart.setDate(lastWeekEnd.getDate() - 6)
+        start = formatDateToAPI(lastWeekStart)
+        end = formatDateToAPI(lastWeekEnd)
+        label = 'Last Week (ET)'
+        break
+      case 'thisMonth':
+        const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1)
+        start = formatDateToAPI(startOfMonth)
+        end = formatDateToAPI(today)
+        label = 'This Month (ET)'
+        break
+      case 'last7Days':
+        const last7 = new Date(today)
+        last7.setDate(today.getDate() - 6)
+        start = formatDateToAPI(last7)
+        end = formatDateToAPI(today)
+        label = 'Last 7 Days (ET)'
+        break
+      case 'last30Days':
+        const last30 = new Date(today)
+        last30.setDate(today.getDate() - 29)
+        start = formatDateToAPI(last30)
+        end = formatDateToAPI(today)
+        label = 'Last 30 Days (ET)'
+        break
+      default:
+        return null
+    }
+    return { start, end, label }
+  }
+
+  const applyQuickFilter = (type) => {
+    const range = getQuickDateRange(type)
+    if (range) {
+      setStartDate(range.start)
+      setEndDate(range.end)
+      setActiveFilterLabel(range.label)
+      fetchSubmissionsByDateRange(range.start, range.end, range.label)
+    }
+  }
+
   // Sales persons data
   const [salesPersons, setSalesPersons] = useState([])
   const [isFetchingSales, setIsFetchingSales] = useState(false)
@@ -118,12 +222,12 @@ export default function AdminDashboard() {
           'Content-Type': 'application/json',
         },
       })
-      
+
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
         throw new Error(data.message || 'Failed to fetch submissions')
       }
-      
+
       const data = await res.json()
       setSubmissions(data.applications || [])
       setPage(data.page || 1)
@@ -136,6 +240,58 @@ export default function AdminDashboard() {
       setIsFetching(false)
       setIsInitialLoading(false)
     }
+  }
+
+  const fetchSubmissionsByDate = async () => {
+    if (!startDate || !endDate) {
+      alert('Please select both start and end dates')
+      return
+    }
+    setActiveFilterLabel(`${formatDateToUSA(startDate)} - ${formatDateToUSA(endDate)}`)
+    await fetchSubmissionsByDateRange(startDate, endDate, `${formatDateToUSA(startDate)} - ${formatDateToUSA(endDate)}`)
+  }
+
+  const fetchSubmissionsByDateRange = async (start, end, label = '') => {
+    setIsDateFiltering(true)
+    setIsFetching(true)
+    setApiError(null)
+    setActiveFilterLabel(label)
+    try {
+      const res = await fetch(`${API_BASE}/api/applications/by-date?startDate=${start}&endDate=${end}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.message || 'Failed to fetch submissions by date')
+      }
+
+      const data = await res.json()
+      const apps = data.applications || []
+      setSubmissions(apps)
+      setFilteredCount(apps.length)
+      setPage(1)
+      setTotalPages(1)
+    } catch (err) {
+      console.error('Error fetching submissions by date:', err)
+      setApiError(err.message || 'Unable to connect to server. Please check your connection.')
+      setSubmissions([])
+      setFilteredCount(0)
+    } finally {
+      setIsFetching(false)
+    }
+  }
+
+  const clearDateFilter = () => {
+    setStartDate('')
+    setEndDate('')
+    setIsDateFiltering(false)
+    setFilteredCount(0)
+    setActiveFilterLabel('')
+    fetchSubmissions(1, true)
   }
 
   // Sales Persons CRUD
@@ -152,12 +308,12 @@ export default function AdminDashboard() {
           'Content-Type': 'application/json',
         },
       })
-      
+
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))
         throw new Error(data.message || 'Failed to fetch sales persons')
       }
-      
+
       const data = await res.json()
       const salesData = data.data || data.salesPersons || data
       setSalesPersons(Array.isArray(salesData) ? salesData : [])
@@ -241,10 +397,10 @@ export default function AdminDashboard() {
 
   const confirmDelete = async () => {
     if (!deleteConfirm.id) return
-    
+
     setIsDeleting(true)
     try {
-      const endpoint = deleteConfirm.type === 'salesperson' 
+      const endpoint = deleteConfirm.type === 'salesperson'
         ? `${API_BASE}/api/salespersons/${deleteConfirm.id}`
         : `${API_BASE}/api/applications/${deleteConfirm.id}`
 
@@ -338,7 +494,7 @@ export default function AdminDashboard() {
       {/* Delete Confirmation Modal */}
       {deleteConfirm.open && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          <div 
+          <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={cancelDelete}
           />
@@ -349,19 +505,19 @@ export default function AdminDashboard() {
             >
               <X className="h-5 w-5 text-muted-foreground" />
             </button>
-            
+
             <div className="flex flex-col items-center text-center">
               <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
                 <AlertTriangle className="h-8 w-8 text-red-500" />
               </div>
-              
+
               <h3 className="text-xl font-bold mb-2">
                 Delete {deleteConfirm.type === 'salesperson' ? 'Sales Person' : 'Application'}
               </h3>
               <p className="text-muted-foreground mb-6">
                 Are you sure you want to delete <span className="font-semibold text-foreground">{deleteConfirm.name}</span>? This action cannot be undone.
               </p>
-              
+
               <div className="flex gap-3 w-full">
                 <Button
                   variant="outline"
@@ -398,7 +554,7 @@ export default function AdminDashboard() {
       {/* Add Sales Person Modal */}
       {showAddSalesPerson && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          <div 
+          <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setShowAddSalesPerson(false)}
           />
@@ -409,7 +565,7 @@ export default function AdminDashboard() {
             >
               <X className="h-5 w-5 text-muted-foreground" />
             </button>
-            
+
             <div className="flex flex-col">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
@@ -420,7 +576,7 @@ export default function AdminDashboard() {
                   <p className="text-sm text-muted-foreground">Enter the details below</p>
                 </div>
               </div>
-              
+
               <form onSubmit={addSalesPerson} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
@@ -446,7 +602,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex gap-3 pt-4">
                   <Button
                     type="button"
@@ -522,22 +678,20 @@ export default function AdminDashboard() {
         <div className="flex gap-2 p-1 bg-muted/30 rounded-xl border border-border/50 w-fit">
           <button
             onClick={() => setActiveTab('submissions')}
-            className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
-              activeTab === 'submissions'
+            className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${activeTab === 'submissions'
                 ? 'bg-primary text-primary-foreground shadow-lg'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-            }`}
+              }`}
           >
             <Users className="h-4 w-4" />
             Form Submissions
           </button>
           <button
             onClick={() => setActiveTab('salespersons')}
-            className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
-              activeTab === 'salespersons'
+            className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${activeTab === 'salespersons'
                 ? 'bg-primary text-primary-foreground shadow-lg'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-            }`}
+              }`}
           >
             <Briefcase className="h-4 w-4" />
             Sales Persons
@@ -549,34 +703,193 @@ export default function AdminDashboard() {
           <>
             <Card className="glass border-border/50 overflow-hidden">
               <CardHeader className="border-b border-border/50 bg-muted/20">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div>
-                    <CardTitle className="text-xl flex items-center gap-2">
-                      <Users className="h-5 w-5 text-primary" />
-                      Form Submissions
-                    </CardTitle>
-                    <CardDescription className="mt-1">View and manage all application submissions</CardDescription>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Search submissions..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10 w-64 bg-background/50 border-border/50 focus:border-primary/50"
-                      />
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                      <CardTitle className="text-xl flex items-center gap-2">
+                        <Users className="h-5 w-5 text-primary" />
+                        Form Submissions
+                        {isDateFiltering && (
+                          <span className="text-xs font-normal bg-primary/10 text-primary px-2 py-1 rounded-full">
+                            Filtered by Date
+                          </span>
+                        )}
+                      </CardTitle>
+                      <CardDescription className="mt-1">View and manage all application submissions</CardDescription>
                     </div>
-                    <Button 
-                      variant="outline" 
-                      size="icon"
-                      onClick={() => fetchSubmissions(page)}
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search submissions..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pl-10 w-64 bg-background/50 border-border/50 focus:border-primary/50"
+                        />
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => isDateFiltering ? fetchSubmissionsByDate() : fetchSubmissions(page)}
+                        disabled={isFetching}
+                        className="hover-lift"
+                      >
+                        <RefreshCw className={`h-4 w-4 ${isFetching ? 'animate-spin' : ''}`} />
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Quick Date Filter Buttons */}
+                  <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/30">
+                    <span className="text-sm text-muted-foreground mr-2">Quick Filters:</span>
+                    <Button
+                      variant={activeFilterLabel === 'Today' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('today')}
                       disabled={isFetching}
-                      className="hover-lift"
+                      className="text-xs"
                     >
-                      <RefreshCw className={`h-4 w-4 ${isFetching ? 'animate-spin' : ''}`} />
+                      Today
+                    </Button>
+                    <Button
+                      variant={activeFilterLabel === 'Yesterday' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('yesterday')}
+                      disabled={isFetching}
+                      className="text-xs"
+                    >
+                      Yesterday
+                    </Button>
+                    <Button
+                      variant={activeFilterLabel === 'This Week' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('thisWeek')}
+                      disabled={isFetching}
+                      className="text-xs"
+                    >
+                      This Week
+                    </Button>
+                    <Button
+                      variant={activeFilterLabel === 'Last Week' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('lastWeek')}
+                      disabled={isFetching}
+                      className="text-xs"
+                    >
+                      Last Week
+                    </Button>
+                    <Button
+                      variant={activeFilterLabel === 'Last 7 Days' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('last7Days')}
+                      disabled={isFetching}
+                      className="text-xs"
+                    >
+                      Last 7 Days
+                    </Button>
+                    <Button
+                      variant={activeFilterLabel === 'This Month' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('thisMonth')}
+                      disabled={isFetching}
+                      className="text-xs"
+                    >
+                      This Month
+                    </Button>
+                    <Button
+                      variant={activeFilterLabel === 'Last 30 Days' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => applyQuickFilter('last30Days')}
+                      disabled={isFetching}
+                      className="text-xs"
+                    >
+                      Last 30 Days
                     </Button>
                   </div>
+
+                  {/* Custom Date Filter Section */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2 border-t border-border/30">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Calendar className="h-4 w-4" />
+                      <span>Custom Range:</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <div className="flex items-center gap-2">
+                        <Label htmlFor="startDate" className="text-sm text-muted-foreground">From:</Label>
+                        <div className="relative">
+                          <Input
+                            id="startDate"
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="w-40 bg-background/50 border-border/50 focus:border-primary/50"
+                          />
+                          {startDate && (
+                            <span className="absolute -top-5 left-0 text-xs text-primary">
+                              {formatDateToUSA(startDate)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Label htmlFor="endDate" className="text-sm text-muted-foreground">To:</Label>
+                        <div className="relative">
+                          <Input
+                            id="endDate"
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="w-40 bg-background/50 border-border/50 focus:border-primary/50"
+                          />
+                          {endDate && (
+                            <span className="absolute -top-5 left-0 text-xs text-primary">
+                              {formatDateToUSA(endDate)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          onClick={fetchSubmissionsByDate}
+                          disabled={isFetching || !startDate || !endDate}
+                          size="sm"
+                          className="gap-2"
+                        >
+                          {isFetching ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Search className="h-4 w-4" />
+                          )}
+                          Apply
+                        </Button>
+                        {isDateFiltering && (
+                          <Button
+                            onClick={clearDateFilter}
+                            variant="outline"
+                            size="sm"
+                            className="gap-2"
+                            disabled={isFetching}
+                          >
+                            <X className="h-4 w-4" />
+                            Clear All
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Filter Results Info */}
+                  {isDateFiltering && (
+                    <div className="flex items-center gap-2 pt-2 border-t border-border/30">
+                      <div className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm">
+                        <Calendar className="h-4 w-4" />
+                        <span className="font-medium">{activeFilterLabel}</span>
+                        <span className="bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-bold">
+                          {filteredCount} {filteredCount === 1 ? 'entry' : 'entries'} found
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </CardHeader>
               <CardContent className="p-6">
@@ -596,8 +909,8 @@ export default function AdminDashboard() {
                     </div>
                     <p className="text-lg font-medium text-foreground">Connection Error</p>
                     <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">{apiError}</p>
-                    <Button 
-                      onClick={() => fetchSubmissions(page, true)} 
+                    <Button
+                      onClick={() => fetchSubmissions(page, true)}
                       className="mt-6 gap-2"
                       disabled={isFetching}
                     >
@@ -620,8 +933,8 @@ export default function AdminDashboard() {
                 ) : (
                   <div className="space-y-4">
                     {filteredSubmissions.map((submission, index) => (
-                      <Card 
-                        key={submission._id} 
+                      <Card
+                        key={submission._id}
                         className="bg-gradient-to-br from-muted/30 to-muted/10 border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
@@ -647,7 +960,7 @@ export default function AdminDashboard() {
                               <p className="font-semibold text-lg">{submission.name}</p>
                               <p className="text-sm text-muted-foreground">Age: {submission.age}</p>
                             </div>
-                            
+
                             <div className="space-y-1">
                               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                 <Mail className="h-3.5 w-3.5" />
@@ -655,7 +968,7 @@ export default function AdminDashboard() {
                               </div>
                               <p className="font-medium text-sm break-all text-primary/90">{submission.email}</p>
                             </div>
-                            
+
                             <div className="space-y-1">
                               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                 <Phone className="h-3.5 w-3.5" />
@@ -663,7 +976,7 @@ export default function AdminDashboard() {
                               </div>
                               <p className="font-medium">{submission.phone}</p>
                             </div>
-                            
+
                             <div className="space-y-1">
                               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                 <MapPin className="h-3.5 w-3.5" />
@@ -671,7 +984,7 @@ export default function AdminDashboard() {
                               </div>
                               <p className="font-medium">{submission.cityState}</p>
                             </div>
-                            
+
                             <div className="space-y-1">
                               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                 <Briefcase className="h-3.5 w-3.5" />
@@ -679,7 +992,7 @@ export default function AdminDashboard() {
                               </div>
                               <p className="font-medium">{submission.otherOccupation || 'N/A'}</p>
                             </div>
-                            
+
                             <div className="space-y-1">
                               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                 <CreditCard className="h-3.5 w-3.5" />
@@ -689,15 +1002,7 @@ export default function AdminDashboard() {
                                 {submission.paymentMethod}
                               </span>
                             </div>
-                            
-                            <div className="space-y-1">
-                              <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                                <FileText className="h-3.5 w-3.5" />
-                                WorkCode
-                              </div>
-                              <p className="font-mono text-sm bg-muted/50 px-2 py-1 rounded inline-block">{submission.workCode}</p>
-                            </div>
-                            
+
                             <div className="space-y-1">
                               <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                                 <Calendar className="h-3.5 w-3.5" />
@@ -715,7 +1020,7 @@ export default function AdminDashboard() {
                               </p>
                             </div>
                           </div>
-                          
+
                           <div className="mt-6 pt-6 border-t border-border/50">
                             <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
                               <FileText className="h-3.5 w-3.5" />
@@ -752,7 +1057,7 @@ export default function AdminDashboard() {
                 )}
               </CardContent>
             </Card>
-            
+
             {!isInitialLoading && (
               <div className="flex items-center justify-center gap-3">
                 <Button
@@ -808,8 +1113,8 @@ export default function AdminDashboard() {
                       className="pl-10 w-64 bg-background/50 border-border/50 focus:border-primary/50"
                     />
                   </div>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="icon"
                     onClick={() => fetchSalesPersons()}
                     disabled={isFetchingSales}
@@ -817,7 +1122,7 @@ export default function AdminDashboard() {
                   >
                     <RefreshCw className={`h-4 w-4 ${isFetchingSales ? 'animate-spin' : ''}`} />
                   </Button>
-                  <Button 
+                  <Button
                     onClick={() => setShowAddSalesPerson(true)}
                     className="gap-2 hover-lift"
                   >
@@ -844,8 +1149,8 @@ export default function AdminDashboard() {
                   </div>
                   <p className="text-lg font-medium text-foreground">Connection Error</p>
                   <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto">{salesApiError}</p>
-                  <Button 
-                    onClick={() => fetchSalesPersons(true)} 
+                  <Button
+                    onClick={() => fetchSalesPersons(true)}
                     className="mt-6 gap-2"
                     disabled={isFetchingSales}
                   >
@@ -868,8 +1173,8 @@ export default function AdminDashboard() {
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {filteredSalesPersons.map((person) => (
-                    <Card 
-                      key={person._id} 
+                    <Card
+                      key={person._id}
                       className="bg-gradient-to-br from-muted/30 to-muted/10 border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                     >
                       <CardContent className="pt-6">
