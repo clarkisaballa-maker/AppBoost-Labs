@@ -51,33 +51,94 @@ const sendTelegramMessage = async (text) => {
   }
 };
 
-// Form submission endpoint
+// Form submission endpoint (Assigning lead according to turns)
+// app.post("/api/applications", async (req, res) => {
+//   try {
+//     const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
+
+//     if (salesPersons.length === 0) {
+//       return res.status(400).json({
+//         message: "No SalesPersons available",
+//       });
+//     }
+
+//     let counter = await Counter.findOne({ name: "salesPersonIndex" });
+
+//     if (!counter) {
+//       counter = new Counter({ name: "salesPersonIndex", value: 0 });
+//     }
+
+//     const index = counter.value % salesPersons.length;
+//     const selectedSalesPerson = salesPersons[index];
+
+//     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
+
+//     const application = new Application(req.body);
+//     await application.save();
+
+//     counter.value += 1;
+//     await counter.save();
+
+//     // ✅ Telegram Message
+//     const message = `
+// 📩 <b>New Application Assigned</b>
+
+// 👤 <b>Name:</b> ${application.name}
+// 🎂 <b>Age:</b> ${application.age}
+// 📞 <b>Phone:</b> ${application.phone}
+// 📍 <b>City:</b> ${application.cityState}
+// 💳 <b>Payment:</b> ${application.paymentMethod}
+// 📧 <b>Email:</b> ${application.email}
+// 💼 <b>Work Code:</b> ${application.workCode || "N/A"}
+// 📝 <b>Notes:</b> ${application.notes || "N/A"}
+
+// 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
+// `;
+
+//     // 🔥 Send to Telegram
+//     await sendTelegramMessage(message);
+
+//     console.log(`Assigned to: ${selectedSalesPerson.tgUsername}`);
+
+//     res.status(201).json({
+//       message: "Application submitted successfully",
+//       assignedTo: selectedSalesPerson.tgUsername,
+//       data: application,
+//     });
+
+//   } catch (err) {
+//     console.error("Error saving application:", err.message);
+//     res.status(500).json({
+//       message: "Server error",
+//       error: err.message,
+//     });
+//   }
+// });
+
 app.post("/api/applications", async (req, res) => {
   try {
-    const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
+    const { workCode } = req.body;
 
-    if (salesPersons.length === 0) {
+    if (!workCode) {
       return res.status(400).json({
-        message: "No SalesPersons available",
+        message: "workCode is required",
       });
     }
 
-    let counter = await Counter.findOne({ name: "salesPersonIndex" });
+    // 🔍 Find SalesPerson by workCode
+    const selectedSalesPerson = await SalesPerson.findOne({ workCode });
 
-    if (!counter) {
-      counter = new Counter({ name: "salesPersonIndex", value: 0 });
+    if (!selectedSalesPerson) {
+      return res.status(404).json({
+        message: "No SalesPerson found with this workCode",
+      });
     }
 
-    const index = counter.value % salesPersons.length;
-    const selectedSalesPerson = salesPersons[index];
-
+    // ✅ Assign TG username
     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
 
     const application = new Application(req.body);
     await application.save();
-
-    counter.value += 1;
-    await counter.save();
 
     // ✅ Telegram Message
     const message = `
@@ -95,7 +156,6 @@ app.post("/api/applications", async (req, res) => {
 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
 `;
 
-    // 🔥 Send to Telegram
     await sendTelegramMessage(message);
 
     console.log(`Assigned to: ${selectedSalesPerson.tgUsername}`);
@@ -245,7 +305,7 @@ app.get("/api/applications/by-date", async (req, res) => {
 
 app.post("/api/salespersons", async (req, res) => {
   try {
-    const { name, tgUsername } = req.body;
+    const { name, tgUsername, workCode } = req.body;
 
     if (!name || !tgUsername) {
       return res.status(400).json({
@@ -253,7 +313,12 @@ app.post("/api/salespersons", async (req, res) => {
       });
     }
 
-    const salesPerson = new SalesPerson({ name, tgUsername });
+    const salesPerson = new SalesPerson({ 
+      name, 
+      tgUsername, 
+      workCode 
+    });
+
     await salesPerson.save();
 
     res.status(201).json({
@@ -289,7 +354,7 @@ app.get("/api/salespersons", async (req, res) => {
 app.put("/api/salespersons/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, tgUsername } = req.body;
+    const { name, tgUsername, workCode } = req.body;
 
     const salesPerson = await SalesPerson.findById(id);
 
@@ -299,6 +364,7 @@ app.put("/api/salespersons/:id", async (req, res) => {
 
     if (name) salesPerson.name = name;
     if (tgUsername) salesPerson.tgUsername = tgUsername;
+    if (workCode !== undefined) salesPerson.workCode = workCode;
 
     await salesPerson.save();
 

@@ -12,6 +12,7 @@ const salesPersonSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    workCode: { type: String },
   },
   { timestamps: true }
 );
