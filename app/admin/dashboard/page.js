@@ -163,10 +163,10 @@ export default function AdminDashboard() {
   const [isInitialLoadingSales, setIsInitialLoadingSales] = useState(true)
   const [salesSearchTerm, setSalesSearchTerm] = useState('')
   const [showAddSalesPerson, setShowAddSalesPerson] = useState(false)
-  const [newSalesPerson, setNewSalesPerson] = useState({ name: '', tgUsername: '' })
+  const [newSalesPerson, setNewSalesPerson] = useState({ name: '', tgUsername: '', workCode: '' })
   const [isAddingSalesPerson, setIsAddingSalesPerson] = useState(false)
   const [editingSalesPerson, setEditingSalesPerson] = useState(null)
-  const [editForm, setEditForm] = useState({ name: '', tgUsername: '' })
+  const [editForm, setEditForm] = useState({ name: '', tgUsername: '', workCode: '' })
   const [isUpdatingSalesPerson, setIsUpdatingSalesPerson] = useState(false)
 
   // Delete confirmation state
@@ -343,8 +343,8 @@ export default function AdminDashboard() {
 
       if (!res.ok) throw new Error(data.message || 'Failed to add sales person')
 
-      setSalesPersons(prev => [data.salesPerson || data, ...prev])
-      setNewSalesPerson({ name: '', tgUsername: '' })
+      setSalesPersons(prev => [data.salesPerson || data.data || data, ...prev])
+      setNewSalesPerson({ name: '', tgUsername: '', workCode: '' })
       setShowAddSalesPerson(false)
     } catch (err) {
       console.error('Error adding sales person:', err)
@@ -356,12 +356,12 @@ export default function AdminDashboard() {
 
   const startEditSalesPerson = (person) => {
     setEditingSalesPerson(person._id)
-    setEditForm({ name: person.name, tgUsername: person.tgUsername })
+    setEditForm({ name: person.name, tgUsername: person.tgUsername, workCode: person.workCode || '' })
   }
 
   const cancelEditSalesPerson = () => {
     setEditingSalesPerson(null)
-    setEditForm({ name: '', tgUsername: '' })
+    setEditForm({ name: '', tgUsername: '', workCode: '' })
   }
 
   const updateSalesPerson = async (id) => {
@@ -381,7 +381,7 @@ export default function AdminDashboard() {
 
       setSalesPersons(prev => prev.map(p => p._id === id ? { ...p, ...editForm } : p))
       setEditingSalesPerson(null)
-      setEditForm({ name: '', tgUsername: '' })
+      setEditForm({ name: '', tgUsername: '', workCode: '' })
     } catch (err) {
       console.error('Error updating sales person:', err)
       alert(err.message || 'Error updating sales person')
@@ -602,6 +602,15 @@ export default function AdminDashboard() {
                     />
                   </div>
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="workCode">Work Code</Label>
+                  <Input
+                    id="workCode"
+                    placeholder="Enter work code (optional)"
+                    value={newSalesPerson.workCode}
+                    onChange={(e) => setNewSalesPerson(prev => ({ ...prev, workCode: e.target.value }))}
+                  />
+                </div>
 
                 <div className="flex gap-3 pt-4">
                   <Button
@@ -679,8 +688,8 @@ export default function AdminDashboard() {
           <button
             onClick={() => setActiveTab('submissions')}
             className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${activeTab === 'submissions'
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+              ? 'bg-primary text-primary-foreground shadow-lg'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               }`}
           >
             <Users className="h-4 w-4" />
@@ -689,8 +698,8 @@ export default function AdminDashboard() {
           <button
             onClick={() => setActiveTab('salespersons')}
             className={`px-6 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${activeTab === 'salespersons'
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+              ? 'bg-primary text-primary-foreground shadow-lg'
+              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               }`}
           >
             <Briefcase className="h-4 w-4" />
@@ -1019,6 +1028,17 @@ export default function AdminDashboard() {
                                   .format("h:mm A [ET]")}
                               </p>
                             </div>
+
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                                <Briefcase className="h-3.5 w-3.5" />
+                                Work Code
+                              </div>
+                              <p className="font-medium">
+                                {submission.workCode || 'N/A'}
+                              </p>
+                            </div>
+
                           </div>
 
                           <div className="mt-6 pt-6 border-t border-border/50">
@@ -1200,6 +1220,14 @@ export default function AdminDashboard() {
                                 />
                               </div>
                             </div>
+                            <div className="space-y-2">
+                              <Label>Work Code</Label>
+                              <Input
+                                value={editForm.workCode}
+                                onChange={(e) => setEditForm(prev => ({ ...prev, workCode: e.target.value }))}
+                                placeholder="Enter work code"
+                              />
+                            </div>
                             <div className="flex gap-2 pt-2">
                               <Button
                                 variant="outline"
@@ -1243,6 +1271,12 @@ export default function AdminDashboard() {
                                 </div>
                               </div>
                             </div>
+                            {person.workCode && (
+                              <div className="mb-4 px-3 py-2 rounded-lg bg-primary/5 border border-primary/10">
+                                <p className="text-xs text-muted-foreground mb-1">Work Code</p>
+                                <p className="text-sm font-medium text-primary">{person.workCode}</p>
+                              </div>
+                            )}
                             <div className="flex gap-2">
                               <Button
                                 variant="outline"
