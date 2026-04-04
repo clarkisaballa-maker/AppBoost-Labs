@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Menu, X } from 'lucide-react'
@@ -32,11 +33,15 @@ export default function Header() {
     }`}>
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary transition-all duration-300 group-hover:animate-pulse-glow">
-              <span className="text-xl font-bold text-primary-foreground">A</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">AppBoost Labs</span>
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center group">
+            <Image 
+              src="/images/logo.png" 
+              alt="AppBoost Labs" 
+              width={280} 
+              height={70} 
+              className="transition-all duration-300 group-hover:scale-105 h-16 sm:h-20 w-auto"
+              priority
+            />
           </Link>
         </div>
         

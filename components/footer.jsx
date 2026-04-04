@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { MapPin, Mail, Phone, Clock } from 'lucide-react'
 
 export default function Footer() {
@@ -9,11 +10,14 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary transition-all duration-300 group-hover:animate-pulse-glow">
-                <span className="text-xl font-bold text-primary-foreground">A</span>
-              </div>
-              <span className="text-xl font-bold text-foreground">AppBoost Labs</span>
+            <Link href="/" className="flex items-center group">
+              <Image 
+                src="/images/logo.png" 
+                alt="AppBoost Labs" 
+                width={240} 
+                height={60} 
+                className="transition-all duration-300 group-hover:scale-105 h-14 sm:h-16 w-auto"
+              />
             </Link>
             <p className="text-sm text-muted-foreground">
               Helping apps optimize performance, increase user engagement, and achieve growth through data-driven strategies.
@@ -71,15 +75,15 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 shrink-0 text-primary" />
-                <span>contact@appboostlabs.org</span>
+                <span>contact@appboostlabs.com</span>
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 shrink-0 text-primary" />
-                <span>+1 332-256-6866</span>
+                <span>+1 (305) 555-0123</span>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>Mon - Sun: 9:00 AM - 5:30 PM (EST)</span>
+                <span>Mon - Sun: 9:00 AM - 5:30 PM (ET)</span>
               </li>
             </ul>
           </div>
