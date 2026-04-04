@@ -27,9 +27,8 @@ const applicationSchema = new mongoose.Schema({
   }
 });
 
-applicationSchema.pre("save", function (next) {
+applicationSchema.pre("save", function () {
   this.updatedAt = moment.tz("America/New_York").toDate();
-  next();
 });
 
 module.exports = mongoose.model("Application", applicationSchema, "applications");
