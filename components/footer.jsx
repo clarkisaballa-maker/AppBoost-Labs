@@ -47,6 +47,11 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/apply" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  Apply
+                </Link>
+              </li>
             </ul>
           </div>
 

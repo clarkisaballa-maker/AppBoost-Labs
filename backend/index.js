@@ -51,69 +51,79 @@ const sendTelegramMessage = async (text) => {
   }
 };
 
-// Form submission endpoint (Assigning lead according to turns)
-// app.post("/api/applications", async (req, res) => {
-//   try {
-//     const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
+app.post("/api/apply", async (req, res) => {
+  try {
+    const { name, age, phone, message, source } = req.body;
 
-//     if (salesPersons.length === 0) {
-//       return res.status(400).json({
-//         message: "No SalesPersons available",
-//       });
-//     }
+    // only validate fields that Next.js actually sends
+    if (!name || !age || !phone) {
+      return res.status(400).json({
+        message: "name, age and phone are required",
+      });
+    }
 
-//     let counter = await Counter.findOne({ name: "salesPersonIndex" });
+    // round-robin assignment logic
+    const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
 
-//     if (!counter) {
-//       counter = new Counter({ name: "salesPersonIndex", value: 0 });
-//     }
+    if (salesPersons.length === 0) {
+      return res.status(400).json({
+        message: "No SalesPersons available",
+      });
+    }
 
-//     const index = counter.value % salesPersons.length;
-//     const selectedSalesPerson = salesPersons[index];
+    let counter = await Counter.findOne({ name: "salesPersonIndex" });
 
-//     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
+    if (!counter) {
+      counter = new Counter({ name: "salesPersonIndex", value: 0 });
+    }
 
-//     const application = new Application(req.body);
-//     await application.save();
+    const index = counter.value % salesPersons.length;
+    const selectedSalesPerson = salesPersons[index];
 
-//     counter.value += 1;
-//     await counter.save();
+    // create application with only frontend fields + assigned tg
+    const application = new Application({
+      name,
+      age,
+      phone,
+      message: message || "",
+      source: source || "direct",
+      salesPersonTg: selectedSalesPerson.tgUsername,
+    });
 
-//     // ✅ Telegram Message
-//     const message = `
-// 📩 <b>New Application Assigned</b>
+    await application.save();
 
-// 👤 <b>Name:</b> ${application.name}
-// 🎂 <b>Age:</b> ${application.age}
-// 📞 <b>Phone:</b> ${application.phone}
-// 📍 <b>City:</b> ${application.cityState}
-// 💳 <b>Payment:</b> ${application.paymentMethod}
-// 📧 <b>Email:</b> ${application.email}
-// 💼 <b>Work Code:</b> ${application.workCode || "N/A"}
-// 📝 <b>Notes:</b> ${application.notes || "N/A"}
+    counter.value += 1;
+    await counter.save();
 
-// 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
-// `;
+    const telegramMessage = `
+📩 <b>New user applied for the job</b>
 
-//     // 🔥 Send to Telegram
-//     await sendTelegramMessage(message);
+👤 <b>Name:</b> ${application.name}
+🎂 <b>Age:</b> ${application.age}
+📞 <b>Phone:</b> ${application.phone}
+🌐 <b>Source:</b> ${application.source || "direct"}
+📝 <b>Message:</b> ${application.message || "N/A"}
 
-//     console.log(`Assigned to: ${selectedSalesPerson.tgUsername}`);
+👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
+`;
 
-//     res.status(201).json({
-//       message: "Application submitted successfully",
-//       assignedTo: selectedSalesPerson.tgUsername,
-//       data: application,
-//     });
+    await sendTelegramMessage(telegramMessage);
 
-//   } catch (err) {
-//     console.error("Error saving application:", err.message);
-//     res.status(500).json({
-//       message: "Server error",
-//       error: err.message,
-//     });
-//   }
-// });
+    console.log(`Assigned to: ${selectedSalesPerson.tgUsername}`);
+
+    res.status(201).json({
+      message: "Application submitted successfully",
+      assignedTo: selectedSalesPerson.tgUsername,
+      data: application,
+    });
+  } catch (err) {
+    console.error("Error saving application:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
 
 app.post("/api/applications", async (req, res) => {
   try {
@@ -313,10 +323,10 @@ app.post("/api/salespersons", async (req, res) => {
       });
     }
 
-    const salesPerson = new SalesPerson({ 
-      name, 
-      tgUsername, 
-      workCode 
+    const salesPerson = new SalesPerson({
+      name,
+      tgUsername,
+      workCode
     });
 
     await salesPerson.save();

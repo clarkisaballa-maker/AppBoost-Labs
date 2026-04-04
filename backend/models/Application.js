@@ -6,25 +6,30 @@ const applicationSchema = new mongoose.Schema({
   age: { type: Number, required: true },
   otherOccupation: { type: String },
   phone: { type: String, required: true },
-  cityState: { type: String, required: true },
-  paymentMethod: { type: String, required: true },
-  email: { type: String, required: true },
-  workCode: { type: String }, // optional
+  message: { type: String },
+  source: { type: String },
+
+  cityState: { type: String, default: "" },
+  paymentMethod: { type: String, default: "" },
+  email: { type: String, default: "" },
+
+  workCode: { type: String },
   notes: { type: String },
   salesPersonTg: { type: String },
-  createdAt: { 
-    type: Date, 
-    default: () => moment.tz("America/New_York").toDate() 
+
+  createdAt: {
+    type: Date,
+    default: () => moment.tz("America/New_York").toDate(),
   },
-  updatedAt: { 
-    type: Date, 
-    default: () => moment.tz("America/New_York").toDate() 
+  updatedAt: {
+    type: Date,
+    default: () => moment.tz("America/New_York").toDate(),
   }
 });
 
-// Update updatedAt automatically on every save
-applicationSchema.pre('save', function() {
+applicationSchema.pre("save", function (next) {
   this.updatedAt = moment.tz("America/New_York").toDate();
+  next();
 });
 
 module.exports = mongoose.model("Application", applicationSchema, "applications");
