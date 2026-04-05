@@ -110,7 +110,7 @@ function ApplyPageContent() {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('https://app-boost-labs-backend.vercel.app/api/apply', {
+      const response = await fetch('https://app-boost-labs-backend.vercel.app/api/applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -235,24 +235,24 @@ function ApplyPageContent() {
                   </div>
 
                   {/* Earnings Highlight */}
-                  <div className="rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 p-6 border border-primary/20">
+                  <div className="rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 p-4 sm:p-6 border border-primary/20">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-primary/30 flex items-center justify-center">
-                        <TrendingUp className="h-6 w-6 text-primary" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/30 flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
-                      <div>
-                        <h4 className="font-bold text-lg">Earning Potential</h4>
-                        <p className="text-sm text-muted-foreground">Competitive daily and monthly rates</p>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-bold text-base sm:text-lg">Earning Potential</h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground">Competitive daily and monthly rates</p>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-center p-4 rounded-lg bg-background/50">
-                        <p className="text-3xl font-bold text-primary">$200</p>
-                        <p className="text-sm text-muted-foreground">Daily Wage</p>
+                    <div className="grid grid-cols-2 gap-2 sm:gap-4">
+                      <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
+                        <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">$200</p>
+                        <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">Daily Wage</p>
                       </div>
-                      <div className="text-center p-4 rounded-lg bg-background/50">
-                        <p className="text-3xl font-bold text-primary">$6,000</p>
-                        <p className="text-sm text-muted-foreground">Max Monthly</p>
+                      <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
+                        <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">$6,000</p>
+                        <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">Max Monthly</p>
                       </div>
                     </div>
                   </div>
@@ -287,11 +287,11 @@ function ApplyPageContent() {
           <AnimatedSection delay={300}>
             <div className="lg:sticky lg:top-8">
               <Card className="glass border-border/50 overflow-hidden hover-glow">
-                <CardHeader className="border-b border-border/50 bg-gradient-to-r from-primary/10 to-accent/10">
+                <CardHeader className="border-b border-border/50 bg-gradient-to-r from-primary/10 to-accent/10 py-8 px-6">
                   <CardTitle className="text-2xl text-center">
                     Apply Now
                   </CardTitle>
-                  <p className="text-center text-muted-foreground mt-2">
+                  <p className="text-center text-muted-foreground mt-3">
                     Fill out the form below to get started
                   </p>
                 </CardHeader>
