@@ -24,7 +24,7 @@ const Index = () => {
         cityState: '',
         paymentMethod: '',
         email: '',
-        workCode: ''  // <-- NEW OPTIONAL FIELD
+        workCode: ''  
     })
 
     const formatPhoneNumber = (value) => {

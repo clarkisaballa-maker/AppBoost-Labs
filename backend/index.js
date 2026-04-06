@@ -240,31 +240,170 @@ app.post("/api/applications", async (req, res) => {
   }
 });
 
-// GET all applications with pagination
-app.get("/api/applications", async (req, res) => {
+// GET all applications with pagination (Non social)
+app.get("/api/applications/non-social", async (req, res) => {
   try {
-    // Get page number from query params, default is 1
     const page = parseInt(req.query.page) || 1;
-    const limit = 20; // 20 entries per page
+    const limit = 20;
     const skip = (page - 1) * limit;
 
-    // Get total number of documents
-    const total = await Application.countDocuments();
+    const query = {
+      $or: [
+        { source: { $exists: false } },
+        { source: null },
+        { source: "" }
+      ]
+    };
 
-    // Fetch applications with pagination, sorted by newest first
-    const applications = await Application.find()
+    const total = await Application.countDocuments(query);
+
+    const applications = await Application.find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
     res.status(200).json({
+      category: "non-social",
       page,
       totalPages: Math.ceil(total / limit),
       totalApplications: total,
       applications
     });
   } catch (err) {
-    console.error("Error fetching applications:", err.message);
+    console.error("Error fetching non-social applications:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message
+    });
+  }
+});
+
+// GET applications by date range(Non Social)
+app.get("/api/applications/non-social/by-date", async (req, res) => {
+  try {
+    const { startDate, endDate } = req.query;
+
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        message: "Both startDate and endDate are required in YYYY-MM-DD format"
+      });
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const query = {
+      $and: [
+        {
+          $or: [
+            { source: { $exists: false } },
+            { source: null },
+            { source: "" }
+          ]
+        },
+        {
+          createdAt: { $gte: start, $lte: end }
+        }
+      ]
+    };
+
+    const applications = await Application.find(query).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      category: "non-social",
+      total: applications.length,
+      applications
+    });
+  } catch (err) {
+    console.error("Error fetching non-social applications by date:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message
+    });
+  }
+});
+
+// GET all applications with pagination (Social)
+app.get("/api/applications/social", async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 20;
+    const skip = (page - 1) * limit;
+    const { source } = req.query;
+
+    const query = {
+      source: { $exists: true, $ne: null, $ne: "" }
+    };
+
+    if (source) {
+      query.source = source;
+    }
+
+    const total = await Application.countDocuments(query);
+
+    const applications = await Application.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      category: "social",
+      appliedSourceFilter: source || null,
+      page,
+      totalPages: Math.ceil(total / limit),
+      totalApplications: total,
+      applications
+    });
+  } catch (err) {
+    console.error("Error fetching social applications:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message
+    });
+  }
+});
+
+// Filters (Social)
+app.get("/api/applications/social/by-date", async (req, res) => {
+  try {
+    const { startDate, endDate, source } = req.query;
+
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        message: "Both startDate and endDate are required in YYYY-MM-DD format"
+      });
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+
+    const query = {
+      $and: [
+        {
+          source: { $exists: true, $ne: null, $ne: "" }
+        },
+        {
+          createdAt: { $gte: start, $lte: end }
+        }
+      ]
+    };
+
+    if (source) {
+      query.$and.push({ source });
+    }
+
+    const applications = await Application.find(query).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      category: "social",
+      appliedSourceFilter: source || null,
+      total: applications.length,
+      applications
+    });
+  } catch (err) {
+    console.error("Error fetching social applications by date:", err.message);
     res.status(500).json({
       message: "Server error",
       error: err.message
@@ -333,40 +472,6 @@ app.delete("/api/applications/:id", async (req, res) => {
   }
 });
 
-// GET applications by date range
-app.get("/api/applications/by-date", async (req, res) => {
-  try {
-    const { startDate, endDate } = req.query;
-
-    if (!startDate || !endDate) {
-      return res.status(400).json({
-        message: "Both startDate and endDate are required in YYYY-MM-DD format"
-      });
-    }
-
-    // Convert to Date objects
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    // Make sure end includes the whole day
-    end.setHours(23, 59, 59, 999);
-
-    const applications = await Application.find({
-      createdAt: { $gte: start, $lte: end },
-    }).sort({ createdAt: -1 });
-
-    res.status(200).json({
-      total: applications.length,
-      applications,
-    });
-  } catch (err) {
-    console.error("Error fetching applications by date:", err.message);
-    res.status(500).json({
-      message: "Server error",
-      error: err.message,
-    });
-  }
-});
 
 app.post("/api/salespersons", async (req, res) => {
   try {
