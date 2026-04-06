@@ -110,7 +110,7 @@ function ApplyPageContent() {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('https://app-boost-labs-backend.vercel.app/api/applications', {
+      const response = await fetch('https://app-boost-labs-backend.vercel.app/api/apply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
