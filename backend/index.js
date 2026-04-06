@@ -62,8 +62,8 @@ app.post("/api/apply", async (req, res) => {
       });
     }
 
-    // ✅ Normalize phone (important)
-    const cleanPhone = phone.replace(/\D/g, "");
+    const normalizePhone = (phone) => String(phone || "").replace(/\D/g, "");
+    const cleanPhone = normalizePhone(phone);
 
     // ✅ Check if phone already exists
     const existingUser = await Application.findOne({
@@ -164,8 +164,8 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    // Normalize phone
-    const cleanPhone = String(phone).replace(/\D/g, "");
+    const normalizePhone = (phone) => String(phone || "").replace(/\D/g, "");
+    const cleanPhone = normalizePhone(phone);
 
     // Check duplicate phone
     const existingApplication = await Application.findOne({ phone: cleanPhone });
