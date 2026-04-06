@@ -51,23 +51,30 @@ const sendTelegramMessage = async (text) => {
   }
 };
 
+const normalizePhone = (phone) => String(phone || "").replace(/\D/g, "");
+
+const formatUSPhone = (phone) => {
+  const digits = normalizePhone(phone);
+
+  if (digits.length !== 10) return phone; // ya "" / original value
+
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+};
+
 app.post("/api/apply", async (req, res) => {
   try {
     const { name, age, phone, message, source } = req.body;
 
-    // Validate required fields
     if (!name || !age || !phone) {
       return res.status(400).json({
         message: "name, age and phone are required",
       });
     }
 
-    const normalizePhone = (phone) => String(phone || "").replace(/\D/g, "");
-    const cleanPhone = normalizePhone(phone);
+    const formattedPhone = formatUSPhone(phone);
 
-    // ✅ Check if phone already exists
     const existingUser = await Application.findOne({
-      phone: { $regex: cleanPhone, $options: "i" }
+      phone: formattedPhone,
     });
 
     if (existingUser) {
@@ -76,14 +83,12 @@ app.post("/api/apply", async (req, res) => {
       });
     }
 
-    // ✅ Get IP
     const ipAddress =
       req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
       req.socket?.remoteAddress ||
       req.ip ||
       "";
 
-    // Round-robin assignment
     const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
 
     if (salesPersons.length === 0) {
@@ -101,11 +106,10 @@ app.post("/api/apply", async (req, res) => {
     const index = counter.value % salesPersons.length;
     const selectedSalesPerson = salesPersons[index];
 
-    // ✅ Save application
     const application = new Application({
       name,
       age,
-      phone: cleanPhone, // save clean version
+      phone: formattedPhone, // always save as (333) 333-3333
       message: message || "",
       source: source || "direct",
       salesPersonTg: selectedSalesPerson.tgUsername,
@@ -117,7 +121,6 @@ app.post("/api/apply", async (req, res) => {
     counter.value += 1;
     await counter.save();
 
-    // Telegram message
     const telegramMessage = `
 📩 <b>New user applied for the job</b>
 
@@ -137,7 +140,6 @@ app.post("/api/apply", async (req, res) => {
       assignedTo: selectedSalesPerson.tgUsername,
       data: application,
     });
-
   } catch (err) {
     console.error("Error:", err.message);
 
@@ -164,11 +166,11 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    const normalizePhone = (phone) => String(phone || "").replace(/\D/g, "");
-    const cleanPhone = normalizePhone(phone);
+    const formattedPhone = formatUSPhone(phone);
 
-    // Check duplicate phone
-    const existingApplication = await Application.findOne({ phone: cleanPhone });
+    const existingApplication = await Application.findOne({
+      phone: formattedPhone,
+    });
 
     if (existingApplication) {
       return res.status(409).json({
@@ -176,7 +178,6 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    // Find SalesPerson by workCode
     const selectedSalesPerson = await SalesPerson.findOne({ workCode });
 
     if (!selectedSalesPerson) {
@@ -185,16 +186,14 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    // Get user IP
     const ipAddress =
       req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
       req.socket?.remoteAddress ||
       req.ip ||
       "";
 
-    // Assign TG username
     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
-    req.body.phone = cleanPhone;
+    req.body.phone = formattedPhone; // always save as (333) 333-3333
     req.body.ipAddress = ipAddress;
 
     const application = new Application(req.body);
@@ -228,7 +227,6 @@ app.post("/api/applications", async (req, res) => {
   } catch (err) {
     console.error("Error saving application:", err.message);
 
-    // Optional: handle duplicate key error too
     if (err.code === 11000) {
       return res.status(409).json({
         message: "You have already applied for the job",

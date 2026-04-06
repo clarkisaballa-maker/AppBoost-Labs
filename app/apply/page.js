@@ -43,8 +43,25 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 
 function ApplyPageContent() {
   const searchParams = useSearchParams()
-  const source = searchParams.get('source') || 'direct'
-
+  const urlSource = searchParams.get('source')
+  
+  // Get source from URL or localStorage, default to 'direct'
+  const [source, setSource] = useState('direct')
+  
+  useEffect(() => {
+    // If source is in URL, save it to localStorage
+    if (urlSource) {
+      localStorage.setItem('appboost_source', urlSource)
+      setSource(urlSource)
+    } else {
+      // If no source in URL, try to get it from localStorage
+      const savedSource = localStorage.getItem('appboost_source')
+      if (savedSource) {
+        setSource(savedSource)
+      }
+    }
+  }, [urlSource])
+  
   const [formData, setFormData] = useState({
     name: '',
     age: '',
@@ -54,7 +71,6 @@ function ApplyPageContent() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [phoneError, setPhoneError] = useState('')
-  const [serverError, setServerError] = useState('')
 
   const sourceLabel = source === 'fb' ? 'Facebook' : source === 'tk' ? 'TikTok' : 'Direct'
 
@@ -109,8 +125,7 @@ function ApplyPageContent() {
     }
 
     setIsSubmitting(true)
-    setServerError('') // reset error
-
+    
     try {
       const response = await fetch('https://app-boost-labs-backend.vercel.app/api/apply', {
         method: 'POST',
@@ -123,22 +138,13 @@ function ApplyPageContent() {
         }),
       })
 
-      const data = await response.json() // ✅ IMPORTANT
-
-      if (!response.ok) {
-        // ❌ backend error show karo
-        setServerError(data.message || 'Something went wrong')
-        return
+      if (response.ok) {
+        setIsSubmitted(true)
+        setPhoneError('')
+        setFormData({ name: '', age: '', phone: '', message: '' })
       }
-
-      // ✅ success
-      setIsSubmitted(true)
-      setPhoneError('')
-      setFormData({ name: '', age: '', phone: '', message: '' })
-
     } catch (error) {
       console.error('Error submitting form:', error)
-      setServerError('Network error, please try again')
     } finally {
       setIsSubmitting(false)
     }
@@ -181,7 +187,7 @@ function ApplyPageContent() {
 
       <main className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
-
+          
           {/* Left Column - Job Details */}
           <div className="space-y-8">
             <AnimatedSection>
@@ -201,7 +207,7 @@ function ApplyPageContent() {
             <AnimatedSection delay={100}>
               <div className="grid grid-cols-2 gap-4">
                 {benefits.map((benefit, index) => (
-                  <div
+                  <div 
                     key={index}
                     className="p-4 rounded-xl glass hover-lift transition-all duration-300"
                   >
@@ -234,7 +240,7 @@ function ApplyPageContent() {
                         Our work involves browsing applications developed by merchants, helping them increase product exposure, downloads, and attract more users, thereby earning commissions. These online tasks are very simple and require no experience.
                       </p>
                     </div>
-
+                    
                     <div className="flex gap-3">
                       <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -316,8 +322,8 @@ function ApplyPageContent() {
                       <p className="text-muted-foreground mb-6">
                         Thank you for your interest. Our team will contact you within 24 hours to get you started.
                       </p>
-                      <Button
-                        variant="outline"
+                      <Button 
+                        variant="outline" 
                         onClick={() => setIsSubmitted(false)}
                         className="hover-lift"
                       >
@@ -386,9 +392,9 @@ function ApplyPageContent() {
                       </div>
 
                       <div className="pt-2">
-                        <Button
-                          type="submit"
-                          className="w-full h-14 text-lg font-semibold animate-pulse-glow hover-lift"
+                        <Button 
+                          type="submit" 
+                          className="w-full h-14 text-lg font-semibold animate-pulse-glow hover-lift" 
                           disabled={isSubmitting}
                         >
                           {isSubmitting ? (
