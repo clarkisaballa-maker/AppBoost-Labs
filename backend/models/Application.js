@@ -5,9 +5,11 @@ const applicationSchema = new mongoose.Schema({
   name: { type: String, required: true },
   age: { type: Number, required: true },
   otherOccupation: { type: String },
-  phone: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
   message: { type: String },
   source: { type: String },
+
+  ipAddress: { type: String, default: "" },
 
   cityState: { type: String, default: "" },
   paymentMethod: { type: String, default: "" },

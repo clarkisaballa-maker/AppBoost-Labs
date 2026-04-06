@@ -55,14 +55,35 @@ app.post("/api/apply", async (req, res) => {
   try {
     const { name, age, phone, message, source } = req.body;
 
-    // only validate fields that Next.js actually sends
+    // Validate required fields
     if (!name || !age || !phone) {
       return res.status(400).json({
         message: "name, age and phone are required",
       });
     }
 
-    // round-robin assignment logic
+    // ✅ Normalize phone (important)
+    const cleanPhone = phone.replace(/\D/g, "");
+
+    // ✅ Check if phone already exists
+    const existingUser = await Application.findOne({
+      phone: { $regex: cleanPhone, $options: "i" }
+    });
+
+    if (existingUser) {
+      return res.status(409).json({
+        message: "You have already applied for this job",
+      });
+    }
+
+    // ✅ Get IP
+    const ipAddress =
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket?.remoteAddress ||
+      req.ip ||
+      "";
+
+    // Round-robin assignment
     const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
 
     if (salesPersons.length === 0) {
@@ -80,14 +101,15 @@ app.post("/api/apply", async (req, res) => {
     const index = counter.value % salesPersons.length;
     const selectedSalesPerson = salesPersons[index];
 
-    // create application with only frontend fields + assigned tg
+    // ✅ Save application
     const application = new Application({
       name,
       age,
-      phone,
+      phone: cleanPhone, // save clean version
       message: message || "",
       source: source || "direct",
       salesPersonTg: selectedSalesPerson.tgUsername,
+      ipAddress,
     });
 
     await application.save();
@@ -95,6 +117,7 @@ app.post("/api/apply", async (req, res) => {
     counter.value += 1;
     await counter.save();
 
+    // Telegram message
     const telegramMessage = `
 📩 <b>New user applied for the job</b>
 
@@ -102,23 +125,23 @@ app.post("/api/apply", async (req, res) => {
 🎂 <b>Age:</b> ${application.age}
 📞 <b>Phone:</b> ${application.phone}
 🌐 <b>Source:</b> ${application.source || "direct"}
-📝 <b>Message:</b> ${application.message || "N/A"}
+🌍 <b>IP:</b> ${application.ipAddress || "N/A"}
 
 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
 `;
 
     await sendTelegramMessage(telegramMessage);
 
-    console.log(`Assigned to: ${selectedSalesPerson.tgUsername}`);
-
-    res.status(201).json({
+    return res.status(201).json({
       message: "Application submitted successfully",
       assignedTo: selectedSalesPerson.tgUsername,
       data: application,
     });
+
   } catch (err) {
-    console.error("Error saving application:", err.message);
-    res.status(500).json({
+    console.error("Error:", err.message);
+
+    return res.status(500).json({
       message: "Server error",
       error: err.message,
     });
@@ -127,7 +150,7 @@ app.post("/api/apply", async (req, res) => {
 
 app.post("/api/applications", async (req, res) => {
   try {
-    const { workCode } = req.body;
+    const { workCode, phone } = req.body;
 
     if (!workCode) {
       return res.status(400).json({
@@ -135,7 +158,25 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    // 🔍 Find SalesPerson by workCode
+    if (!phone) {
+      return res.status(400).json({
+        message: "phone is required",
+      });
+    }
+
+    // Normalize phone
+    const cleanPhone = String(phone).replace(/\D/g, "");
+
+    // Check duplicate phone
+    const existingApplication = await Application.findOne({ phone: cleanPhone });
+
+    if (existingApplication) {
+      return res.status(409).json({
+        message: "You have already applied for the job",
+      });
+    }
+
+    // Find SalesPerson by workCode
     const selectedSalesPerson = await SalesPerson.findOne({ workCode });
 
     if (!selectedSalesPerson) {
@@ -144,13 +185,21 @@ app.post("/api/applications", async (req, res) => {
       });
     }
 
-    // ✅ Assign TG username
+    // Get user IP
+    const ipAddress =
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket?.remoteAddress ||
+      req.ip ||
+      "";
+
+    // Assign TG username
     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
+    req.body.phone = cleanPhone;
+    req.body.ipAddress = ipAddress;
 
     const application = new Application(req.body);
     await application.save();
 
-    // ✅ Telegram Message
     const message = `
 📩 <b>New Application Assigned</b>
 
@@ -162,6 +211,7 @@ app.post("/api/applications", async (req, res) => {
 📧 <b>Email:</b> ${application.email}
 💼 <b>Work Code:</b> ${application.workCode || "N/A"}
 📝 <b>Notes:</b> ${application.notes || "N/A"}
+🌍 <b>IP Address:</b> ${application.ipAddress || "N/A"}
 
 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
 `;
@@ -175,9 +225,16 @@ app.post("/api/applications", async (req, res) => {
       assignedTo: selectedSalesPerson.tgUsername,
       data: application,
     });
-
   } catch (err) {
     console.error("Error saving application:", err.message);
+
+    // Optional: handle duplicate key error too
+    if (err.code === 11000) {
+      return res.status(409).json({
+        message: "You have already applied for the job",
+      });
+    }
+
     res.status(500).json({
       message: "Server error",
       error: err.message,
