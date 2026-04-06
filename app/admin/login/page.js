@@ -20,12 +20,19 @@ export default function AdminLogin() {
     setIsLoading(true)
     setError('')
 
-    // Simple password check
+    // Check password and redirect accordingly
     if (password === 'Master122') {
-      // Store auth in sessionStorage
+      // Non-social dashboard access
       sessionStorage.setItem('adminAuth', 'true')
       sessionStorage.setItem('adminAuthTime', Date.now().toString())
+      sessionStorage.setItem('adminDashboardType', 'non-social')
       router.push('/admin/dashboard')
+    } else if (password === 'Robert1122') {
+      // Social dashboard access
+      sessionStorage.setItem('adminAuth', 'true')
+      sessionStorage.setItem('adminAuthTime', Date.now().toString())
+      sessionStorage.setItem('adminDashboardType', 'social')
+      router.push('/admin/social-dashboard')
     } else {
       setError('Invalid password. Please try again.')
     }

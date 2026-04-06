@@ -216,7 +216,7 @@ export default function AdminDashboard() {
     setIsFetching(true)
     setApiError(null)
     try {
-      const res = await fetch(`${API_BASE}/api/applications?page=${pageNumber}`, {
+      const res = await fetch(`${API_BASE}/api/applications/non-social?page=${pageNumber}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -234,7 +234,11 @@ export default function AdminDashboard() {
       setTotalPages(data.totalPages || 1)
     } catch (err) {
       console.error('Error fetching submissions:', err)
-      setApiError(err.message || 'Unable to connect to server. Please check your connection.')
+      if (err.name === 'TypeError' && err.message === 'Failed to fetch') {
+        setApiError('Unable to connect to server. This may be due to network restrictions in the preview environment. The dashboard will work correctly when deployed.')
+      } else {
+        setApiError(err.message || 'Unable to connect to server. Please check your connection.')
+      }
       setSubmissions([])
     } finally {
       setIsFetching(false)
@@ -257,7 +261,7 @@ export default function AdminDashboard() {
     setApiError(null)
     setActiveFilterLabel(label)
     try {
-      const res = await fetch(`${API_BASE}/api/applications/by-date?startDate=${start}&endDate=${end}`, {
+      const res = await fetch(`${API_BASE}/api/applications/non-social/by-date?startDate=${start}&endDate=${end}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -661,9 +665,9 @@ export default function AdminDashboard() {
             </div>
             <div>
               <h1 className="font-bold text-xl">
-                <span className="gradient-text">Admin Dashboard</span>
+                <span className="gradient-text">Non-Social Dashboard</span>
               </h1>
-              <p className="text-sm text-muted-foreground">AppBoost Labs Management</p>
+              <p className="text-sm text-muted-foreground">AppBoost Labs - Website Applications</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
