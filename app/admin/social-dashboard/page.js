@@ -391,8 +391,25 @@ export default function SocialDashboard() {
     sub.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     sub.phone?.includes(searchTerm) ||
     sub.message?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    sub.salesPersonTg?.toLowerCase().includes(searchTerm.toLowerCase())
+    sub.salesPersonTg?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sub.ipAddress?.toLowerCase().includes(searchTerm.toLowerCase())
   )
+
+  // Calculate duplicate IPs
+  const getDuplicateIPs = () => {
+    const ipCounts = {}
+    filteredSubmissions.forEach(sub => {
+      if (sub.ipAddress) {
+        ipCounts[sub.ipAddress] = (ipCounts[sub.ipAddress] || 0) + 1
+      }
+    })
+    // Only return IPs with more than 1 occurrence
+    return Object.entries(ipCounts)
+      .filter(([ip, count]) => count > 1)
+      .sort((a, b) => b[1] - a[1]) // Sort by count descending
+  }
+
+  const duplicateIPs = getDuplicateIPs()
 
   if (isLoading) {
     return (
@@ -732,6 +749,48 @@ export default function SocialDashboard() {
                     <span className="bg-pink-500 text-white px-2 py-0.5 rounded-full text-xs font-bold">
                       {filteredCount} {filteredCount === 1 ? 'entry' : 'entries'} found
                     </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Search Results Count */}
+              {searchTerm && (
+                <div className="flex items-center gap-2 pt-2 border-t border-border/30">
+                  <div className="flex items-center gap-2 bg-blue-500/10 text-blue-400 px-3 py-1.5 rounded-full text-sm">
+                    <Search className="h-4 w-4" />
+                    <span className="font-medium">Search: &quot;{searchTerm}&quot;</span>
+                    <span className="bg-blue-500 text-white px-2 py-0.5 rounded-full text-xs font-bold">
+                      {filteredSubmissions.length} {filteredSubmissions.length === 1 ? 'result' : 'results'} found
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Duplicate IPs Section */}
+              {(isDateFiltering || searchTerm) && duplicateIPs.length > 0 && (
+                <div className="pt-2 border-t border-border/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Globe className="h-4 w-4 text-amber-400" />
+                    <span className="text-sm font-medium text-amber-400">Duplicate IP Addresses Detected</span>
+                    <span className="bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full text-xs font-bold border border-amber-500/30">
+                      {duplicateIPs.length} duplicate {duplicateIPs.length === 1 ? 'IP' : 'IPs'}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {duplicateIPs.map(([ip, count]) => (
+                      <div 
+                        key={ip} 
+                        className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 text-amber-300 px-3 py-1.5 rounded-lg text-sm cursor-pointer hover:bg-amber-500/20 transition-colors"
+                        onClick={() => setSearchTerm(ip)}
+                        title="Click to search for this IP"
+                      >
+                        <MapPin className="h-3.5 w-3.5" />
+                        <span className="font-mono text-xs">{ip}</span>
+                        <span className="bg-amber-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
+                          {count}x
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
