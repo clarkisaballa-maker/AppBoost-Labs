@@ -89,6 +89,16 @@ app.post("/api/apply", async (req, res) => {
       req.ip ||
       "";
 
+    // Block submissions if the same IP has already been used 2 or more times
+    const ipUsageCount = await Application.countDocuments({ ipAddress });
+
+    if (ipUsageCount >= 2) {
+      return res.status(403).json({
+        message:
+          "Suspicious activity detected. You need to contact the live support.",
+      });
+    }
+
     const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
 
     if (salesPersons.length === 0) {
@@ -109,7 +119,7 @@ app.post("/api/apply", async (req, res) => {
     const application = new Application({
       name,
       age,
-      phone: formattedPhone, // always save as (333) 333-3333
+      phone: formattedPhone,
       message: message || "",
       source: source || "direct",
       salesPersonTg: selectedSalesPerson.tgUsername,
