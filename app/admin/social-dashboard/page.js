@@ -411,6 +411,19 @@ export default function SocialDashboard() {
 
   const duplicateIPs = getDuplicateIPs()
 
+  // Calculate leads per sales person
+  const getLeadsPerSalesPerson = () => {
+    const salesPersonCounts = {}
+    filteredSubmissions.forEach(sub => {
+      const tg = sub.salesPersonTg || 'Unassigned'
+      salesPersonCounts[tg] = (salesPersonCounts[tg] || 0) + 1
+    })
+    return Object.entries(salesPersonCounts)
+      .sort((a, b) => b[1] - a[1]) // Sort by count descending
+  }
+
+  const leadsPerSalesPerson = getLeadsPerSalesPerson()
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -788,6 +801,35 @@ export default function SocialDashboard() {
                         <span className="font-mono text-xs">{ip}</span>
                         <span className="bg-amber-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
                           {count}x
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Leads Per Sales Person Section */}
+              {(isDateFiltering || searchTerm) && leadsPerSalesPerson.length > 0 && (
+                <div className="pt-2 border-t border-border/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Users className="h-4 w-4 text-green-400" />
+                    <span className="text-sm font-medium text-green-400">Leads Per Sales Person</span>
+                    <span className="bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full text-xs font-bold border border-green-500/30">
+                      {leadsPerSalesPerson.length} {leadsPerSalesPerson.length === 1 ? 'person' : 'people'}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {leadsPerSalesPerson.map(([tgUsername, count]) => (
+                      <div 
+                        key={tgUsername} 
+                        className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-300 px-3 py-1.5 rounded-lg text-sm cursor-pointer hover:bg-green-500/20 transition-colors"
+                        onClick={() => setSearchTerm(tgUsername === 'Unassigned' ? '' : tgUsername)}
+                        title="Click to search for this sales person"
+                      >
+                        <AtSign className="h-3.5 w-3.5" />
+                        <span className="font-medium text-xs">{tgUsername}</span>
+                        <span className="bg-green-500 text-white px-1.5 py-0.5 rounded text-xs font-bold">
+                          {count} {count === 1 ? 'lead' : 'leads'}
                         </span>
                       </div>
                     ))}
