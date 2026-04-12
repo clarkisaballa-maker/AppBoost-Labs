@@ -104,7 +104,7 @@ const bestEmployees = [
   {
     name: 'Maria',
     title: 'Senior App Strategist',
-    bio: 'Maria has consistently delivered exceptional results in app optimization, helping our clients achieve record-breaking growth metrics.',
+    bio: 'Maria has consistently delivered exceptional results in app optimization, helping the new users achieve record-breaking growth metrics.',
     images: [
       'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027440/compressed_photo_2026-03-07_00-31-13_hmkea7.webp',
       'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027439/compressed_photo_2026-03-04_00-32-59_eci7bk.webp',
