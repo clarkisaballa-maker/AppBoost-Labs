@@ -103,7 +103,7 @@ const executives = [
 const bestEmployees = [
   {
     name: 'Maria',
-    title: 'Senior App Strategist',
+    title: 'Senior Instructor',
     bio: 'Maria has consistently delivered exceptional results in app optimization, helping the new users achieve record-breaking growth metrics.',
     images: [
       'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027440/compressed_photo_2026-03-07_00-31-13_hmkea7.webp',
@@ -116,7 +116,7 @@ const bestEmployees = [
   },
   {
     name: 'Susan',
-    title: 'Lead Growth Analyst',
+    title: 'Senior Instructor',
     bio: 'Susan excels at transforming data into actionable strategies, driving remarkable user acquisition results for our partner apps.',
     images: [
       'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027457/compressed_photo_2026-04-13_04-51-22_atzxj9.webp',
