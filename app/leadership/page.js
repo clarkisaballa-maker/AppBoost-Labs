@@ -424,70 +424,7 @@ export default function LeadershipPage() {
           </div>
         </section>
 
-        {/* Best Employees Section */}
-        <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-muted/20">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
-              <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-4 py-2 mb-6">
-                <Award className="h-5 w-5 text-amber-500" />
-                <span className="text-sm font-medium text-amber-500">Star Performers</span>
-              </div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                <span className="gradient-text">Best Employees</span>
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Recognizing the outstanding individuals who drive our success through dedication and excellence.
-              </p>
-            </AnimatedSection>
-
-            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
-              {bestEmployees.map((employee, idx) => (
-                <AnimatedSection key={employee.name} delay={idx * 150}>
-                  <Card className="group overflow-hidden hover-lift hover-glow h-full bg-card/50 backdrop-blur-sm border-amber-500/20">
-                    <div className="relative aspect-[4/5] overflow-hidden">
-                      {employee.images.map((img, imgIdx) => (
-                        <Image
-                          key={imgIdx}
-                          src={img}
-                          alt={`${employee.name} - Photo ${imgIdx + 1}`}
-                          fill
-                          className={`object-cover transition-all duration-700 ${
-                            imgIdx === 0 ? 'opacity-100' : 'opacity-0 group-hover:opacity-0'
-                          } group-hover:scale-105`}
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                        />
-                      ))}
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60" />
-                      
-                      {/* Award badge */}
-                      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center shadow-lg">
-                        <Award className="h-6 w-6 text-white" />
-                      </div>
-                      
-                      {/* Info overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h3 className="text-2xl font-bold text-foreground">{employee.name}</h3>
-                        <p className="text-amber-500 font-medium">{employee.title}</p>
-                      </div>
-                    </div>
-                    <CardContent className="p-6">
-                      <p className="text-muted-foreground">{employee.bio}</p>
-                      <Button 
-                        variant="outline" 
-                        className="mt-4 w-full border-amber-500/30 text-amber-500 hover:bg-amber-500/10"
-                        onClick={() => setSelectedExecutive(employee)}
-                      >
-                        <Sparkles className="mr-2 h-4 w-4" />
-                        View Gallery
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </section>
+       
 
         {/* Values Section */}
         <section className="py-20 lg:py-28">
