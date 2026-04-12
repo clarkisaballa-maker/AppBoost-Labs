@@ -11,11 +11,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <Link href="/" className="flex items-center group">
-              <Image 
-                src="/images/logo.png" 
-                alt="AppBoost Labs" 
-                width={240} 
-                height={60} 
+              <Image
+                src="/images/logo.png"
+                alt="AppBoost Labs"
+                width={240}
+                height={60}
                 className="transition-all duration-300 group-hover:scale-105 h-14 sm:h-16 w-auto"
               />
             </Link>
@@ -82,9 +82,14 @@ export default function Footer() {
                 <Mail className="h-4 w-4 shrink-0 text-primary" />
                 <span>contact@appboostlabs.org</span>
               </li>
-              <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4 shrink-0 text-primary" />
-                <span>+1 (332) 256-6866</span>
+              <li className="flex items-start gap-2 text-sm text-muted-foreground">
+                <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                <div className="flex flex-col">
+                  <span>+1 (332) 256-6866</span>
+                  <span className="text-xs text-muted-foreground">
+                    Live support isn’t available on weekends
+                  </span>
+                </div>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
