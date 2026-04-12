@@ -100,6 +100,33 @@ const executives = [
   },
 ]
 
+const bestEmployees = [
+  {
+    name: 'Maria',
+    title: 'Senior App Strategist',
+    bio: 'Maria has consistently delivered exceptional results in app optimization, helping our clients achieve record-breaking growth metrics.',
+    images: [
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027440/compressed_photo_2026-03-07_00-31-13_hmkea7.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027439/compressed_photo_2026-03-04_00-32-59_eci7bk.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027437/compressed_photo_2026-03-10_00-40-25_qt8ubx.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027436/compressed_photo_2026-03-11_23-38-54_gopbwe.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027435/compressed_photo_2026-03-10_00-40-23_kkjpt7.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027434/compressed_photo_2026-03-03_00-49-22_bx16di.webp',
+    ]
+  },
+  {
+    name: 'Susan',
+    title: 'Lead Growth Analyst',
+    bio: 'Susan excels at transforming data into actionable strategies, driving remarkable user acquisition results for our partner apps.',
+    images: [
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027457/compressed_photo_2026-04-13_04-51-22_atzxj9.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027456/compressed_photo_2026-04-13_04-53-05_baelnb.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027456/compressed_photo_2026-04-13_04-42-54_v5jl1k.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027457/compressed_photo_2026-04-13_04-54-10_ufqzlb.webp',
+    ]
+  },
+]
+
 function ExecutiveCard({ executive, delay, onViewGallery }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -392,6 +419,71 @@ export default function LeadershipPage() {
                   delay={100 + index * 100}
                   onViewGallery={setSelectedExecutive}
                 />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Best Employees Section */}
+        <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-muted/20">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
+              <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 px-4 py-2 mb-6">
+                <Award className="h-5 w-5 text-amber-500" />
+                <span className="text-sm font-medium text-amber-500">Star Performers</span>
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                <span className="gradient-text">Best Employees</span>
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                Recognizing the outstanding individuals who drive our success through dedication and excellence.
+              </p>
+            </AnimatedSection>
+
+            <div className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
+              {bestEmployees.map((employee, idx) => (
+                <AnimatedSection key={employee.name} delay={idx * 150}>
+                  <Card className="group overflow-hidden hover-lift hover-glow h-full bg-card/50 backdrop-blur-sm border-amber-500/20">
+                    <div className="relative aspect-[4/5] overflow-hidden">
+                      {employee.images.map((img, imgIdx) => (
+                        <Image
+                          key={imgIdx}
+                          src={img}
+                          alt={`${employee.name} - Photo ${imgIdx + 1}`}
+                          fill
+                          className={`object-cover transition-all duration-700 ${
+                            imgIdx === 0 ? 'opacity-100' : 'opacity-0 group-hover:opacity-0'
+                          } group-hover:scale-105`}
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      ))}
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-60" />
+                      
+                      {/* Award badge */}
+                      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center shadow-lg">
+                        <Award className="h-6 w-6 text-white" />
+                      </div>
+                      
+                      {/* Info overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-2xl font-bold text-foreground">{employee.name}</h3>
+                        <p className="text-amber-500 font-medium">{employee.title}</p>
+                      </div>
+                    </div>
+                    <CardContent className="p-6">
+                      <p className="text-muted-foreground">{employee.bio}</p>
+                      <Button 
+                        variant="outline" 
+                        className="mt-4 w-full border-amber-500/30 text-amber-500 hover:bg-amber-500/10"
+                        onClick={() => setSelectedExecutive(employee)}
+                      >
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        View Gallery
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </AnimatedSection>
               ))}
             </div>
           </div>
