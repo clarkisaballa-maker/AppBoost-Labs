@@ -103,88 +103,88 @@ function SuccessGallery() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [lightboxOpen])
 
-  return (
-    <section className="bg-card/30 py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
-            <Images className="h-4 w-4" />
-            Our Company
-          </div>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            <span className="gradient-text">Company Gallery</span>
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Take a look inside AppBoost Labs. Click any image to view in full screen.
-          </p>
-        </AnimatedSection>
+  // return (
+  //   <section className="bg-card/30 py-20 lg:py-28">
+  //     <div className="mx-auto max-w-7xl px-6 lg:px-8">
+  //       <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
+  //         <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
+  //           <Images className="h-4 w-4" />
+  //           Our Company
+  //         </div>
+  //         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+  //           <span className="gradient-text">Company Gallery</span>
+  //         </h2>
+  //         <p className="mt-4 text-lg text-muted-foreground">
+  //           Take a look inside AppBoost Labs. Click any image to view in full screen.
+  //         </p>
+  //       </AnimatedSection>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {galleryImages.map((image, index) => (
-            <AnimatedSection key={index} delay={100 + index * 50}>
-              <div
-                className="relative aspect-[3/4] rounded-xl overflow-hidden cursor-pointer group hover-lift"
-                onClick={() => openLightbox(index)}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-90"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
-      </div>
+  //       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+  //         {galleryImages.map((image, index) => (
+  //           <AnimatedSection key={index} delay={100 + index * 50}>
+  //             <div
+  //               className="relative aspect-[3/4] rounded-xl overflow-hidden cursor-pointer group hover-lift"
+  //               onClick={() => openLightbox(index)}
+  //             >
+  //               <img
+  //                 src={image.src}
+  //                 alt={image.alt}
+  //                 className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-90"
+  //               />
+  //               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+  //             </div>
+  //           </AnimatedSection>
+  //         ))}
+  //       </div>
+  //     </div>
 
-      {/* Lightbox Modal */}
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-          onClick={closeLightbox}
-        >
-          <button
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
-            aria-label="Close lightbox"
-          >
-            <X className="h-6 w-6 text-white" />
-          </button>
+  //     {/* Lightbox Modal */}
+  //     {lightboxOpen && (
+  //       <div
+  //         className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+  //         onClick={closeLightbox}
+  //       >
+  //         <button
+  //           onClick={closeLightbox}
+  //           className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+  //           aria-label="Close lightbox"
+  //         >
+  //           <X className="h-6 w-6 text-white" />
+  //         </button>
 
-          <button
-            onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
-            className="absolute left-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
-            aria-label="Previous image"
-          >
-            <ChevronLeft className="h-8 w-8 text-white" />
-          </button>
+  //         <button
+  //           onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+  //           className="absolute left-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+  //           aria-label="Previous image"
+  //         >
+  //           <ChevronLeft className="h-8 w-8 text-white" />
+  //         </button>
 
-          <div
-            className="max-w-4xl max-h-[90vh] mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={galleryImages[currentIndex].src}
-              alt={galleryImages[currentIndex].alt}
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
-            />
-            <p className="text-center text-white/70 mt-4 text-sm">
-              {currentIndex + 1} / {galleryImages.length}
-            </p>
-          </div>
+  //         <div
+  //           className="max-w-4xl max-h-[90vh] mx-4"
+  //           onClick={(e) => e.stopPropagation()}
+  //         >
+  //           <img
+  //             src={galleryImages[currentIndex].src}
+  //             alt={galleryImages[currentIndex].alt}
+  //             className="max-w-full max-h-[90vh] object-contain rounded-lg"
+  //           />
+  //           <p className="text-center text-white/70 mt-4 text-sm">
+  //             {currentIndex + 1} / {galleryImages.length}
+  //           </p>
+  //         </div>
 
-          <button
-            onClick={(e) => { e.stopPropagation(); goToNext(); }}
-            className="absolute right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
-            aria-label="Next image"
-          >
-            <ChevronRight className="h-8 w-8 text-white" />
-          </button>
-        </div>
-      )}
-    </section>
-  )
+  //         <button
+  //           onClick={(e) => { e.stopPropagation(); goToNext(); }}
+  //           className="absolute right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-50"
+  //           aria-label="Next image"
+  //         >
+  //           <ChevronRight className="h-8 w-8 text-white" />
+  //         </button>
+  //       </div>
+  //     )}
+  //   </section>
+  // )
 }
 
 const testimonials = [
