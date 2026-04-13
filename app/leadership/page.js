@@ -343,57 +343,65 @@ export default function LeadershipPage() {
 
         {/* CEO Featured Section */}
         <section className="py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <AnimatedSection delay={100}>
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="relative">
-                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-                    <Image
-                      src={executives[0].images[0]}
-                      alt={executives[0].name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                  </div>
-                  {/* Decorative elements */}
-                  <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/20 rounded-full blur-2xl" />
-                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent/20 rounded-full blur-xl" />
-                </div>
-                
-                <div>
-                  <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary mb-6">
-                    <Award className="h-4 w-4" />
-                    Chief Executive Officer
-                  </div>
-                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                    <span className="gradient-text">{executives[0].name}</span>
-                  </h2>
-                  <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                    {executives[0].bio}
-                  </p>
-                  <p className="mt-4 text-muted-foreground leading-relaxed">
-                    Daniel&apos;s leadership philosophy centers on empowering teams, fostering innovation, 
-                    and maintaining an unwavering commitment to client success. His strategic vision 
-                    has positioned AppBoost Labs at the forefront of the app optimization industry.
-                  </p>
-                  <div className="mt-8 flex gap-4">
-                    <Button 
-                      variant="outline" 
-                      className="hover-lift"
-                      onClick={() => setSelectedExecutive(executives[0])}
-                    >
-                      <Sparkles className="mr-2 h-4 w-4" />
-                      View Gallery
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
+  <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <AnimatedSection delay={100}>
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        
+        {/* Video */}
+        <div className="relative w-full">
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black">
+            <video
+              className="h-full w-full object-contain"
+              controls
+              playsInline
+              poster={executives[0].images[0]}
+            >
+              <source
+                src="https://res.cloudinary.com/dm2zkwqqb/video/upload/q_auto/f_auto/v1776102300/CEO_qgegx2.webm"
+                type="video/webm"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
-        </section>
+
+          {/* Decorative elements */}
+          <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/20 rounded-full blur-2xl" />
+          <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent/20 rounded-full blur-xl" />
+        </div>
+
+        {/* Text */}
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary mb-6">
+            <Award className="h-4 w-4" />
+            Chief Executive Officer
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <span className="gradient-text">{executives[0].name}</span>
+          </h2>
+          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+            {executives[0].bio}
+          </p>
+          <p className="mt-4 text-muted-foreground leading-relaxed">
+            Daniel&apos;s leadership philosophy centers on empowering teams, fostering innovation,
+            and maintaining an unwavering commitment to client success. His strategic vision
+            has positioned AppBoost Labs at the forefront of the app optimization industry.
+          </p>
+          <div className="mt-8 flex gap-4">
+            <Button
+              variant="outline"
+              className="hover-lift"
+              onClick={() => setSelectedExecutive(executives[0])}
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              View Gallery
+            </Button>
+          </div>
+        </div>
+
+      </div>
+    </AnimatedSection>
+  </div>
+</section>
 
         {/* Other Executives Grid */}
         <section className="bg-card/30 py-20 lg:py-28">
