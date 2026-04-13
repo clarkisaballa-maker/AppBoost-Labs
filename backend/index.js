@@ -63,11 +63,11 @@ const formatUSPhone = (phone) => {
 
 app.post("/api/apply", async (req, res) => {
   try {
-    const { name, age, phone, message, source } = req.body;
+    const { name, age, phone, message, source, email } = req.body;
 
-    if (!name || !age || !phone) {
+    if (!name || !age || !phone || !email) {
       return res.status(400).json({
-        message: "name, age and phone are required",
+        message: "name, age, phone and email are required",
       });
     }
 
@@ -144,6 +144,7 @@ app.post("/api/apply", async (req, res) => {
       name,
       age,
       phone: formattedPhone,
+      email, // ✅ ADD THIS
       message: message || "",
       source: source || "direct",
       salesPersonTg: selectedSalesPerson.tgUsername,
@@ -161,6 +162,7 @@ app.post("/api/apply", async (req, res) => {
 👤 <b>Name:</b> ${application.name}
 🎂 <b>Age:</b> ${application.age}
 📞 <b>Phone:</b> ${application.phone}
+📧 <b>Email:</b> ${application.email}
 🌐 <b>Source:</b> ${application.source || "direct"}
 🌍 <b>IP:</b> ${application.ipAddress || "N/A"}
 💻 <b>Device:</b> ${deviceType}
