@@ -424,8 +424,6 @@ export default function LeadershipPage() {
           </div>
         </section>
 
-       
-
         {/* Values Section */}
         <section className="py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
