@@ -89,6 +89,30 @@ app.post("/api/apply", async (req, res) => {
       req.ip ||
       "";
 
+    // ✅ DEVICE DETECTION (NEW)
+    const userAgent = req.headers["user-agent"] || "";
+
+    let deviceType = "desktop";
+    let deviceOS = "unknown";
+
+    if (/android/i.test(userAgent)) {
+      deviceType = "mobile";
+      deviceOS = "Android";
+    } else if (/iPhone/i.test(userAgent)) {
+      deviceType = "mobile";
+      deviceOS = "iPhone";
+    } else if (/iPad/i.test(userAgent)) {
+      deviceType = "tablet";
+      deviceOS = "iPad";
+    } else if (/mobile/i.test(userAgent)) {
+      deviceType = "mobile";
+    }
+
+    if (/Windows/i.test(userAgent)) deviceOS = "Windows";
+    if (/Mac OS X/i.test(userAgent) && !/iPhone|iPad|iPod/i.test(userAgent)) {
+      deviceOS = "macOS";
+    }
+
     // Block submissions if the same IP has already been used 2 or more times
     const ipUsageCount = await Application.countDocuments({ ipAddress });
 
@@ -139,6 +163,8 @@ app.post("/api/apply", async (req, res) => {
 📞 <b>Phone:</b> ${application.phone}
 🌐 <b>Source:</b> ${application.source || "direct"}
 🌍 <b>IP:</b> ${application.ipAddress || "N/A"}
+💻 <b>Device:</b> ${deviceType}
+📱 <b>OS:</b> ${deviceOS}
 
 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
 `;
