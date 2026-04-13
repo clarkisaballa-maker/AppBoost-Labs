@@ -41,7 +41,6 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 
 export default function ContactPage() {
   
-
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />

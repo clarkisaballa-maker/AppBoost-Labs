@@ -46,10 +46,10 @@ const executives = [
     shortTitle: 'CEO',
     bio: 'Daniel brings over 15 years of experience in technology leadership and strategic growth. Under his vision, AppBoost Labs has grown into a leading force in app optimization and user acquisition.',
     images: [
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1775855041/compressed_openart-image_FQRyhyI5_1775777996882_raw_sukrfc.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1775855041/compressed_openart-image_r1JTmMJV_1775774010334_raw_diw615.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1775855041/compressed_openart-image_TfcvTITU_1775776263577_raw_ftwnec.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1775855041/compressed_openart-image_fqEC5P2S_1775774341457_raw_glfikh.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776096316/compressed_openart-image_rChbhFUE_1776094117494_raw_alih6t.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776096319/compressed_openart-image_yzFzdhSX_1776091947092_raw_fmxvwp.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776096316/compressed_openart-image_pfnE6d1c_1776094494770_raw_xacats.webp',
+      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776096315/compressed_openart-image_8ZIj2QfS_1776092346568_raw_ijmpry.webp',
     ]
   },
   {
