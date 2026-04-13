@@ -482,6 +482,45 @@ app.delete("/api/applications/:id", async (req, res) => {
   }
 });
 
+// GET application record by phone number
+app.get("/api/applications/search-by-phone", async (req, res) => {
+  try {
+    const { phone } = req.query;
+
+    if (!phone) {
+      return res.status(400).json({
+        message: "phone is required",
+      });
+    }
+
+    const rawDigits = normalizePhone(phone);
+    const formattedPhone = formatUSPhone(phone);
+
+    const application = await Application.findOne({
+      $or: [
+        { phone: formattedPhone },
+        { phone: rawDigits },
+      ],
+    }).sort({ createdAt: -1 });
+
+    if (!application) {
+      return res.status(404).json({
+        message: "No application record found with this phone number",
+      });
+    }
+
+    res.status(200).json({
+      message: "Application record found",
+      data: application,
+    });
+  } catch (err) {
+    console.error("Error searching application by phone:", err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message,
+    });
+  }
+});
 
 app.post("/api/salespersons", async (req, res) => {
   try {
