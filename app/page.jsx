@@ -370,7 +370,7 @@ function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  
+
   // Check screen size for responsive display
   useEffect(() => {
     const checkMobile = () => {
@@ -380,7 +380,7 @@ function TestimonialsSection() {
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
-  
+
   const testimonialsPerPage = isMobile ? 1 : 3
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage)
 
@@ -418,7 +418,7 @@ function TestimonialsSection() {
       <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl animate-float delay-700" />
       <div className="absolute top-1/2 left-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl animate-pulse-glow" />
       <div className="absolute top-1/3 right-10 w-32 h-32 bg-accent/10 rounded-full blur-2xl animate-pulse-glow delay-500" />
-      
+
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <AnimatedSection className="mx-auto max-w-3xl text-center mb-16">
@@ -430,10 +430,10 @@ function TestimonialsSection() {
             <span className="gradient-text">Success Stories from Our Members</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            Hear from real members who completed their node tasks and transformed their income. 
+            Hear from real members who completed their node tasks and transformed their income.
             Their journeys from probation to full-time success will inspire you!
           </p>
-          
+
           {/* Stats Row */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
             <div className="flex items-center gap-2 glass px-4 py-2 rounded-full">
@@ -474,27 +474,27 @@ function TestimonialsSection() {
 
           {/* Testimonial Cards Slider */}
           <div className="overflow-hidden mx-8 lg:mx-12">
-            <div 
+            <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ 
+              style={{
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
               {Array.from({ length: totalPages }).map((_, pageIndex) => (
-                <div 
-                  key={pageIndex} 
+                <div
+                  key={pageIndex}
                   className="w-full flex-shrink-0 grid gap-6 grid-cols-1 lg:grid-cols-3 px-1"
                 >
                   {testimonials
                     .slice(pageIndex * testimonialsPerPage, (pageIndex + 1) * testimonialsPerPage)
                     .map((testimonial) => (
-                      <Card 
-                        key={testimonial.id} 
+                      <Card
+                        key={testimonial.id}
                         className="h-full relative overflow-hidden group hover-lift hover-glow border-border/50 bg-card/80 backdrop-blur-sm"
                       >
                         {/* Gradient accent */}
                         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
-                        
+
                         {/* Quote icon */}
                         <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
                           <Quote className="h-16 w-16 text-primary" />
@@ -512,14 +512,14 @@ function TestimonialsSection() {
                                   <CheckCircle2 className="h-3 w-3 text-white" />
                                 </div>
                               </div>
-                              
+
                               {/* Name and Location */}
                               <div>
                                 <CardTitle className="text-base">{testimonial.name}</CardTitle>
                                 <CardDescription className="text-xs">{testimonial.location}</CardDescription>
                               </div>
                             </div>
-                            
+
                             {/* Rating */}
                             <div className="flex gap-0.5">
                               {[...Array(testimonial.rating)].map((_, i) => (
@@ -569,11 +569,10 @@ function TestimonialsSection() {
               key={index}
               onClick={() => goToPage(index)}
               disabled={isAnimating}
-              className={`transition-all duration-300 rounded-full disabled:cursor-not-allowed ${
-                currentIndex === index 
-                  ? 'w-8 h-3 bg-primary' 
-                  : 'w-3 h-3 bg-muted-foreground/30 hover:bg-muted-foreground/50'
-              }`}
+              className={`transition-all duration-300 rounded-full disabled:cursor-not-allowed ${currentIndex === index
+                ? 'w-8 h-3 bg-primary'
+                : 'w-3 h-3 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                }`}
               aria-label={`Go to page ${index + 1}`}
             />
           ))}
@@ -710,6 +709,40 @@ export default function HomePage() {
                 </Button>
               </div>
             </AnimatedSection>
+          </div>
+        </section>
+
+        {/* Promotional Video Section */}
+        <section className="py-16 lg:py-20">
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+
+            <AnimatedSection className="text-center mb-10">
+              <h2 className="text-3xl font-bold sm:text-4xl">
+                <span className="gradient-text">Welcome to AppBoost Labs</span>
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                A glimpse into our company, our people, and what we’re building together.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={100}>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl hover-lift">
+
+                <video
+                  controls
+                  poster="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776107082/compressed_photo_2026-04-09_15-33-31_j1si81.webp"
+                  className="w-full h-full object-cover"
+                >
+                  <source
+                    src="https://res.cloudinary.com/dm2zkwqqb/video/upload/q_auto/f_auto/v1776106842/homepage_oheniz.webm"
+                    type="video/webm"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+
+              </div>
+            </AnimatedSection>
+
           </div>
         </section>
 
@@ -1065,7 +1098,7 @@ export default function HomePage() {
           </div>
         </section>
 
-{/* Success Stories Image Gallery Section */}
+        {/* Success Stories Image Gallery Section */}
         <SuccessGallery />
 
         {/* Member Testimonials Section */}
