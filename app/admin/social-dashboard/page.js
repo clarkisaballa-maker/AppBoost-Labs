@@ -29,7 +29,8 @@ import {
   AtSign,
   MessageSquare,
   Globe,
-  Filter
+  Filter,
+  Save
 } from 'lucide-react'
 import moment from 'moment-timezone'
 
@@ -59,6 +60,12 @@ export default function SocialDashboard() {
   const [isDateFiltering, setIsDateFiltering] = useState(false)
   const [filteredCount, setFilteredCount] = useState(0)
   const [activeFilterLabel, setActiveFilterLabel] = useState('')
+
+  // Phone search state
+  const [phoneSearchTerm, setPhoneSearchTerm] = useState('')
+  const [isPhoneSearching, setIsPhoneSearching] = useState(false)
+  const [phoneSearchResult, setPhoneSearchResult] = useState(null)
+  const [phoneSearchError, setPhoneSearchError] = useState('')
 
   // Helper functions for date formatting - Using USA Eastern Time
   const getUSAEasternDate = () => {
@@ -299,6 +306,51 @@ export default function SocialDashboard() {
     setIsDateFiltering(false)
     setFilteredCount(0)
     setActiveFilterLabel('')
+    fetchSubmissions(1, true)
+  }
+
+  // Phone Search
+  const searchByPhone = async () => {
+    if (!phoneSearchTerm.trim()) {
+      setPhoneSearchError('Please enter a phone number')
+      return
+    }
+    
+    setIsPhoneSearching(true)
+    setPhoneSearchError('')
+    setPhoneSearchResult(null)
+    
+    try {
+      const res = await fetch(`${API_BASE}/api/applications/search-by-phone?phone=${encodeURIComponent(phoneSearchTerm)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.message || 'No application found with this phone number')
+      }
+
+      // Show the result in the normal table
+      setPhoneSearchResult(data.data)
+      setSubmissions([data.data])
+      setTotalPages(1)
+    } catch (err) {
+      console.error('Error searching by phone:', err)
+      setPhoneSearchError(err.message || 'Error searching by phone number')
+    } finally {
+      setIsPhoneSearching(false)
+    }
+  }
+
+  const clearPhoneSearch = () => {
+    setPhoneSearchTerm('')
+    setPhoneSearchResult(null)
+    setPhoneSearchError('')
+    // Reload normal submissions
     fetchSubmissions(1, true)
   }
 
@@ -836,6 +888,62 @@ export default function SocialDashboard() {
                   </div>
                 </div>
               )}
+
+              {/* Phone Search Section */}
+              <div className="pt-2 border-t border-border/30">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-sm text-muted-foreground">Search by Phone:</span>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Enter phone number..."
+                      value={phoneSearchTerm}
+                      onChange={(e) => setPhoneSearchTerm(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && searchByPhone()}
+                      className="pl-10 w-52 bg-background/50 border-border/50 focus:border-pink-500/50"
+                    />
+                  </div>
+                  <Button
+                    onClick={searchByPhone}
+                    disabled={isPhoneSearching || !phoneSearchTerm.trim()}
+                    size="sm"
+                    className="gap-2"
+                  >
+                    {isPhoneSearching ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <Search className="h-4 w-4" />
+                    )}
+                    Search
+                  </Button>
+                  {(phoneSearchResult || phoneSearchError) && (
+                    <Button
+                      onClick={clearPhoneSearch}
+                      variant="outline"
+                      size="sm"
+                      className="gap-2"
+                    >
+                      <X className="h-4 w-4" />
+                      Clear
+                    </Button>
+                  )}
+                </div>
+
+                {/* Phone Search Error */}
+                {phoneSearchError && (
+                  <div className="mt-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                    {phoneSearchError}
+                  </div>
+                )}
+
+                {/* Phone Search Success Info */}
+                {phoneSearchResult && (
+                  <div className="mt-3 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-sm flex items-center gap-2">
+                    <Phone className="h-4 w-4" />
+                    <span>Found 1 application matching phone number. Showing result below.</span>
+                  </div>
+                )}
+              </div>
             </div>
           </CardHeader>
           <CardContent className="p-6">
