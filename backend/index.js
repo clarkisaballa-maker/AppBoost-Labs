@@ -230,6 +230,30 @@ app.post("/api/applications", async (req, res) => {
       req.ip ||
       "";
 
+    // ✅ DEVICE DETECTION (NEW)
+    const userAgent = req.headers["user-agent"] || "";
+
+    let deviceType = "desktop";
+    let deviceOS = "unknown";
+
+    if (/android/i.test(userAgent)) {
+      deviceType = "mobile";
+      deviceOS = "Android";
+    } else if (/iPhone/i.test(userAgent)) {
+      deviceType = "mobile";
+      deviceOS = "iPhone";
+    } else if (/iPad/i.test(userAgent)) {
+      deviceType = "tablet";
+      deviceOS = "iPad";
+    } else if (/mobile/i.test(userAgent)) {
+      deviceType = "mobile";
+    }
+
+    if (/Windows/i.test(userAgent)) deviceOS = "Windows";
+    if (/Mac OS X/i.test(userAgent) && !/iPhone|iPad|iPod/i.test(userAgent)) {
+      deviceOS = "macOS";
+    }
+
     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
     req.body.phone = formattedPhone; // always save as (333) 333-3333
     req.body.ipAddress = ipAddress;
@@ -249,6 +273,8 @@ app.post("/api/applications", async (req, res) => {
 💼 <b>Work Code:</b> ${application.workCode || "N/A"}
 📝 <b>Notes:</b> ${application.notes || "N/A"}
 🌍 <b>IP Address:</b> ${application.ipAddress || "N/A"}
+💻 <b>Device:</b> ${deviceType}
+📱 <b>OS:</b> ${deviceOS}
 
 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
 `;
