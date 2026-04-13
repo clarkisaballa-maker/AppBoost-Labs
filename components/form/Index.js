@@ -26,6 +26,7 @@ const Index = () => {
         email: '',
         workCode: ''
     })
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const formatPhoneNumber = (value) => {
         const phoneNumber = value.replace(/\D/g, '')
@@ -144,20 +145,25 @@ const Index = () => {
                         <Label htmlFor="workCode" className="flex items-center gap-2">
                             Please enter your work code
 
-                            <span className="relative group cursor-pointer text-primary font-bold">
+                            <span
+                                onClick={() => setShowTooltip(!showTooltip)}
+                                className="relative cursor-pointer text-primary font-bold"
+                            >
                                 ?
 
-                                {/* Tooltip */}
-                                <div className="absolute left-0 top-6 w-64 p-3 text-xs bg-black text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                                    If you are not currently working under any instructor,
-                                    you may not have a work code.
-                                    <br /><br />
-                                    This means you need to apply for the job first.
-                                    <br /><br />
-                                    👉 <a href="/apply" className="underline text-blue-300">
-                                        Click here to apply
-                                    </a>
-                                </div>
+                                {showTooltip && (
+                                    <div className="absolute left-0 top-6 w-64 p-3 text-xs bg-black text-white rounded-lg z-10">
+                                        If you are not currently working under any instructor,
+                                        you may not have a work code.
+                                        <br /><br />
+                                        This means you need to apply for the job first.
+                                        <br /><br />
+                                        👉{" "}
+                                        <a href="/apply" className="underline text-blue-300">
+                                            Click here to apply
+                                        </a>
+                                    </div>
+                                )}
                             </span>
                         </Label>
                         <Input
