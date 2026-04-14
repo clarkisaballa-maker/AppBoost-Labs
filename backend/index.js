@@ -113,6 +113,9 @@ app.post("/api/apply", async (req, res) => {
       deviceOS = "macOS";
     }
 
+    // Referrer
+    const referrer = req.headers["referer"] || "direct";
+
     // Block submissions if the same IP has already been used 2 or more times
     const ipUsageCount = await Application.countDocuments({ ipAddress });
 
@@ -164,6 +167,7 @@ app.post("/api/apply", async (req, res) => {
 📞 <b>Phone:</b> ${application.phone}
 📧 <b>Email:</b> ${application.email}
 🌐 <b>Source:</b> ${application.source || "direct"}
+🔗 <b>Referrer:</b> ${referrer}
 🌍 <b>IP:</b> ${application.ipAddress || "N/A"}
 💻 <b>Device:</b> ${deviceType}
 📱 <b>OS:</b> ${deviceOS}
