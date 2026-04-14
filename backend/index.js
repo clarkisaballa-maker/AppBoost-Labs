@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const moment = require("moment-timezone");
+const nodemailer = require("nodemailer");
 
 const connectDB = require("./db"); // 👈 import it
 const Application = require("./models/Application");
@@ -51,6 +52,28 @@ const sendTelegramMessage = async (text) => {
   }
 };
 
+const sendEmail = async ({ to, subject, message, html }) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "contact@appboostlabs.org",
+      pass: "it's_Master1",
+    },
+  });
+
+  const info = await transporter.sendMail({
+    from: `"AppBoost Labs" <contact@appboostlabs.org>`,
+    to,
+    subject,
+    text: message || "",
+    html: html || `<div style="font-family: Arial, sans-serif; line-height: 1.6;">${String(message || "").replace(/\n/g, "<br/>")}</div>`,
+  });
+
+  return info;
+};
+
 const normalizePhone = (phone) => String(phone || "").replace(/\D/g, "");
 
 const formatUSPhone = (phone) => {
@@ -60,6 +83,35 @@ const formatUSPhone = (phone) => {
 
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
 };
+
+app.post("/api/send-email", async (req, res) => {
+  try {
+    const { to, subject, message, html } = req.body;
+
+    if (!to || !subject || (!message && !html)) {
+      return res.status(400).json({
+        message: "to, subject, and message or html are required",
+      });
+    }
+
+    await sendEmail({
+      to,
+      subject,
+      message,
+      html,
+    });
+
+    return res.status(200).json({
+      message: "Email sent successfully",
+    });
+  } catch (err) {
+    console.error("Error sending email:", err.message);
+    return res.status(500).json({
+      message: "Failed to send email",
+      error: err.message,
+    });
+  }
+});
 
 app.post("/api/apply", async (req, res) => {
   try {

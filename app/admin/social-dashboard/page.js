@@ -33,6 +33,7 @@ import {
   Save
 } from 'lucide-react'
 import moment from 'moment-timezone'
+import EmailSenderModal from './EmailSender'
 
 const API_BASE = 'https://app-boost-labs-backend.vercel.app'
 
@@ -572,6 +573,7 @@ export default function SocialDashboard() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <EmailSenderModal />
             <Link href="/" target="_blank">
               <Button variant="outline" size="sm" className="gap-2 hover-lift">
                 <Eye className="h-4 w-4" />
