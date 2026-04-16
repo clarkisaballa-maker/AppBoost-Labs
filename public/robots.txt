@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.appboostlabs.org/
+
+# Sitemaps
+Sitemap: https://www.appboostlabs.org/sitemap.xml
