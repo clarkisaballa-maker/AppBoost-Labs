@@ -647,13 +647,24 @@ export default function HomePage() {
 
                 <video
                   controls
+                  playsInline
+                  muted
+                  preload="metadata"
                   poster="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776107082/compressed_photo_2026-04-09_15-33-31_j1si81.webp"
                   className="w-full h-full object-cover"
                 >
+                  {/* MP4 FIRST (important for iOS) */}
+                  <source
+                    src="https://res.cloudinary.com/dm2zkwqqb/video/upload/q_auto/f_auto/v1776106842/homepage_oheniz.mp4"
+                    type="video/mp4"
+                  />
+
+                  {/* WebM fallback */}
                   <source
                     src="https://res.cloudinary.com/dm2zkwqqb/video/upload/q_auto/f_auto/v1776106842/homepage_oheniz.webm"
                     type="video/webm"
                   />
+
                   Your browser does not support the video tag.
                 </video>
 
