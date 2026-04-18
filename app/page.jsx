@@ -706,104 +706,109 @@ export default function HomePage() {
                 <span className="gradient-text">Simple & Structured Workflow</span>
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                Our streamlined daily task system ensures consistent earnings with minimal effort.
+                Our platform provides flexible, easy-to-follow workflows designed to help users contribute effectively and grow with real project experience.
               </p>
             </AnimatedSection>
 
             <div className="mx-auto mt-16 grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+              {/* Card 1 */}
               <AnimatedSection delay={100}>
                 <Card className="relative overflow-hidden hover-lift hover-glow h-full">
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
                     <Clock className="h-10 w-10 text-primary" />
-                    <CardTitle className="mt-4">Daily Schedule</CardTitle>
+                    <CardTitle className="mt-4">Flexible Work Structure</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        10 tasks per day
+                        Activities are available daily based on project needs
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Start at 10:00 AM EST
+                        Work can be completed at your own pace
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Last task by 5:30 PM EST
+                        Tasks are released in batches throughout the day
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        1-2 minutes per task
+                        Designed to be simple and time-efficient
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        You can complete it all at once after all the tasks are released
+                        Complete multiple activities in a single session if preferred
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </AnimatedSection>
 
+              {/* Card 2 */}
               <AnimatedSection delay={200}>
                 <Card className="relative overflow-hidden hover-lift hover-glow h-full">
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
                     <DollarSign className="h-10 w-10 text-primary" />
-                    <CardTitle className="mt-4">Task Rewards</CardTitle>
+                    <CardTitle className="mt-4">Engagement & Incentives</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        $10 daily check-in reward
+                        Incentives are based on participation and activity completion
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Trial: $5 per regular task
+                        Different contribution levels unlock additional opportunities
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Official: $10 per regular task
+                        Reward structures vary depending on project scope
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Node tasks: Higher rewards
+                        Performance-based bonuses may be available
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </AnimatedSection>
 
+              {/* Card 3 */}
               <AnimatedSection delay={300}>
                 <Card className="relative overflow-hidden hover-lift hover-glow h-full md:col-span-2 lg:col-span-1">
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
                     <Star className="h-10 w-10 text-primary" />
-                    <CardTitle className="mt-4">Node Tasks</CardTitle>
+                    <CardTitle className="mt-4">Advanced Opportunities</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        High-reward special tasks
+                        Access to more advanced project assignments
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Limited availability
+                        Availability depends on experience and performance
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Professional guidance
+                        Guidance and support provided by our team
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Higher income potential
+                        Opportunities to take on more impactful work
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </AnimatedSection>
+
             </div>
           </div>
         </section>
@@ -813,112 +818,117 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                <span className="gradient-text">Career Path & Compensation</span>
+                <span className="gradient-text">Growth Path & Opportunities</span>
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                Clear progression from probation to full-time employment with competitive pay.
+                We provide a structured path for users to learn, contribute, and gradually unlock more advanced opportunities within our platform.
               </p>
             </AnimatedSection>
 
             <div className="grid gap-8 md:grid-cols-3">
+
+              {/* Stage 1 */}
               <AnimatedSection delay={100}>
                 <Card className="hover-lift hover-glow h-full border-2 border-border">
                   <CardHeader className="text-center">
                     <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
                       <Clock className="h-8 w-8 text-primary" />
                     </div>
-                    <CardDescription>3-Day Probation Period</CardDescription>
-                    <CardTitle className="text-3xl gradient-text">$200/day</CardTitle>
+                    <CardDescription>Getting Started</CardDescription>
+                    <CardTitle className="text-2xl gradient-text">Onboarding Phase</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Base salary during training
+                        Introduction to platform tools and workflow
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Learn the platform
+                        Guided onboarding and learning resources
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Professional guidance
+                        Hands-on experience with basic activities
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        No experience required
+                        No prior experience required
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </AnimatedSection>
 
+              {/* Stage 2 */}
               <AnimatedSection delay={200}>
                 <Card className="hover-lift hover-glow h-full border-2 border-primary relative">
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-semibold">
-                    MOST POPULAR
+                    PROGRESSION
                   </div>
                   <CardHeader className="text-center pt-8">
                     <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
                       <TrendingUp className="h-8 w-8 text-primary" />
                     </div>
-                    <CardDescription>After 3-Day Trial Period</CardDescription>
-                    <CardTitle className="text-3xl gradient-text">$600</CardTitle>
+                    <CardDescription>After Initial Participation</CardDescription>
+                    <CardTitle className="text-2xl gradient-text">Active Contributor</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Official member status
+                        Access to more advanced platform features
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Access to Node tasks
+                        Increased participation opportunities
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Higher earning potential
+                        Performance-based incentives may apply
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Priority support
+                        Ongoing support from our team
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </AnimatedSection>
 
+              {/* Stage 3 */}
               <AnimatedSection delay={300}>
                 <Card className="hover-lift hover-glow h-full border-2 border-accent">
                   <CardHeader className="text-center">
                     <div className="mx-auto w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4">
                       <Briefcase className="h-8 w-8 text-accent" />
                     </div>
-                    <CardDescription>Full-Time Staff</CardDescription>
-                    <CardTitle className="text-3xl gradient-text">$6,000/mo</CardTitle>
+                    <CardDescription>Long-Term Growth</CardDescription>
+                    <CardTitle className="text-2xl gradient-text">Advanced Opportunities</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Monthly base salary
+                        Opportunity to work on larger-scale projects
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Performance bonuses
+                        Potential leadership or specialized roles
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Leadership opportunities
+                        Long-term collaboration opportunities
                       </li>
                       <li className="flex items-center gap-2 text-sm text-muted-foreground">
                         <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Full benefits package
+                        Continued skill and experience development
                       </li>
                     </ul>
                   </CardContent>
                 </Card>
               </AnimatedSection>
+
             </div>
           </div>
         </section>
@@ -1027,10 +1037,10 @@ export default function HomePage() {
         </section>
 
         {/* Success Stories Image Gallery Section */}
-        <SuccessGallery />
+        {/* <SuccessGallery /> */}
 
         {/* Member Testimonials Section */}
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
 
         {/* Customer Information Form */}
         <section className="py-20 lg:py-28">
@@ -1083,22 +1093,33 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-grid-pattern opacity-10" />
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
+
               <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-                Ready to Boost Your Income?
+                Ready to Grow with AppBoost Labs?
               </h2>
+
               <p className="mt-4 text-lg text-primary-foreground/80">
-                Join AppBoost Labs today and start earning with our flexible, remote work opportunity.
+                Join our platform to collaborate on real projects, build valuable experience, and explore new opportunities in a flexible digital environment.
               </p>
+
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+
                 <Button size="lg" variant="secondary" className="hover-lift" asChild>
                   <Link href="/contact">
                     Get Started
                     <Rocket className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover-lift" asChild>
-                  <Link href="/events">View Events</Link>
+
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover-lift"
+                  asChild
+                >
+                  <Link href="/events">Explore Opportunities</Link>
                 </Button>
+
               </div>
             </AnimatedSection>
           </div>

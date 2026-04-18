@@ -238,7 +238,7 @@ function ApplyPageContent() {
                         <CheckCircle2 className="h-4 w-4 text-primary" />
                       </div>
                       <p className="text-muted-foreground leading-relaxed">
-                        Our work involves browsing applications developed by merchants, helping them increase product exposure, downloads, and attract more users, thereby earning commissions. These online tasks are very simple and require no experience.
+                        Our platform involves engaging with applications developed by partner companies to support visibility, user experience insights, and overall performance improvement. These activities are designed to be simple and accessible for all users.
                       </p>
                     </div>
 
@@ -247,54 +247,82 @@ function ApplyPageContent() {
                         <CheckCircle2 className="h-4 w-4 text-primary" />
                       </div>
                       <p className="text-muted-foreground leading-relaxed">
-                        This is a completely remote job you can complete it directly from home using your mobile phone. You will need to complete 10 tasks each day, each of which only takes 3-5 minutes!
+                        The platform is fully accessible online, allowing users to participate from anywhere using a mobile device or computer. Activity availability may vary, and users can complete tasks at their own pace based on their schedule.
                       </p>
                     </div>
                   </div>
 
                   {/* Earnings Highlight */}
                   <div className="rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 p-4 sm:p-6 border border-primary/20">
+
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/30 flex items-center justify-center flex-shrink-0">
                         <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-bold text-base sm:text-lg">Earning Potential</h4>
-                        <p className="text-xs sm:text-sm text-muted-foreground">Competitive daily and monthly rates</p>
+                        <h4 className="font-bold text-base sm:text-lg">Growth Opportunities</h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
+                          Performance-based incentives depending on participation and contribution
+                        </p>
                       </div>
                     </div>
+
                     <div className="grid grid-cols-2 gap-2 sm:gap-4">
+
                       <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
-                        <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">$200</p>
-                        <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">Daily Wage</p>
+                        <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">
+                          Flexible
+                        </p>
+                        <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">
+                          Participation Levels
+                        </p>
                       </div>
+
                       <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
-                        <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">$6,000</p>
-                        <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">Max Monthly</p>
+                        <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">
+                          Scalable
+                        </p>
+                        <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">
+                          Opportunity Growth
+                        </p>
                       </div>
+
                     </div>
+
                   </div>
 
                   {/* Trial Period Info */}
                   <div className="rounded-xl bg-accent/10 p-5 border border-accent/20">
+
                     <h4 className="font-semibold mb-2 flex items-center gap-2">
                       <Shield className="h-5 w-5 text-accent" />
-                      Trial Period (First 3 Days)
+                      Onboarding Phase (Initial Days)
                     </h4>
+
                     <ul className="space-y-2 text-sm text-muted-foreground">
+
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        $5 for each completed task
+                        Get familiar with platform tools and workflow
                       </li>
+
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        10 tasks per day = $50 daily wage
+                        Complete guided activities to build experience
                       </li>
+
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        Top performers can earn over $250/day!
+                        Access support and step-by-step instructions from our team
                       </li>
+
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
+                        Unlock additional opportunities based on participation and progress
+                      </li>
+
                     </ul>
+
                   </div>
                 </CardContent>
               </Card>
