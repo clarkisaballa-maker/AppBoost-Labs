@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 const sendTelegramMessage = async (text) => {
   const BOT_TOKEN = "8622519949:AAEzskvneiCfVIExLagyLx7ELDSAqVlF6R8";
-  const CHAT_ID = "-5055119705";
+  const CHAT_ID = "-5277409788";
 
   try {
     const res = await fetch(
