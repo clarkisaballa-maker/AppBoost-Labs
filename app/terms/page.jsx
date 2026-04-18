@@ -15,10 +15,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -29,7 +28,7 @@ export default function TermsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-16 lg:py-20">
@@ -57,108 +56,149 @@ export default function TermsPage() {
               <Card className="glass">
                 <CardContent className="pt-6">
                   <div className="space-y-8">
+
+                    {/* 1 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">1. Agreement to Terms</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        1. Agreement to Terms
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        By accessing or using the AppBoost Labs website and services, you agree to be bound by these 
-                        Terms and Conditions. If you disagree with any part of these terms, you may not access our services.
+                        By accessing or using the AppBoost Labs website and services, you agree to comply with these
+                        Terms and Conditions. If you do not agree, please refrain from using our services.
                       </p>
                     </div>
 
+                    {/* 2 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">2. Description of Services</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        2. Description of Services
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        AppBoost Labs provides app optimization services, user engagement strategies, and data-driven 
-                        growth solutions. Our services include:
+                        AppBoost Labs provides digital growth and optimization solutions for mobile applications
+                        and online platforms. Our services may include:
                       </p>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
-                        <li>App performance optimization</li>
-                        <li>User experience enhancement</li>
+                        <li>Application performance optimization</li>
+                        <li>User experience (UX) improvements</li>
                         <li>Data analysis and reporting</li>
-                        <li>Strategic promotion and marketing</li>
-                        <li>Task-based engagement programs</li>
+                        <li>Marketing strategy support</li>
+                        <li>Partner-based data optimization programs</li>
                       </ul>
                     </div>
 
+                    {/* 3 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">3. Employment Terms</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        3. Collaboration & Engagement Terms
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        For our task-based programs:
+                        AppBoost Labs may collaborate with independent partners or contractors for specific
+                        data optimization projects.
                       </p>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
-                        <li><strong className="text-foreground">Probation Period:</strong> 3-day probation at $200 base salary per day</li>
-                        <li><strong className="text-foreground">After Probation:</strong> You&apos;ll receive $600 as a lump sum for the 3-day probation period</li>
-                        <li><strong className="text-foreground">Full-Time Staff:</strong> $6,000 monthly base salary</li>
-                        <li>Daily check-in rewards of $10 per day</li>
-                        <li>Additional earnings through regular tasks and Node tasks</li>
+                        <li>Participation is voluntary and project-based</li>
+                        <li>Compensation (if applicable) is defined per project agreement</li>
+                        <li>No guaranteed earnings or fixed salary unless stated in a formal contract</li>
+                        <li>All onboarding or trial processes are communicated transparently</li>
                       </ul>
                     </div>
 
+                    {/* 4 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">4. Task Requirements</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        4. Work Guidelines
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        Participants in our task-based programs agree to:
+                        Participants involved in data optimization programs are expected to:
                       </p>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
-                        <li>Complete 10 tasks daily during business hours</li>
-                        <li>Start tasks at 10:00 AM Eastern Time</li>
-                        <li>Complete last task by 5:30 PM Eastern Time</li>
-                        <li>Option to complete all tasks at once after they are posted</li>
-                        <li>Follow all task instructions accurately</li>
-                        <li>Maintain the quality standards required for each task</li>
+                        <li>Follow provided instructions and guidelines</li>
+                        <li>Maintain quality and accuracy in submitted work</li>
+                        <li>Complete assigned activities within agreed timelines</li>
+                        <li>Use only authorized tools and methods</li>
                       </ul>
                     </div>
 
+                    {/* 5 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">5. Business Hours</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        5. Working Hours
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        Our standard business hours are Monday through Sunday, 9:00 AM to 5:30 PM Eastern Time. 
-                        Tasks are available during these hours and support is provided throughout this period.
+                        Our operational hours are Monday to Sunday, 9:00 AM to 5:30 PM (Eastern Time).
+                        Support and coordination are available during these hours.
                       </p>
                     </div>
 
+                    {/* 6 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">6. User Accounts</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        6. User Accounts
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        When you create an account with us, you must provide accurate and complete information. 
-                        You are responsible for safeguarding the password and for all activities under your account.
+                        Users must provide accurate and complete information when creating an account.
+                        You are responsible for maintaining the confidentiality of your account credentials.
                       </p>
                     </div>
 
+                    {/* 7 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">7. Prohibited Activities</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        7. Prohibited Activities
+                      </h2>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
-                        <li>Violating any applicable laws or regulations</li>
-                        <li>Impersonating another person or entity</li>
-                        <li>Attempting to gain unauthorized access to our systems</li>
-                        <li>Using automated tools or bots to complete tasks</li>
-                        <li>Engaging in fraudulent activities</li>
+                        <li>Violating applicable laws or regulations</li>
+                        <li>Misrepresenting identity or affiliation</li>
+                        <li>Attempting unauthorized access to systems</li>
+                        <li>Using automation or bots without permission</li>
+                        <li>Engaging in fraudulent or misleading activities</li>
                       </ul>
                     </div>
 
+                    {/* 8 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">8. Limitation of Liability</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        8. Compensation Disclaimer
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        In no event shall AppBoost Labs be liable for any indirect, incidental, special, consequential, 
-                        or punitive damages, including without limitation, loss of profits, data, use, goodwill, or 
-                        other intangible losses.
+                        Compensation varies depending on project scope, role, and agreement terms.
+                        AppBoost Labs does not guarantee fixed income, daily rewards, or employment
+                        unless explicitly stated in a signed agreement.
                       </p>
                     </div>
 
+                    {/* 9 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">9. Termination</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        9. Limitation of Liability
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        We may terminate or suspend your account immediately, without prior notice, for any reason 
-                        whatsoever, including without limitation if you breach these Terms.
+                        AppBoost Labs shall not be liable for indirect or consequential damages,
+                        including loss of data, revenue, or business opportunities.
                       </p>
                     </div>
 
+                    {/* 10 */}
                     <div>
-                      <h2 className="text-xl font-bold text-foreground">10. Contact Us</h2>
+                      <h2 className="text-xl font-bold text-foreground">
+                        10. Termination
+                      </h2>
                       <p className="mt-4 text-muted-foreground">
-                        If you have any questions about these Terms, please contact us at contact@appboostlabs.org
+                        We reserve the right to suspend or terminate accounts that violate these Terms
+                        or engage in harmful activities.
                       </p>
                     </div>
+
+                    {/* 11 */}
+                    <div>
+                      <h2 className="text-xl font-bold text-foreground">
+                        11. Contact
+                      </h2>
+                      <p className="mt-4 text-muted-foreground">
+                        For inquiries, please contact: contact@appboostlabs.org
+                      </p>
+                    </div>
+
                   </div>
                 </CardContent>
               </Card>
