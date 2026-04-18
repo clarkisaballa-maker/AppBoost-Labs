@@ -220,6 +220,8 @@ app.post("/api/apply", async (req, res) => {
 💻 <b>Device:</b> ${deviceType}
 📱 <b>OS:</b> ${deviceOS}
 
+<b>Message:</b>${message}
+
 👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
 `;
 
