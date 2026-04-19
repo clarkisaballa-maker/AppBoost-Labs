@@ -681,7 +681,9 @@ app.get("/api/salespersons", async (req, res) => {
 app.put("/api/salespersons/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, tgUsername, workCode } = req.body;
+
+    // ✅ include applyPage
+    const { name, tgUsername, workCode, applyPage } = req.body;
 
     const salesPerson = await SalesPerson.findById(id);
 
@@ -689,9 +691,23 @@ app.put("/api/salespersons/:id", async (req, res) => {
       return res.status(404).json({ message: "SalesPerson not found" });
     }
 
-    if (name) salesPerson.name = name;
-    if (tgUsername) salesPerson.tgUsername = tgUsername;
-    if (workCode !== undefined) salesPerson.workCode = workCode;
+    // ✅ safe updates
+    if (name !== undefined) {
+      salesPerson.name = name;
+    }
+
+    if (tgUsername !== undefined) {
+      salesPerson.tgUsername = tgUsername;
+    }
+
+    if (workCode !== undefined) {
+      salesPerson.workCode = workCode;
+    }
+
+    // 🔥 MAIN FIX
+    if (applyPage !== undefined) {
+      salesPerson.applyPage = applyPage;
+    }
 
     await salesPerson.save();
 

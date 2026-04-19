@@ -174,7 +174,12 @@ export default function AdminDashboard() {
   const [newSalesPerson, setNewSalesPerson] = useState({ name: '', tgUsername: '', workCode: '' })
   const [isAddingSalesPerson, setIsAddingSalesPerson] = useState(false)
   const [editingSalesPerson, setEditingSalesPerson] = useState(null)
-  const [editForm, setEditForm] = useState({ name: '', tgUsername: '', workCode: '' })
+  const [editForm, setEditForm] = useState({
+    name: '',
+    tgUsername: '',
+    workCode: '',
+    applyPage: true
+  })
   const [isUpdatingSalesPerson, setIsUpdatingSalesPerson] = useState(false)
 
   // Delete confirmation state
@@ -312,11 +317,11 @@ export default function AdminDashboard() {
       setPhoneSearchError('Please enter a phone number')
       return
     }
-    
+
     setIsPhoneSearching(true)
     setPhoneSearchError('')
     setPhoneSearchResult(null)
-    
+
     try {
       const res = await fetch(`${API_BASE}/api/applications/search-by-phone?phone=${encodeURIComponent(phoneSearchTerm)}`, {
         method: 'GET',
@@ -413,7 +418,13 @@ export default function AdminDashboard() {
 
   const startEditSalesPerson = (person) => {
     setEditingSalesPerson(person._id)
-    setEditForm({ name: person.name, tgUsername: person.tgUsername, workCode: person.workCode || '' })
+
+    setEditForm({
+      name: person.name,
+      tgUsername: person.tgUsername,
+      workCode: person.workCode || '',
+      applyPage: person.applyPage === true
+    })
   }
 
   const cancelEditSalesPerson = () => {
@@ -1321,6 +1332,7 @@ export default function AdminDashboard() {
                                 placeholder="Enter name"
                               />
                             </div>
+
                             <div className="space-y-2">
                               <Label>Telegram Username</Label>
                               <div className="relative">
@@ -1333,6 +1345,7 @@ export default function AdminDashboard() {
                                 />
                               </div>
                             </div>
+
                             <div className="space-y-2">
                               <Label>Work Code</Label>
                               <Input
@@ -1341,6 +1354,27 @@ export default function AdminDashboard() {
                                 placeholder="Enter work code"
                               />
                             </div>
+
+                            {/* ✅ APPLY PAGE CONTROL */}
+                            <div className="space-y-2">
+                              <Label>Apply Page Access</Label>
+                              <div className="flex items-center gap-3">
+                                <input
+                                  type="checkbox"
+                                  checked={!!editForm.applyPage}
+                                  onChange={(e) =>
+                                    setEditForm(prev => ({
+                                      ...prev,
+                                      applyPage: e.target.checked
+                                    }))
+                                  }
+                                />
+                                <span className="text-sm text-muted-foreground">
+                                  {editForm.applyPage ? "Enabled" : "Disabled"}
+                                </span>
+                              </div>
+                            </div>
+
                             <div className="flex gap-2 pt-2">
                               <Button
                                 variant="outline"
@@ -1351,6 +1385,7 @@ export default function AdminDashboard() {
                               >
                                 Cancel
                               </Button>
+
                               <Button
                                 size="sm"
                                 className="flex-1 gap-1"
@@ -1390,6 +1425,16 @@ export default function AdminDashboard() {
                                 <p className="text-sm font-medium text-primary">{person.workCode}</p>
                               </div>
                             )}
+                            <div className="mb-3">
+                              <span
+                                className={`text-xs px-2 py-1 rounded-full font-medium ${person.applyPage
+                                  ? 'bg-green-500/10 text-green-500 border border-green-500/20'
+                                  : 'bg-red-500/10 text-red-500 border border-red-500/20'
+                                  }`}
+                              >
+                                {person.applyPage ? 'Can receive Data' : 'Can not receive data'}
+                              </span>
+                            </div>
                             <div className="flex gap-2">
                               <Button
                                 variant="outline"
