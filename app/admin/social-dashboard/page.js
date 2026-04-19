@@ -573,7 +573,7 @@ export default function SocialDashboard() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            {/* <EmailSenderModal /> */}
+            <EmailSenderModal />
             <Link href="/" target="_blank">
               <Button variant="outline" size="sm" className="gap-2 hover-lift">
                 <Eye className="h-4 w-4" />

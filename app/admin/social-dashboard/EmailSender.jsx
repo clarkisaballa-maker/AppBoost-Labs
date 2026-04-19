@@ -34,51 +34,78 @@ export default function EmailSenderModal() {
   }, [open])
 
   const handleSendEmail = async () => {
-  if (!emailTo || !subject || !message) {
-    alert('Please fill all fields')
-    return
-  }
+    if (!emailTo || !subject || !message) {
+      alert('Please fill all fields')
+      return
+    }
 
-  setLoading(true)
+    setLoading(true)
 
-  try {
-    const res = await fetch(`${API_BASE}/api/send-email`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        to: emailTo,
-        subject,
-        message,
-      }),
-    })
-
-    const raw = await res.text()
-
-    let data
     try {
-      data = JSON.parse(raw)
-    } catch {
-      throw new Error(`Server returned non-JSON response: ${raw.slice(0, 200)}`)
-    }
+      const res = await fetch(`${API_BASE}/api/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: emailTo,
+          subject,
+          html: `
+    <div style="font-family: Arial, sans-serif; line-height:1.6; color:#111;">
+      
+      <p>${message}</p>
 
-    if (!res.ok) {
-      throw new Error(data.message || 'Failed to send email')
-    }
+      <hr style="margin:30px 0; border:none; border-top:1px solid #eee;" />
 
-    alert('Email sent successfully!')
-    setEmailTo('')
-    setSubject('')
-    setMessage('')
-    setOpen(false)
-  } catch (err) {
-    console.error('Email send error:', err)
-    alert(err.message || 'Failed to send email')
-  } finally {
-    setLoading(false)
+      <div style="font-size:14px; color:#555;">
+        <strong style="font-size:16px; color:#000;">AppBoost Labs</strong><br/>
+        1450 S Miami Ave, Miami, FL 33130, USA<br/>
+        📧 contact@appboostlabs.org
+      </div>
+
+      <div style="margin:15px 0;">
+        <a href="https://www.appboostlabs.org/" style="margin-right:12px;">Home</a>
+        <a href="https://www.appboostlabs.org/about" style="margin-right:12px;">About</a>
+        <a href="https://www.appboostlabs.org/contact" style="margin-right:12px;">Contact</a>
+        <a href="https://www.appboostlabs.org/apply" style="margin-right:12px;">Apply</a>
+        <a href="https://www.appboostlabs.org/privacy" style="margin-right:12px;">Privacy</a>
+        <a href="https://www.appboostlabs.org/terms">Terms</a>
+      </div>
+
+      <div style="margin-top:20px; font-size:12px; color:#999;">
+        © ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
+      </div>
+
+    </div>
+  `
+        }),
+      })
+
+      const raw = await res.text()
+
+      let data
+      try {
+        data = JSON.parse(raw)
+      } catch {
+        throw new Error(`Server returned non-JSON response: ${raw.slice(0, 200)}`)
+      }
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to send email')
+      }
+
+      alert('Email sent successfully!')
+      setEmailTo('')
+      setSubject('')
+      setMessage('')
+      setOpen(false)
+    } catch (err) {
+      console.error('Email send error:', err)
+      alert(err.message || 'Failed to send email')
+    } finally {
+      setLoading(false)
+    }
   }
-}
 
   const modal = open ? (
     <div className="fixed inset-0 z-[9999]">
