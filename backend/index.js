@@ -8,6 +8,8 @@ const Application = require("./models/Application");
 const SalesPerson = require("./models/SalesPerson");
 const Counter = require("./models/Counter");
 
+const multer = require("multer");
+
 const app = express();
 
 // Connect to DB
@@ -16,6 +18,13 @@ connectDB(); // 👈 call it
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit
+  },
+});
 
 // Test route
 app.get("/", (req, res) => {
@@ -52,7 +61,7 @@ const sendTelegramMessage = async (text) => {
   }
 };
 
-const sendEmail = async ({ to, subject, message, html }) => {
+const sendEmail = async ({ to, subject, message, html, attachments = [] }) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.hostinger.com",
     port: 465,
@@ -68,7 +77,10 @@ const sendEmail = async ({ to, subject, message, html }) => {
     to,
     subject,
     text: message || "",
-    html: html || `<div style="font-family: Arial, sans-serif; line-height: 1.6;">${String(message || "").replace(/\n/g, "<br/>")}</div>`,
+    html:
+      html ||
+      `<div style="font-family: Arial;">${String(message || "").replace(/\n/g, "<br/>")}</div>`,
+    attachments, // ✅ attachment support
   });
 
   return info;
@@ -84,13 +96,38 @@ const formatUSPhone = (phone) => {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
 };
 
-app.post("/api/send-email", async (req, res) => {
+app.post("/api/send-email", upload.single("file"), async (req, res) => {
   try {
     const { to, subject, message, html } = req.body;
+    const file = req.file;
 
     if (!to || !subject || (!message && !html)) {
       return res.status(400).json({
         message: "to, subject, and message or html are required",
+      });
+    }
+
+    let attachments = [];
+
+    if (file) {
+      // ✅ basic validation
+      const allowedTypes = [
+        "application/pdf",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "image/png",
+        "image/jpeg",
+      ];
+
+      if (!allowedTypes.includes(file.mimetype)) {
+        return res.status(400).json({
+          message: "Unsupported file type",
+        });
+      }
+
+      attachments.push({
+        filename: file.originalname,
+        content: file.buffer,
       });
     }
 
@@ -99,13 +136,15 @@ app.post("/api/send-email", async (req, res) => {
       subject,
       message,
       html,
+      attachments,
     });
 
     return res.status(200).json({
       message: "Email sent successfully",
     });
   } catch (err) {
-    console.error("Error sending email:", err.message);
+    console.error("Email send error:", err);
+
     return res.status(500).json({
       message: "Failed to send email",
       error: err.message,
