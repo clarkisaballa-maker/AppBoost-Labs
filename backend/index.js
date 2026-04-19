@@ -175,7 +175,7 @@ app.post("/api/apply", async (req, res) => {
       });
     }
 
-    const salesPersons = await SalesPerson.find().sort({ createdAt: 1 });
+    const salesPersons = await SalesPerson.find({ applyPage: true }).sort({ createdAt: 1 });
 
     if (salesPersons.length === 0) {
       return res.status(400).json({
