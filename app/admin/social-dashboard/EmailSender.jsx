@@ -55,7 +55,7 @@ If you have any questions at any time, don't hesitate to reach out.
 Welcome aboard, we're glad you're here!
 
 Best regards,
-John
+${name}
 AppBoost Labs`
   }
 
