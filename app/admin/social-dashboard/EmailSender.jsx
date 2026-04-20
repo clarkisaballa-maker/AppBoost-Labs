@@ -54,6 +54,8 @@ If you have any questions at any time, don't hesitate to reach out.
 
 Welcome aboard, we're glad you're here!
 
+Note: Please find your Job Offer Letter attached to this email. Kindly review, sign, and return it to us by replying to this same email at your earliest convenience.
+
 Best regards,
 AppBoost Labs`
   }
