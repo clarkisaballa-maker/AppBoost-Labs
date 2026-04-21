@@ -25,6 +25,10 @@ export default function EmailSenderModal() {
   const [useWelcomeTemplate, setUseWelcomeTemplate] = useState(false)
   const [clientName, setClientName] = useState('')
 
+  const [useExtensionTemplate, setUseExtensionTemplate] = useState(false)
+  const [extensionName, setExtensionName] = useState('')
+  const [deadlineDate, setDeadlineDate] = useState('')
+
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -39,6 +43,25 @@ export default function EmailSenderModal() {
       document.body.style.overflow = originalOverflow
     }
   }, [open])
+
+  const generateExtensionMessage = (name, date) => {
+    return `Dear ${name}:
+
+We are hereby informing you that your request for an extension regarding the AppBoost Labs node data optimization has been approved.
+
+To ensure sufficient time to complete the project and maintain overall progress, the deadline has been officially extended to:
+
+New Deadline: ${date}
+
+Please ensure that all necessary steps and deliverables are completed by the above date. We will not approve any further extension requests except in exceptional circumstances.
+
+Thank you for your cooperation and commitment to completing this process promptly and professionally. Please feel free to contact us if you have any questions or require any assistance during this period.
+
+Thank you for your attention.
+
+Best regards,
+AppBoost Labs`
+  }
 
   // Generate welcome message from template
   const generateWelcomeMessage = (name) => {
@@ -271,8 +294,19 @@ AppBoost Labs`
     }
   }
 
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
   const handleTemplateToggle = (checked) => {
     setUseWelcomeTemplate(checked)
+    if (checked) {
+      setUseExtensionTemplate(false) // ✅ prevent conflict
+    }
     if (!checked) {
       setMessage('')
       setSubject('')
@@ -327,6 +361,66 @@ AppBoost Labs`
               </Label>
             </div>
 
+            {/* Deadline Notice */}
+            <div className="flex items-center gap-3 p-3 rounded-xl border">
+              <Checkbox
+                checked={useExtensionTemplate}
+                onCheckedChange={(checked) => {
+                  setUseExtensionTemplate(checked)
+
+                  if (checked) {
+                    setUseWelcomeTemplate(false)
+                    setSubject("Extension Approval for Node Data Optimization Deadline")
+
+                    const name = extensionName || "[Client Name]"
+                    const date = deadlineDate || "[Enter Date]"
+
+                    setMessage(generateExtensionMessage(name, date))
+                  }
+
+                  if (!checked) {
+                    setExtensionName('')
+                    setDeadlineDate('')
+                    setMessage('')
+                    setSubject('')
+                  }
+                }}
+              />
+              <Label>Use Extension Approval Template</Label>
+            </div>
+
+            {useExtensionTemplate && (
+              <>
+                <Input
+                  placeholder="Client Name"
+                  value={extensionName}
+                  onChange={(e) => {
+                    const value = e.target.value
+                    setExtensionName(value)
+
+                    const name = value || "[Client Name]"
+                    const date = deadlineDate ? formatDate(deadlineDate) : "[Select Date]"
+
+                    setMessage(generateExtensionMessage(name, date))
+                  }}
+                />
+
+                <Input
+  placeholder="Enter Deadline (e.g., April 23, 2026)"
+  value={deadlineDate}
+  onChange={(e) => {
+    const value = e.target.value
+    setDeadlineDate(value)
+
+    const name = extensionName || "[Client Name]"
+    const date = value || "[Enter Date]"
+
+    setMessage(generateExtensionMessage(name, date))
+  }}
+/>
+              </>
+            )}
+
             {/* Client Name Input (only when template is active) */}
             {useWelcomeTemplate && (
               <div className="space-y-2">
@@ -370,7 +464,7 @@ AppBoost Labs`
                 onChange={(e) => setMessage(e.target.value)}
                 onPaste={handlePaste}
                 className="min-h-[160px] resize-none"
-                readOnly={useWelcomeTemplate}
+                readOnly={useWelcomeTemplate || useExtensionTemplate}
               />
               {useWelcomeTemplate && (
                 <p className="text-xs text-amber-600 dark:text-amber-400">
