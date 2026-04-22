@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Mail, Phone, Clock } from 'lucide-react'
+import { MapPin, Mail, Phone, Clock, MessageCircle, Send } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -91,6 +91,33 @@ export default function Footer() {
                   </span>
                 </div>
               </li>
+
+              {/* WhatsApp */}
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MessageCircle className="h-4 w-4 shrink-0 text-green-500" />
+                <a
+                  href="https://wa.me/+13322566866"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  WhatsApp Support
+                </a>
+              </li>
+
+              {/* Telegram */}
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Send className="h-4 w-4 shrink-0 text-sky-500" />
+                <a
+                  href="https://t.me/AppBoostLabs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  Telegram Support
+                </a>
+              </li>
+              
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
                 <span>Mon - Sun: 9:00 AM - 5:30 PM (ET)</span>
