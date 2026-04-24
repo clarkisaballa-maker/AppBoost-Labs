@@ -409,7 +409,7 @@ AppBoost Labs`
                   className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
                     selectedTemplate === 'none' 
                       ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30' 
-                      : 'border-transparent bg-white dark:bg-slate-800 hover:border-blue-200'
+                      : 'border-transparent bg-slate-200 dark:bg-slate-800 hover:border-blue-200'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -430,7 +430,7 @@ AppBoost Labs`
                   className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
                     selectedTemplate === 'welcome' 
                       ? 'border-green-500 bg-green-50 dark:bg-green-950/30' 
-                      : 'border-transparent bg-white dark:bg-slate-800 hover:border-green-200'
+                      : 'border-transparent bg-slate-200 dark:bg-slate-800 hover:border-green-200'
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -454,7 +454,7 @@ AppBoost Labs`
                   className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
                     selectedTemplate === 'extension' 
                       ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/30' 
-                      : 'border-transparent bg-white dark:bg-slate-800 hover:border-amber-200'
+                      : 'border-transparent bg-slate-200 dark:bg-slate-800 hover:border-amber-200'
                   }`}
                 >
                   <div className="flex items-center gap-2">
