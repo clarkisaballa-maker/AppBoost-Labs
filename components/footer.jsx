@@ -78,18 +78,15 @@ export default function Footer() {
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
                 <span>1450 S Miami Ave, Miami, FL 33130, USA</span>
               </li>
+
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 shrink-0 text-primary" />
                 <span>contact@appboostlabs.org</span>
               </li>
-              <li className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <div className="flex flex-col">
-                  <span>+1 (332) 256-6866</span>
-                  <span className="text-xs text-muted-foreground">
-                    Live support isn’t available on weekends
-                  </span>
-                </div>
+
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Phone className="h-4 w-4 shrink-0 text-primary" />
+                <span>+1 (332) 256-6866</span>
               </li>
 
               {/* WhatsApp */}
@@ -117,7 +114,12 @@ export default function Footer() {
                   Telegram Support
                 </a>
               </li>
-              
+
+              {/* Common Notice */}
+              <li className="text-xs text-muted-foreground pl-6">
+                Live support isn’t available on weekends
+              </li>
+
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Clock className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
                 <span>Mon - Sun: 9:00 AM - 5:30 PM (ET)</span>
