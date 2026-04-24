@@ -103,13 +103,13 @@ AppBoost Labs`
 
     <!-- BLUE BACKGROUND WRAPPER -->
     <tr>
-      <td style="background: linear-gradient(135deg, #0a3d91 0%, #0066cc 100%); padding:30px; border-radius:12px; color:#ffffff;">
+      <td style="background-color:#0a3d91; background: linear-gradient(135deg, #0a3d91 0%, #0066cc 100%); padding:30px; border-radius:12px;">
 
-        <table width="100%" cellpadding="0" cellspacing="0">
+        <table width="100%" cellpadding="0" cellspacing="0" style="color:#ffffff;">
           <tr>
 
             <!-- LEFT SIDE -->
-            <td width="50%" style="vertical-align:top; padding-right:20px;">
+            <td width="50%" style="vertical-align:top; padding-right:20px; color:#ffffff;">
 
               <!-- LOGO -->
               <img 
@@ -120,43 +120,51 @@ AppBoost Labs`
               />
 
               <!-- TEXT -->
-              <p style="font-size:14px; color:#e0ecff !important; margin:0 0 15px 0; line-height:1.6;">
-                Empowering businesses with innovative app growth solutions and data optimization strategies.
+              <p style="font-size:14px; color:#e0ecff; margin:0 0 15px 0; line-height:1.6; background-color:#0a3d91;">
+                <span style="color:#e0ecff !important;">Empowering businesses with innovative app growth solutions and data optimization strategies.</span>
               </p>
 
               <!-- SOCIAL -->
-              <table cellpadding="0" cellspacing="0">
+              <table cellpadding="0" cellspacing="0" style="color:#ffffff;">
                 <tr>
 
                   <td style="padding-right:8px;">
-                    <a href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr">
-                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="16" />
-                      </div>
+                    <a href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr" style="text-decoration:none;">
+                      <table cellpadding="0" cellspacing="0" style="width:34px;height:34px;background-color:#ffffff;border-radius:6px;">
+                        <tr><td align="center" valign="middle" style="background-color:#ffffff;">
+                          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="16" height="16" alt="Facebook" style="display:block;" />
+                        </td></tr>
+                      </table>
                     </a>
                   </td>
 
                   <td style="padding-right:8px;">
-                    <a href="https://www.instagram.com/appboostlabs">
-                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="16" />
-                      </div>
+                    <a href="https://www.instagram.com/appboostlabs" style="text-decoration:none;">
+                      <table cellpadding="0" cellspacing="0" style="width:34px;height:34px;background-color:#ffffff;border-radius:6px;">
+                        <tr><td align="center" valign="middle" style="background-color:#ffffff;">
+                          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="16" height="16" alt="Instagram" style="display:block;" />
+                        </td></tr>
+                      </table>
                     </a>
                   </td>
 
                   <td style="padding-right:8px;">
-                    <a href="https://x.com/appboostlabs">
-                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968958.png" width="16" />
-                      </div>
+                    <a href="https://x.com/appboostlabs" style="text-decoration:none;">
+                      <table cellpadding="0" cellspacing="0" style="width:34px;height:34px;background-color:#ffffff;border-radius:6px;">
+                        <tr><td align="center" valign="middle" style="background-color:#ffffff;">
+                          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968958.png" width="16" height="16" alt="X" style="display:block;" />
+                        </td></tr>
+                      </table>
                     </a>
                   </td>
 
                   <td>
-                    <a href="https://www.tiktok.com/@appboostlabs_">
-                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="16" />
-                      </div>
+                    <a href="https://www.tiktok.com/@appboostlabs_" style="text-decoration:none;">
+                      <table cellpadding="0" cellspacing="0" style="width:34px;height:34px;background-color:#ffffff;border-radius:6px;">
+                        <tr><td align="center" valign="middle" style="background-color:#ffffff;">
+                          <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="16" height="16" alt="TikTok" style="display:block;" />
+                        </td></tr>
+                      </table>
                     </a>
                   </td>
 
@@ -166,21 +174,21 @@ AppBoost Labs`
             </td>
 
             <!-- RIGHT SIDE -->
-            <td width="50%" style="vertical-align:top; padding-left:20px; border-left:1px solid rgba(255,255,255,0.2);">
+            <td width="50%" style="vertical-align:top; padding-left:20px; border-left:1px solid rgba(255,255,255,0.2); color:#ffffff;">
 
-              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Office Address</p>
-              <p style="font-size:14px; color:#ffffff !important; margin:0 0 12px 0;">
-                1450 S Miami Ave<br/>Miami, FL 33130, USA
+              <p style="font-size:12px; margin:0 0 5px 0; background-color:#0a3d91;"><span style="color:#bcd3ff !important;">Office Address</span></p>
+              <p style="font-size:14px; margin:0 0 12px 0; background-color:#0a3d91;">
+                <span style="color:#ffffff !important;">1450 S Miami Ave</span><br/><span style="color:#ffffff !important;">Miami, FL 33130, USA</span>
               </p>
 
-              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Phone</p>
-              <p style="font-size:14px; color:#ffffff !important; margin:0 0 12px 0;">+1 (332) 256-6866</p>
+              <p style="font-size:12px; margin:0 0 5px 0; background-color:#0a3d91;"><span style="color:#bcd3ff !important;">Phone</span></p>
+              <p style="font-size:14px; margin:0 0 12px 0; background-color:#0a3d91;"><span style="color:#ffffff !important;">+1 (332) 256-6866</span></p>
 
-              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Email</p>
-              <p style="font-size:14px; color:#ffffff !important; margin:0 0 12px 0;">contact@appboostlabs.org</p>
+              <p style="font-size:12px; margin:0 0 5px 0; background-color:#0a3d91;"><span style="color:#bcd3ff !important;">Email</span></p>
+              <p style="font-size:14px; margin:0 0 12px 0; background-color:#0a3d91;"><span style="color:#ffffff !important;">contact@appboostlabs.org</span></p>
 
-              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Website</p>
-              <p style="font-size:14px; color:#ffffff !important; margin:0;">www.appboostlabs.org</p>
+              <p style="font-size:12px; margin:0 0 5px 0; background-color:#0a3d91;"><span style="color:#bcd3ff !important;">Website</span></p>
+              <p style="font-size:14px; margin:0; background-color:#0a3d91;"><span style="color:#ffffff !important;">www.appboostlabs.org</span></p>
 
             </td>
 
@@ -193,9 +201,7 @@ AppBoost Labs`
     <!-- BOTTOM -->
     <tr>
       <td style="text-align:center; padding-top:15px; background-color:#f8fafc;">
-        <p style="font-size:12px; color:#666666 !important; background-color:#f8fafc;">
-          &copy; ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
-        </p>
+        <p style="font-size:12px; margin:0; background-color:#f8fafc;"><span style="color:#666666 !important;">&copy; ${new Date().getFullYear()} AppBoost Labs. All rights reserved.</span></p>
       </td>
     </tr>
 
