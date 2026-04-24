@@ -116,16 +116,9 @@ AppBoost Labs`
                   <tr>
                     <td>
                       <!-- LOGO TEXT -->
-              <p style="
-  font-size:22px;
-  font-weight:700;
-  margin:0 0 12px 0;
-  color:#0a3d91;
-  letter-spacing:0.3px;
-  font-family:'Segoe UI', Arial, sans-serif;
-">
-  AppBoost <span style="font-weight:500; color:#0066cc;">Labs</span>
-</p>
+              <p style="font-size:24px; font-weight:700; margin:0 0 15px 0; >
+                <span style="color:#ffffff !important;">AppBoost Labs</span>
+              </p>
                       
                       <!-- Tagline -->
                       <p style="font-size:14px; color:#666; margin:0 0 15px 0; line-height:1.5;">
