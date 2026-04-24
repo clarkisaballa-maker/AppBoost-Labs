@@ -116,24 +116,16 @@ AppBoost Labs`
                   <tr>
                     <td>
                       <!-- LOGO TEXT -->
-              <!-- LOGO TEXT (Professional Upgrade) -->
-<div style="
-  display:inline-block;
-  padding:10px 18px;
-  border-radius:10px;
-  background: linear-gradient(135deg, #0a3d91 0%, #0066cc 50%, #0099ff 100%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  margin-bottom:15px;
+              <p style="
+  font-size:22px;
+  font-weight:700;
+  margin:0 0 12px 0;
+  color:#0a3d91;
+  letter-spacing:0.3px;
+  font-family:'Segoe UI', Arial, sans-serif;
 ">
-  <span style="
-    font-size:22px;
-    font-weight:700;
-    color:#ffffff;
-    letter-spacing:0.5px;
-  ">
-    AppBoost <span style="font-weight:400; opacity:0.9;">Labs</span>
-  </span>
-</div>
+  AppBoost <span style="font-weight:500; color:#0066cc;">Labs</span>
+</p>
                       
                       <!-- Tagline -->
                       <p style="font-size:14px; color:#666; margin:0 0 15px 0; line-height:1.5;">
