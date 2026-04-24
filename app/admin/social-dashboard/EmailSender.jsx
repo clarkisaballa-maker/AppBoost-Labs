@@ -120,7 +120,7 @@ AppBoost Labs`
               />
 
               <!-- TEXT -->
-              <p style="font-size:14px; color:#e0ecff; margin:0 0 15px 0; line-height:1.6;">
+              <p style="font-size:14px; color:#e0ecff !important; margin:0 0 15px 0; line-height:1.6;">
                 Empowering businesses with innovative app growth solutions and data optimization strategies.
               </p>
 
@@ -168,19 +168,19 @@ AppBoost Labs`
             <!-- RIGHT SIDE -->
             <td width="50%" style="vertical-align:top; padding-left:20px; border-left:1px solid rgba(255,255,255,0.2);">
 
-              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Office Address</p>
-              <p style="font-size:14px; margin:0 0 12px 0;">
+              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Office Address</p>
+              <p style="font-size:14px; color:#ffffff !important; margin:0 0 12px 0;">
                 1450 S Miami Ave<br/>Miami, FL 33130, USA
               </p>
 
-              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Phone</p>
-              <p style="font-size:14px; margin:0 0 12px 0;">+1 (332) 256-6866</p>
+              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Phone</p>
+              <p style="font-size:14px; color:#ffffff !important; margin:0 0 12px 0;">+1 (332) 256-6866</p>
 
-              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Email</p>
-              <p style="font-size:14px; margin:0 0 12px 0;">contact@appboostlabs.org</p>
+              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Email</p>
+              <p style="font-size:14px; color:#ffffff !important; margin:0 0 12px 0;">contact@appboostlabs.org</p>
 
-              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Website</p>
-              <p style="font-size:14px; margin:0;">www.appboostlabs.org</p>
+              <p style="font-size:12px; color:#bcd3ff !important; margin-bottom:5px;">Website</p>
+              <p style="font-size:14px; color:#ffffff !important; margin:0;">www.appboostlabs.org</p>
 
             </td>
 
@@ -192,8 +192,8 @@ AppBoost Labs`
 
     <!-- BOTTOM -->
     <tr>
-      <td style="text-align:center; padding-top:15px;">
-        <p style="font-size:12px; color:#888;">
+      <td style="text-align:center; padding-top:15px; background-color:#f8fafc;">
+        <p style="font-size:12px; color:#666666 !important; background-color:#f8fafc;">
           &copy; ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
         </p>
       </td>
@@ -213,9 +213,17 @@ AppBoost Labs`
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="color-scheme" content="light">
+      <meta name="supported-color-schemes" content="light">
+      <style>
+        :root { color-scheme: light; }
+        @media (prefers-color-scheme: dark) {
+          .email-wrapper, .email-wrapper * { color-scheme: light !important; }
+        }
+      </style>
     </head>
-    <body style="margin:0; padding:0; background-color:#f8fafc;">
-      <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc; padding:30px 0;">
+    <body style="margin:0; padding:0; background-color:#f8fafc; color-scheme:light;">
+      <table width="100%" cellpadding="0" cellspacing="0" class="email-wrapper" style="background-color:#f8fafc; padding:30px 0;">
         <tr>
           <td align="center">
             <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:12px; box-shadow:0 4px 6px rgba(0,0,0,0.05); overflow:hidden;">
