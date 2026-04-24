@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { AtSign, Loader2, X, Paperclip, Sparkles, Mail } from 'lucide-react'
+import { AtSign, Loader2, X, Paperclip, Sparkles, Mail, FileText, Calendar } from 'lucide-react'
 
 const API_BASE = 'https://app-boost-labs-backend.vercel.app'
 
@@ -21,13 +21,10 @@ export default function EmailSenderModal() {
   const [message, setMessage] = useState('')
   const [file, setFile] = useState(null)
 
-  // Welcome template state
-  const [useWelcomeTemplate, setUseWelcomeTemplate] = useState(false)
+  // Template states
+  const [selectedTemplate, setSelectedTemplate] = useState('none') // 'none', 'welcome', 'extension'
   const [clientName, setClientName] = useState('')
-
-  const [useExtensionTemplate, setUseExtensionTemplate] = useState(false)
-  const [extensionName, setExtensionName] = useState('')
-  const [deadlineDate, setDeadlineDate] = useState('')
+  const [extensionDate, setExtensionDate] = useState('')
 
   const [loading, setLoading] = useState(false)
 
@@ -44,25 +41,6 @@ export default function EmailSenderModal() {
     }
   }, [open])
 
-  const generateExtensionMessage = (name, date) => {
-    return `Dear ${name}:
-
-We are hereby informing you that your request for an extension regarding the AppBoost Labs node data optimization has been approved.
-
-To ensure sufficient time to complete the project and maintain overall progress, the deadline has been officially extended to:
-
-New Deadline: ${date}
-
-Please ensure that all necessary steps and deliverables are completed by the above date. We will not approve any further extension requests except in exceptional circumstances.
-
-Thank you for your cooperation and commitment to completing this process promptly and professionally. Please feel free to contact us if you have any questions or require any assistance during this period.
-
-Thank you for your attention.
-
-Best regards,
-AppBoost Labs`
-  }
-
   // Generate welcome message from template
   const generateWelcomeMessage = (name) => {
     return `Hi ${name},
@@ -77,85 +55,184 @@ If you have any questions at any time, don't hesitate to reach out.
 
 Welcome aboard, we're glad you're here!
 
-Note: Please find your Job Offer Letter attached to this email. Kindly review, sign, and return it to us by replying to this same email at your earliest convenience.
+Best,
+John
+AppBoost Labs`
+  }
+
+  // Generate extension approval message
+  const generateExtensionMessage = (name, date) => {
+    const formattedDate = date ? new Date(date).toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }) : '[Date]'
+    
+    return `Dear ${name}:
+
+We are hereby informing you that your request for an extension regarding the AppBoost Labs node data optimization has been approved.
+
+To ensure sufficient time to complete the project and maintain overall progress, the deadline has been officially extended to:
+
+New Deadline: ${formattedDate}
+
+Please ensure that all necessary steps and deliverables are completed by the above date. We will not approve any further extension requests except in exceptional circumstances.
+
+Thank you for your cooperation and commitment to completing this process promptly and professionally. Please feel free to contact us if you have any questions or require any assistance during this period.
+
+Thank you for your attention.
 
 Best regards,
 AppBoost Labs`
   }
 
-  // Update message when using template and client name changes
+  // Update message when using templates
   useEffect(() => {
-    if (useWelcomeTemplate && clientName.trim()) {
-      const name = clientName.trim()
-
-      setMessage(generateWelcomeMessage(name))
-
-      setSubject(`Welcome to AppBoost Labs, ${name}!`)
+    if (selectedTemplate === 'welcome' && clientName.trim()) {
+      setMessage(generateWelcomeMessage(clientName.trim()))
+      setSubject(`Welcome to AppBoost Labs, ${clientName.trim()}!`)
+    } else if (selectedTemplate === 'extension' && clientName.trim()) {
+      setMessage(generateExtensionMessage(clientName.trim(), extensionDate))
+      setSubject(`Extension Approval for Node Data Optimization Deadline`)
     }
-  }, [clientName, useWelcomeTemplate])
+  }, [clientName, selectedTemplate, extensionDate])
 
-  // Professional Footer HTML
+  // Professional Footer HTML with Social Links
   const getFooter = () => {
     return `
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px; border-top:3px solid #0066cc; padding-top:25px; font-family: 'Segoe UI', Arial, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px; font-family: 'Segoe UI', Arial, sans-serif;">
+      <!-- Top Border Gradient -->
       <tr>
-        <td>
-          <!-- Logo and Company Name -->
-          <table cellpadding="0" cellspacing="0">
+        <td style="height:4px; background: linear-gradient(90deg, #0066cc 0%, #0099ff 50%, #0066cc 100%); border-radius:2px;"></td>
+      </tr>
+      
+      <tr>
+        <td style="padding-top:30px;">
+          <!-- Main Footer Content -->
+          <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td style="padding-right:15px; vertical-align:middle;">
-                <div style="width:50px; height:50px; background: linear-gradient(135deg, #0066cc 0%, #004499 100%); border-radius:10px; display:inline-block; text-align:center; line-height:50px;">
-                  <span style="color:#fff; font-size:24px; font-weight:bold;">A</span>
-                </div>
+              <!-- Left Column: Logo & Company Info -->
+              <td width="50%" style="vertical-align:top; padding-right:20px;">
+                <table cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <!-- Logo -->
+                      <img src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png" alt="AppBoost Labs" width="160" style="display:block; margin-bottom:15px;" />
+                      
+                      <!-- Tagline -->
+                      <p style="font-size:14px; color:#666; margin:0 0 15px 0; line-height:1.5;">
+                        Empowering businesses with innovative app growth solutions and data optimization strategies.
+                      </p>
+                      
+                      <!-- Social Links -->
+                      <table cellpadding="0" cellspacing="0" style="margin-top:10px;">
+                        <tr>
+                          <!-- Facebook -->
+                          <td style="padding-right:8px;">
+                            <a href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr" style="text-decoration:none;">
+                              <div style="width:36px; height:36px; background:#1877F2; border-radius:8px; text-align:center; line-height:36px;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
+                              </div>
+                            </a>
+                          </td>
+                          <!-- Instagram -->
+                          <td style="padding-right:8px;">
+                            <a href="https://www.instagram.com/appboostlabs" style="text-decoration:none;">
+                              <div style="width:36px; height:36px; background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius:8px; text-align:center; line-height:36px;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
+                              </div>
+                            </a>
+                          </td>
+                          <!-- X/Twitter -->
+                          <td style="padding-right:8px;">
+                            <a href="https://x.com/appboostlabs" style="text-decoration:none;">
+                              <div style="width:36px; height:36px; background:#000000; border-radius:8px; text-align:center; line-height:36px;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968958.png" alt="X" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
+                              </div>
+                            </a>
+                          </td>
+                          <!-- TikTok -->
+                          <td>
+                            <a href="https://www.tiktok.com/@appboostlabs_" style="text-decoration:none;">
+                              <div style="width:36px; height:36px; background:#000000; border-radius:8px; text-align:center; line-height:36px;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
+                              </div>
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
               </td>
-              <td style="vertical-align:middle;">
-                <div style="font-size:20px; font-weight:700; color:#0066cc; letter-spacing:-0.5px;">AppBoost Labs</div>
-                <div style="font-size:12px; color:#666; margin-top:2px;">Empowering App Growth</div>
-              </td>
-            </tr>
-          </table>
-          
-          <!-- Contact Info -->
-          <table cellpadding="0" cellspacing="0" style="margin-top:20px;">
-            <tr>
-              <td style="padding-right:25px;">
-                <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">Address</div>
-                <div style="font-size:13px; color:#333;">1450 S Miami Ave</div>
-                <div style="font-size:13px; color:#333;">Miami, FL 33130, USA</div>
-              </td>
-              <td style="padding-right:25px;">
-                <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">Contact</div>
-                <div style="font-size:13px; color:#333;">+1 (332) 256-6866</div>
-                <div style="font-size:13px; color:#0066cc;">contact@appboostlabs.org</div>
-              </td>
-              <td>
-                <div style="font-size:11px; color:#999; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">Website</div>
-                <a href="https://www.appboostlabs.org" style="font-size:13px; color:#0066cc; text-decoration:none;">www.appboostlabs.org</a>
+              
+              <!-- Right Column: Contact Details -->
+              <td width="50%" style="vertical-align:top; padding-left:20px; border-left:1px solid #e5e7eb;">
+                <table cellpadding="0" cellspacing="0" width="100%">
+                  <!-- Address -->
+                  <tr>
+                    <td style="padding-bottom:15px;">
+                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Office Address</div>
+                      <div style="font-size:14px; color:#333; line-height:1.5;">
+                        1450 S Miami Ave<br/>
+                        Miami, FL 33130, USA
+                      </div>
+                    </td>
+                  </tr>
+                  
+                  <!-- Phone -->
+                  <tr>
+                    <td style="padding-bottom:15px;">
+                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Phone</div>
+                      <a href="tel:+13322566866" style="font-size:14px; color:#333; text-decoration:none;">+1 (332) 256-6866</a>
+                    </td>
+                  </tr>
+                  
+                  <!-- Email -->
+                  <tr>
+                    <td style="padding-bottom:15px;">
+                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Email</div>
+                      <a href="mailto:contact@appboostlabs.org" style="font-size:14px; color:#0066cc; text-decoration:none;">contact@appboostlabs.org</a>
+                    </td>
+                  </tr>
+                  
+                  <!-- Website -->
+                  <tr>
+                    <td>
+                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Website</div>
+                      <a href="https://www.appboostlabs.org" style="font-size:14px; color:#0066cc; text-decoration:none;">www.appboostlabs.org</a>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </table>
           
           <!-- Divider -->
-          <div style="height:1px; background:#e5e7eb; margin:20px 0;"></div>
+          <div style="height:1px; background:linear-gradient(90deg, transparent, #e5e7eb, transparent); margin:25px 0;"></div>
           
-          <!-- Links and Copyright -->
+          <!-- Bottom Links -->
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td>
-                <a href="https://www.appboostlabs.org/" style="font-size:12px; color:#0066cc; text-decoration:none; margin-right:20px;">Home</a>
-                <a href="https://www.appboostlabs.org/about" style="font-size:12px; color:#0066cc; text-decoration:none; margin-right:20px;">About Us</a>
-                <a href="https://www.appboostlabs.org/services" style="font-size:12px; color:#0066cc; text-decoration:none; margin-right:20px;">Services</a>
-                <a href="https://www.appboostlabs.org/contact" style="font-size:12px; color:#0066cc; text-decoration:none; margin-right:20px;">Contact</a>
-                <a href="https://www.appboostlabs.org/privacy" style="font-size:12px; color:#0066cc; text-decoration:none;">Privacy Policy</a>
+              <td style="text-align:center; padding-bottom:15px;">
+                <a href="https://www.appboostlabs.org/" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Home</a>
+                <span style="color:#ccc;">|</span>
+                <a href="https://www.appboostlabs.org/about" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">About Us</a>
+                <span style="color:#ccc;">|</span>
+                <a href="https://www.appboostlabs.org/services" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Services</a>
+                <span style="color:#ccc;">|</span>
+                <a href="https://www.appboostlabs.org/contact" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Contact</a>
+                <span style="color:#ccc;">|</span>
+                <a href="https://www.appboostlabs.org/privacy" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Privacy Policy</a>
               </td>
             </tr>
             <tr>
-              <td style="padding-top:15px;">
-                <div style="font-size:11px; color:#999;">
+              <td style="text-align:center;">
+                <div style="font-size:12px; color:#888; margin-bottom:8px;">
                   &copy; ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
                 </div>
-                <div style="font-size:10px; color:#bbb; margin-top:5px;">
-                  This email and any attachments are confidential and intended solely for the recipient.
+                <div style="font-size:10px; color:#aaa; max-width:450px; margin:0 auto; line-height:1.4;">
+                  This email and any attachments are confidential and intended solely for the recipient. If you received this in error, please delete it immediately.
                 </div>
               </td>
             </tr>
@@ -166,27 +243,10 @@ AppBoost Labs`
   `
   }
 
-  const handlePaste = (e) => {
-    const items = e.clipboardData?.items
-
-    if (!items) return
-
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i]
-
-      if (item.kind === "file") {
-        const pastedFile = item.getAsFile()
-        if (pastedFile) {
-          setFile(pastedFile)
-        }
-      }
-    }
-  }
-
   // Build Email HTML
   const buildEmailHTML = () => {
-    const formattedMessage = message.replace(/\n/g, "<br/>")
-
+    const formattedMessage = message.replace(/\n/g, '<br/>')
+    
     return `
     <!DOCTYPE html>
     <html>
@@ -202,25 +262,25 @@ AppBoost Labs`
               
               <!-- Header Bar -->
               <tr>
-  <td style="background: linear-gradient(135deg, #0066cc 0%, #004499 100%); padding:20px 30px;">
-    <table cellpadding="0" cellspacing="0">
-      <tr>
-        <td style="vertical-align:middle;">
-          <img 
-            src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png"
-            alt="AppBoost Labs"
-            width="140"
-            style="display:block; border:0;"
-          />
-        </td>
-      </tr>
-    </table>
-  </td>
-</tr>
+                <td style="background: linear-gradient(135deg, #0066cc 0%, #004499 100%); padding:25px 30px;">
+                  <table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="vertical-align:middle;">
+                        <img 
+                          src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png"
+                          alt="AppBoost Labs"
+                          width="150"
+                          style="display:block; border:0;"
+                        />
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
               
               <!-- Main Content -->
               <tr>
-                <td style="padding:35px 30px; font-family:'Segoe UI', Arial, sans-serif; font-size:15px; line-height:1.7; color:#333;">
+                <td style="padding:35px 30px; font-family:'Segoe UI', Arial, sans-serif; font-size:15px; line-height:1.8; color:#333;">
                   ${formattedMessage}
                 </td>
               </tr>
@@ -236,7 +296,7 @@ AppBoost Labs`
             
             <!-- Reference ID (outside main card) -->
             <div style="font-size:10px; color:#bbb; margin-top:15px; text-align:center;">
-              Ref: ${Date.now()}
+              Ref: ABL-${Date.now()}
             </div>
           </td>
         </tr>
@@ -283,7 +343,8 @@ AppBoost Labs`
       setMessage('')
       setFile(null)
       setClientName('')
-      setUseWelcomeTemplate(false)
+      setExtensionDate('')
+      setSelectedTemplate('none')
       setOpen(false)
 
     } catch (err) {
@@ -294,48 +355,38 @@ AppBoost Labs`
     }
   }
 
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
-  }
-
-  const handleTemplateToggle = (checked) => {
-    setUseWelcomeTemplate(checked)
-    if (checked) {
-      setUseExtensionTemplate(false) // ✅ prevent conflict
-    }
-    if (!checked) {
+  const handleTemplateChange = (template) => {
+    setSelectedTemplate(template)
+    if (template === 'none') {
       setMessage('')
       setSubject('')
       setClientName('')
+      setExtensionDate('')
     }
   }
 
   const modal = open ? (
-    <div className="fixed inset-0 z-[9999]">
+    <div className="fixed inset-0 z-[9999] overflow-y-auto">
 
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
         onClick={() => setOpen(false)}
       />
 
-      <div className="absolute inset-0 overflow-y-auto flex justify-center p-4">
-        <Card className="w-full max-w-lg rounded-2xl shadow-2xl border bg-background relative max-h-[90vh] flex flex-col">
+      <div className="min-h-full flex items-start justify-center p-4 py-10">
+        <Card className="w-full max-w-2xl rounded-2xl shadow-2xl border bg-background relative">
 
           {/* Header gradient */}
-          <div className="h-1.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700" />
+          <div className="h-1.5 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 rounded-t-2xl" />
 
           <button
             onClick={() => setOpen(false)}
-            className="absolute top-4 right-4 p-1.5 hover:bg-muted rounded-lg transition-colors"
+            className="absolute top-4 right-4 p-1.5 hover:bg-muted rounded-lg transition-colors z-10"
           >
             <X className="h-5 w-5" />
           </button>
 
-          <CardContent className="space-y-5 pt-6 pb-6 overflow-y-auto">
+          <CardContent className="space-y-5 pt-6 pb-6">
 
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
@@ -347,92 +398,115 @@ AppBoost Labs`
               </div>
             </div>
 
-            {/* Welcome Template Toggle */}
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-100 dark:border-blue-900/50">
-              <Checkbox
-                id="welcome-template"
-                checked={useWelcomeTemplate}
-                onCheckedChange={handleTemplateToggle}
-                className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
-              />
-              <Label htmlFor="welcome-template" className="flex items-center gap-2 cursor-pointer text-sm">
-                <Sparkles className="h-4 w-4 text-blue-500" />
-                <span>Use Welcome Email Template</span>
-              </Label>
+            {/* Template Selection */}
+            <div className="space-y-3 p-4 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900/50 dark:to-slate-800/50 border">
+              <Label className="text-sm font-medium">Email Template</Label>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* No Template */}
+                <div 
+                  onClick={() => handleTemplateChange('none')}
+                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                    selectedTemplate === 'none' 
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30' 
+                      : 'border-transparent bg-white dark:bg-slate-800 hover:border-blue-200'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Checkbox 
+                      checked={selectedTemplate === 'none'} 
+                      className="data-[state=checked]:bg-blue-600"
+                    />
+                    <div>
+                      <p className="text-sm font-medium">Custom Email</p>
+                      <p className="text-xs text-muted-foreground">Write your own</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Welcome Template */}
+                <div 
+                  onClick={() => handleTemplateChange('welcome')}
+                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                    selectedTemplate === 'welcome' 
+                      ? 'border-green-500 bg-green-50 dark:bg-green-950/30' 
+                      : 'border-transparent bg-white dark:bg-slate-800 hover:border-green-200'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Checkbox 
+                      checked={selectedTemplate === 'welcome'} 
+                      className="data-[state=checked]:bg-green-600"
+                    />
+                    <div>
+                      <p className="text-sm font-medium flex items-center gap-1">
+                        <Sparkles className="h-3 w-3 text-green-500" />
+                        Welcome
+                      </p>
+                      <p className="text-xs text-muted-foreground">New employee</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Extension Template */}
+                <div 
+                  onClick={() => handleTemplateChange('extension')}
+                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                    selectedTemplate === 'extension' 
+                      ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/30' 
+                      : 'border-transparent bg-white dark:bg-slate-800 hover:border-amber-200'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Checkbox 
+                      checked={selectedTemplate === 'extension'} 
+                      className="data-[state=checked]:bg-amber-600"
+                    />
+                    <div>
+                      <p className="text-sm font-medium flex items-center gap-1">
+                        <FileText className="h-3 w-3 text-amber-500" />
+                        Extension
+                      </p>
+                      <p className="text-xs text-muted-foreground">Deadline approval</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Deadline Notice */}
-            <div className="flex items-center gap-3 p-3 rounded-xl border">
-              <Checkbox
-                checked={useExtensionTemplate}
-                onCheckedChange={(checked) => {
-                  setUseExtensionTemplate(checked)
+            {/* Template Fields */}
+            {selectedTemplate !== 'none' && (
+              <div className="space-y-3 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-100 dark:border-blue-900/50">
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Client / Employee Name</Label>
+                  <Input
+                    placeholder="Enter name (e.g., John)"
+                    value={clientName}
+                    onChange={(e) => setClientName(e.target.value)}
+                    className="border-blue-200 focus:border-blue-400 dark:border-blue-800"
+                  />
+                </div>
 
-                  if (checked) {
-                    setUseWelcomeTemplate(false)
-                    setSubject("Extension Approval for Node Data Optimization Deadline")
+                {selectedTemplate === 'extension' && (
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      New Deadline Date
+                    </Label>
+                    <Input
+                      type="date"
+                      value={extensionDate}
+                      onChange={(e) => setExtensionDate(e.target.value)}
+                      className="border-blue-200 focus:border-blue-400 dark:border-blue-800"
+                    />
+                  </div>
+                )}
 
-                    const name = extensionName || "[Client Name]"
-                    const date = deadlineDate || "[Enter Date]"
-
-                    setMessage(generateExtensionMessage(name, date))
-                  }
-
-                  if (!checked) {
-                    setExtensionName('')
-                    setDeadlineDate('')
-                    setMessage('')
-                    setSubject('')
-                  }
-                }}
-              />
-              <Label>Use Extension Approval Template</Label>
-            </div>
-
-            {useExtensionTemplate && (
-              <>
-                <Input
-                  placeholder="Client Name"
-                  value={extensionName}
-                  onChange={(e) => {
-                    const value = e.target.value
-                    setExtensionName(value)
-
-                    const name = value || "[Client Name]"
-                    const date = deadlineDate ? formatDate(deadlineDate) : "[Select Date]"
-
-                    setMessage(generateExtensionMessage(name, date))
-                  }}
-                />
-
-                <Input
-  placeholder="Enter Deadline (e.g., April 23, 2026)"
-  value={deadlineDate}
-  onChange={(e) => {
-    const value = e.target.value
-    setDeadlineDate(value)
-
-    const name = extensionName || "[Client Name]"
-    const date = value || "[Enter Date]"
-
-    setMessage(generateExtensionMessage(name, date))
-  }}
-/>
-              </>
-            )}
-
-            {/* Client Name Input (only when template is active) */}
-            {useWelcomeTemplate && (
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Client Name</Label>
-                <Input
-                  placeholder="Enter client's name (e.g., John)"
-                  value={clientName}
-                  onChange={(e) => setClientName(e.target.value)}
-                  className="border-blue-200 focus:border-blue-400 dark:border-blue-800"
-                />
                 <p className="text-xs text-muted-foreground">
-                  The welcome message will be auto-generated with this name
+                  {selectedTemplate === 'welcome' 
+                    ? 'The welcome message will be auto-generated with this name'
+                    : 'The extension approval message will be auto-generated with these details'
+                  }
                 </p>
               </div>
             )}
@@ -453,22 +527,23 @@ AppBoost Labs`
                 placeholder="Email subject..."
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
+                readOnly={selectedTemplate !== 'none'}
+                className={selectedTemplate !== 'none' ? 'bg-muted' : ''}
               />
             </div>
 
             <div className="space-y-2">
               <Label className="text-sm font-medium">Message</Label>
               <Textarea
-                placeholder={useWelcomeTemplate ? "Message will be auto-generated..." : "Write your message..."}
+                placeholder={selectedTemplate !== 'none' ? "Message will be auto-generated..." : "Write your message..."}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onPaste={handlePaste}
-                className="min-h-[160px] resize-none"
-                readOnly={useWelcomeTemplate || useExtensionTemplate}
+                className="min-h-[200px] resize-none"
+                readOnly={selectedTemplate !== 'none'}
               />
-              {useWelcomeTemplate && (
+              {selectedTemplate !== 'none' && (
                 <p className="text-xs text-amber-600 dark:text-amber-400">
-                  Template mode: Message is auto-generated based on client name
+                  Template mode: Message is auto-generated. Switch to Custom Email to edit manually.
                 </p>
               )}
             </div>
