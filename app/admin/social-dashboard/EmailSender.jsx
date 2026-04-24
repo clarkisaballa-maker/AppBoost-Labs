@@ -115,8 +115,10 @@ AppBoost Labs`
                 <table cellpadding="0" cellspacing="0">
                   <tr>
                     <td>
-                      <!-- Logo -->
-                      <img src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png" alt="AppBoost Labs" width="160" style="display:block; margin-bottom:15px;" />
+                      <!-- LOGO TEXT -->
+              <p style="font-size:24px; font-weight:700; margin:0 0 15px 0; background-color:#0a3d91;">
+                <span style="color:#ffffff !important;">AppBoost Labs</span>
+              </p>
                       
                       <!-- Tagline -->
                       <p style="font-size:14px; color:#666; margin:0 0 15px 0; line-height:1.5;">
