@@ -399,7 +399,7 @@ AppBoost Labs`
             </div>
 
             {/* Template Selection */}
-            <div className="space-y-3 p-4 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900/50 dark:to-slate-800/50 border">
+            <div className="space-y-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-900 dark:from-slate-900/50 dark:to-slate-800/50 border">
               <Label className="text-sm font-medium">Email Template</Label>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
