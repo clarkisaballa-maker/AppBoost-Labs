@@ -55,19 +55,18 @@ If you have any questions at any time, don't hesitate to reach out.
 
 Welcome aboard, we're glad you're here!
 
-Best,
-John
+Best regards,
 AppBoost Labs`
   }
 
   // Generate extension approval message
   const generateExtensionMessage = (name, date) => {
-    const formattedDate = date ? new Date(date).toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    const formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     }) : '[Date]'
-    
+
     return `Dear ${name}:
 
 We are hereby informing you that your request for an extension regarding the AppBoost Labs node data optimization has been approved.
@@ -100,153 +99,114 @@ AppBoost Labs`
   // Professional Footer HTML with Social Links
   const getFooter = () => {
     return `
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px; font-family: 'Segoe UI', Arial, sans-serif;">
-      <!-- Top Border Gradient -->
-      <tr>
-        <td style="height:4px; background: linear-gradient(90deg, #0066cc 0%, #0099ff 50%, #0066cc 100%); border-radius:2px;"></td>
-      </tr>
-      
-      <tr>
-        <td style="padding-top:30px;">
-          <!-- Main Footer Content -->
-          <table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <!-- Left Column: Logo & Company Info -->
-              <td width="50%" style="vertical-align:top; padding-right:20px;">
-                <table cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td>
-                      <!-- Logo -->
-                      <img src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png" alt="AppBoost Labs" width="160" style="display:block; margin-bottom:15px;" />
-                      
-                      <!-- Tagline -->
-                      <p style="font-size:14px; color:#666; margin:0 0 15px 0; line-height:1.5;">
-                        Empowering businesses with innovative app growth solutions and data optimization strategies.
-                      </p>
-                      
-                      <!-- Social Links -->
-                      <table cellpadding="0" cellspacing="0" style="margin-top:10px;">
-                        <tr>
-                          <!-- Facebook -->
-                          <td style="padding-right:8px;">
-                            <a href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr" style="text-decoration:none;">
-                              <div style="width:36px; height:36px; background:#1877F2; border-radius:8px; text-align:center; line-height:36px;">
-                                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
-                              </div>
-                            </a>
-                          </td>
-                          <!-- Instagram -->
-                          <td style="padding-right:8px;">
-                            <a href="https://www.instagram.com/appboostlabs" style="text-decoration:none;">
-                              <div style="width:36px; height:36px; background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border-radius:8px; text-align:center; line-height:36px;">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
-                              </div>
-                            </a>
-                          </td>
-                          <!-- X/Twitter -->
-                          <td style="padding-right:8px;">
-                            <a href="https://x.com/appboostlabs" style="text-decoration:none;">
-                              <div style="width:36px; height:36px; background:#000000; border-radius:8px; text-align:center; line-height:36px;">
-                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968958.png" alt="X" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
-                              </div>
-                            </a>
-                          </td>
-                          <!-- TikTok -->
-                          <td>
-                            <a href="https://www.tiktok.com/@appboostlabs_" style="text-decoration:none;">
-                              <div style="width:36px; height:36px; background:#000000; border-radius:8px; text-align:center; line-height:36px;">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" width="18" height="18" style="vertical-align:middle; filter:brightness(0) invert(1);" />
-                              </div>
-                            </a>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              
-              <!-- Right Column: Contact Details -->
-              <td width="50%" style="vertical-align:top; padding-left:20px; border-left:1px solid #e5e7eb;">
-                <table cellpadding="0" cellspacing="0" width="100%">
-                  <!-- Address -->
-                  <tr>
-                    <td style="padding-bottom:15px;">
-                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Office Address</div>
-                      <div style="font-size:14px; color:#333; line-height:1.5;">
-                        1450 S Miami Ave<br/>
-                        Miami, FL 33130, USA
+  <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px; font-family:'Segoe UI', Arial, sans-serif;">
+
+    <!-- BLUE BACKGROUND WRAPPER -->
+    <tr>
+      <td style="background: linear-gradient(135deg, #0a3d91 0%, #0066cc 100%); padding:30px; border-radius:12px; color:#ffffff;">
+
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+
+            <!-- LEFT SIDE -->
+            <td width="50%" style="vertical-align:top; padding-right:20px;">
+
+              <!-- LOGO -->
+              <img 
+                src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png"
+                alt="AppBoost Labs"
+                width="160"
+                style="display:block; margin-bottom:15px;"
+              />
+
+              <!-- TEXT -->
+              <p style="font-size:14px; color:#e0ecff; margin:0 0 15px 0; line-height:1.6;">
+                Empowering businesses with innovative app growth solutions and data optimization strategies.
+              </p>
+
+              <!-- SOCIAL -->
+              <table cellpadding="0" cellspacing="0">
+                <tr>
+
+                  <td style="padding-right:8px;">
+                    <a href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr">
+                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="16" />
                       </div>
-                    </td>
-                  </tr>
-                  
-                  <!-- Phone -->
-                  <tr>
-                    <td style="padding-bottom:15px;">
-                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Phone</div>
-                      <a href="tel:+13322566866" style="font-size:14px; color:#333; text-decoration:none;">+1 (332) 256-6866</a>
-                    </td>
-                  </tr>
-                  
-                  <!-- Email -->
-                  <tr>
-                    <td style="padding-bottom:15px;">
-                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Email</div>
-                      <a href="mailto:contact@appboostlabs.org" style="font-size:14px; color:#0066cc; text-decoration:none;">contact@appboostlabs.org</a>
-                    </td>
-                  </tr>
-                  
-                  <!-- Website -->
-                  <tr>
-                    <td>
-                      <div style="font-size:11px; color:#0066cc; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:6px;">Website</div>
-                      <a href="https://www.appboostlabs.org" style="font-size:14px; color:#0066cc; text-decoration:none;">www.appboostlabs.org</a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-          
-          <!-- Divider -->
-          <div style="height:1px; background:linear-gradient(90deg, transparent, #e5e7eb, transparent); margin:25px 0;"></div>
-          
-          <!-- Bottom Links -->
-          <table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <td style="text-align:center; padding-bottom:15px;">
-                <a href="https://www.appboostlabs.org/" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Home</a>
-                <span style="color:#ccc;">|</span>
-                <a href="https://www.appboostlabs.org/about" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">About Us</a>
-                <span style="color:#ccc;">|</span>
-                <a href="https://www.appboostlabs.org/services" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Services</a>
-                <span style="color:#ccc;">|</span>
-                <a href="https://www.appboostlabs.org/contact" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Contact</a>
-                <span style="color:#ccc;">|</span>
-                <a href="https://www.appboostlabs.org/privacy" style="font-size:12px; color:#0066cc; text-decoration:none; margin:0 12px;">Privacy Policy</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="text-align:center;">
-                <div style="font-size:12px; color:#888; margin-bottom:8px;">
-                  &copy; ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
-                </div>
-                <div style="font-size:10px; color:#aaa; max-width:450px; margin:0 auto; line-height:1.4;">
-                  This email and any attachments are confidential and intended solely for the recipient. If you received this in error, please delete it immediately.
-                </div>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
+                    </a>
+                  </td>
+
+                  <td style="padding-right:8px;">
+                    <a href="https://www.instagram.com/appboostlabs">
+                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="16" />
+                      </div>
+                    </a>
+                  </td>
+
+                  <td style="padding-right:8px;">
+                    <a href="https://x.com/appboostlabs">
+                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968958.png" width="16" />
+                      </div>
+                    </a>
+                  </td>
+
+                  <td>
+                    <a href="https://www.tiktok.com/@appboostlabs_">
+                      <div style="width:34px;height:34px;background:#ffffff;border-radius:6px;text-align:center;line-height:34px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="16" />
+                      </div>
+                    </a>
+                  </td>
+
+                </tr>
+              </table>
+
+            </td>
+
+            <!-- RIGHT SIDE -->
+            <td width="50%" style="vertical-align:top; padding-left:20px; border-left:1px solid rgba(255,255,255,0.2);">
+
+              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Office Address</p>
+              <p style="font-size:14px; margin:0 0 12px 0;">
+                1450 S Miami Ave<br/>Miami, FL 33130, USA
+              </p>
+
+              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Phone</p>
+              <p style="font-size:14px; margin:0 0 12px 0;">+1 (332) 256-6866</p>
+
+              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Email</p>
+              <p style="font-size:14px; margin:0 0 12px 0;">contact@appboostlabs.org</p>
+
+              <p style="font-size:12px; color:#bcd3ff; margin-bottom:5px;">Website</p>
+              <p style="font-size:14px; margin:0;">www.appboostlabs.org</p>
+
+            </td>
+
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+
+    <!-- BOTTOM -->
+    <tr>
+      <td style="text-align:center; padding-top:15px;">
+        <p style="font-size:12px; color:#888;">
+          &copy; ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
+        </p>
+      </td>
+    </tr>
+
+  </table>
   `
   }
 
   // Build Email HTML
   const buildEmailHTML = () => {
     const formattedMessage = message.replace(/\n/g, '<br/>')
-    
+
     return `
     <!DOCTYPE html>
     <html>
@@ -394,52 +354,45 @@ AppBoost Labs`
               </div>
               <div>
                 <h2 className="text-lg font-semibold">Compose Email</h2>
-                <p className="text-xs text-muted-foreground">Send professional emails to clients</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400">Send professional emails to clients</p>
               </div>
             </div>
 
             {/* Template Selection */}
-            <div className="space-y-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-900 dark:from-slate-900/50 dark:to-slate-800/50 border">
-              <Label className="text-sm font-medium">Email Template</Label>
-              
+            <div className="space-y-3 p-4 rounded-xl bg-muted/60 backdrop-blur-sm border border-border">
+              <Label className="text-sm font-medium text-foreground">Email Template</Label>
+
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {/* No Template */}
-                <div 
+
+                {/* Custom */}
+                <div
                   onClick={() => handleTemplateChange('none')}
-                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                    selectedTemplate === 'none' 
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/30' 
-                      : 'border-transparent bg-slate-200 dark:bg-slate-800 hover:border-blue-200'
-                  }`}
+                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${selectedTemplate === 'none'
+                    ? 'border-blue-500 bg-blue-100 dark:bg-blue-900/40'
+                    : 'border-border bg-background hover:border-blue-300'
+                    }`}
                 >
                   <div className="flex items-center gap-2">
-                    <Checkbox 
-                      checked={selectedTemplate === 'none'} 
-                      className="data-[state=checked]:bg-blue-600"
-                    />
+                    <Checkbox checked={selectedTemplate === 'none'} />
                     <div>
-                      <p className="text-sm font-medium">Custom Email</p>
+                      <p className="text-sm font-medium text-foreground">Custom Email</p>
                       <p className="text-xs text-muted-foreground">Write your own</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Welcome Template */}
-                <div 
+                {/* Welcome */}
+                <div
                   onClick={() => handleTemplateChange('welcome')}
-                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                    selectedTemplate === 'welcome' 
-                      ? 'border-green-500 bg-green-50 dark:bg-green-950/30' 
-                      : 'border-transparent bg-slate-200 dark:bg-slate-800 hover:border-green-200'
-                  }`}
+                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${selectedTemplate === 'welcome'
+                    ? 'border-green-500 bg-green-100 dark:bg-green-900/40'
+                    : 'border-border bg-background hover:border-green-300'
+                    }`}
                 >
                   <div className="flex items-center gap-2">
-                    <Checkbox 
-                      checked={selectedTemplate === 'welcome'} 
-                      className="data-[state=checked]:bg-green-600"
-                    />
+                    <Checkbox checked={selectedTemplate === 'welcome'} />
                     <div>
-                      <p className="text-sm font-medium flex items-center gap-1">
+                      <p className="text-sm font-medium text-foreground flex items-center gap-1">
                         <Sparkles className="h-3 w-3 text-green-500" />
                         Welcome
                       </p>
@@ -448,22 +401,18 @@ AppBoost Labs`
                   </div>
                 </div>
 
-                {/* Extension Template */}
-                <div 
+                {/* Extension */}
+                <div
                   onClick={() => handleTemplateChange('extension')}
-                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                    selectedTemplate === 'extension' 
-                      ? 'border-amber-500 bg-amber-50 dark:bg-amber-950/30' 
-                      : 'border-transparent bg-slate-200 dark:bg-slate-800 hover:border-amber-200'
-                  }`}
+                  className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${selectedTemplate === 'extension'
+                    ? 'border-amber-500 bg-amber-100 dark:bg-amber-900/40'
+                    : 'border-border bg-background hover:border-amber-300'
+                    }`}
                 >
                   <div className="flex items-center gap-2">
-                    <Checkbox 
-                      checked={selectedTemplate === 'extension'} 
-                      className="data-[state=checked]:bg-amber-600"
-                    />
+                    <Checkbox checked={selectedTemplate === 'extension'} />
                     <div>
-                      <p className="text-sm font-medium flex items-center gap-1">
+                      <p className="text-sm font-medium text-foreground flex items-center gap-1">
                         <FileText className="h-3 w-3 text-amber-500" />
                         Extension
                       </p>
@@ -471,25 +420,29 @@ AppBoost Labs`
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
             {/* Template Fields */}
             {selectedTemplate !== 'none' && (
-              <div className="space-y-3 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-100 dark:border-blue-900/50">
+              <div className="space-y-3 p-4 rounded-xl bg-muted/50 border border-border">
+
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Client / Employee Name</Label>
+                  <Label className="text-sm font-medium text-foreground">
+                    Client / Employee Name
+                  </Label>
                   <Input
                     placeholder="Enter name (e.g., John)"
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
-                    className="border-blue-200 focus:border-blue-400 dark:border-blue-800"
+                    className="bg-background text-foreground border-border focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
 
                 {selectedTemplate === 'extension' && (
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium flex items-center gap-2">
+                    <Label className="text-sm font-medium text-foreground flex items-center gap-2">
                       <Calendar className="h-4 w-4" />
                       New Deadline Date
                     </Label>
@@ -497,16 +450,15 @@ AppBoost Labs`
                       type="date"
                       value={extensionDate}
                       onChange={(e) => setExtensionDate(e.target.value)}
-                      className="border-blue-200 focus:border-blue-400 dark:border-blue-800"
+                      className="bg-background text-foreground border-border focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 )}
 
                 <p className="text-xs text-muted-foreground">
-                  {selectedTemplate === 'welcome' 
+                  {selectedTemplate === 'welcome'
                     ? 'The welcome message will be auto-generated with this name'
-                    : 'The extension approval message will be auto-generated with these details'
-                  }
+                    : 'The extension approval message will be auto-generated with these details'}
                 </p>
               </div>
             )}
