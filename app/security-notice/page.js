@@ -240,10 +240,6 @@ export default function SecurityNoticePage() {
                       </li>
                       <li className="flex items-start gap-3">
                         <XCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
-                        <span className="text-muted-foreground">Do not respond to job offers that seem too good to be true</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <XCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
                         <span className="text-muted-foreground">Avoid downloading attachments from unknown senders</span>
                       </li>
                     </ul>
