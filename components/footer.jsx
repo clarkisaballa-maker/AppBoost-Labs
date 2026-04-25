@@ -9,8 +9,8 @@ import {
   Send,
   Facebook,
   Instagram,
-  Twitter,
-  Music,
+  X,
+  Tiktok,
   ArrowUpRight,
   Rocket,
   Globe,
@@ -92,7 +92,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group relative w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:border-sky-500 hover:bg-sky-500/10 transition-all duration-300"
                 >
-                  <Twitter className="h-4 w-4 text-muted-foreground group-hover:text-sky-500 transition-colors" />
+                  <X className="h-4 w-4 text-muted-foreground group-hover:text-sky-500 transition-colors" />
                 </a>
                 <a 
                   href="https://www.tiktok.com/@appboostlabs_" 
@@ -100,7 +100,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group relative w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:border-foreground hover:bg-foreground/10 transition-all duration-300"
                 >
-                  <Music className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                  <Tiktok className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                 </a>
               </div>
             </div>
