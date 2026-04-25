@@ -51,6 +51,8 @@ Welcome to AppBoost Labs. We're looking forward to building great things togethe
 
 As you get started, we'll make sure you have everything you need to feel comfortable and set up for success. Our team is here to support you every step of the way.
 
+Please find your job offer letter attached with this email. Kindly review it, sign it, and send it back by replying to this email at your earliest convenience.
+
 If you have any questions at any time, don't hesitate to reach out.
 
 Welcome aboard, we're glad you're here!
