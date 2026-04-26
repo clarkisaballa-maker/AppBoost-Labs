@@ -63,11 +63,7 @@ AppBoost Labs`
 
   // Generate extension approval message
   const generateExtensionMessage = (name, date) => {
-    const formattedDate = date ? new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }) : '[Date]'
+    const formattedDate = date || '[Date]'
 
     return `Dear ${name}:
 
@@ -498,7 +494,7 @@ AppBoost Labs`
                       New Deadline Date
                     </Label>
                     <Input
-                      type="date"
+                      type="text"
                       value={extensionDate}
                       onChange={(e) => setExtensionDate(e.target.value)}
                       className="bg-background text-foreground border-border focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
