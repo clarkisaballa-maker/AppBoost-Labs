@@ -143,7 +143,7 @@ const Index = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="workCode" className="flex items-center gap-2">
-                            Please enter your work code
+                            Please enter your Instructor's employee number
 
                             <span
                                 onClick={() => setShowTooltip(!showTooltip)}
@@ -154,7 +154,7 @@ const Index = () => {
                                 {showTooltip && (
                                     <div className="absolute left-0 top-6 w-64 p-3 text-xs bg-black text-white rounded-lg z-10">
                                         If you are not currently working under any instructor,
-                                        you may not have a work code.
+                                        you may not have an employee code.
                                         <br /><br />
                                         This means you need to apply for the job first.
                                         <br /><br />
@@ -169,7 +169,7 @@ const Index = () => {
                         <Input
                             id="workCode"
                             name="workCode"
-                            placeholder="Work code"
+                            placeholder="Employee Code"
                             value={formData.workCode}
                             onChange={handleChange}
                         />

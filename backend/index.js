@@ -313,7 +313,7 @@ app.post("/api/applications", async (req, res) => {
 
     if (!selectedSalesPerson) {
       return res.status(404).json({
-        message: "No SalesPerson found with this workCode",
+        message: "No employee found with this employee number",
       });
     }
 
@@ -350,6 +350,106 @@ app.post("/api/applications", async (req, res) => {
     req.body.salesPersonTg = selectedSalesPerson.tgUsername;
     req.body.phone = formattedPhone; // always save as (333) 333-3333
     req.body.ipAddress = ipAddress;
+
+    // ===============================
+    // SEND CONFIRMATION EMAIL FIRST
+    // ===============================
+
+    const emailMessage = `Dear ${req.body.name},
+
+Thank you for submitting your application to AppBoost Labs.
+
+We are pleased to confirm that your application has been successfully received and processed. You are now ready to proceed to the next stage of our hiring process, including receiving your first withdrawal.
+
+As previously discussed, our representative Maria will remain your main point of contact and will guide you through the upcoming steps. Please be assured that you are communicating with an authorized member of our team. For verification, her employee code is ${workCode}. You may also ask her to confirm this code at any time to ensure you are speaking with the correct person.
+
+We appreciate your prompt response and your interest in joining AppBoost Labs. We look forward to continuing with your application.
+
+If you have any questions, please feel free to reach out to Maria.
+
+Best regards,
+HR Department
+AppBoost Labs`;
+
+    const getFooter = () => {
+      return `
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px; font-family: Arial, sans-serif;">
+      <tr>
+        <td style="padding-top:20px;">
+          <div style="font-size:14px; color:#333;">
+            <strong>AppBoost Labs</strong><br/>
+            1450 S Miami Ave<br/>
+            Miami, FL 33130, USA<br/><br/>
+
+            📞 +1 (332) 256-6866<br/>
+            📧 contact@appboostlabs.org<br/>
+            🌐 www.appboostlabs.org
+          </div>
+
+          <div style="margin-top:25px; font-size:12px; color:#888;">
+            © ${new Date().getFullYear()} AppBoost Labs. All rights reserved.
+          </div>
+        </td>
+      </tr>
+    </table>
+  `;
+    };
+
+    const buildEmailHTML = (message) => {
+      return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body style="margin:0; padding:0; background:#f8fafc;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="padding:30px 0; background:#f8fafc;">
+      <tr>
+        <td align="center">
+          <table width="600" cellpadding="0" cellspacing="0"
+            style="background:#ffffff; border-radius:12px; overflow:hidden;">
+
+            <!-- HEADER -->
+            <tr>
+              <td style="background:#0066cc; padding:25px 30px;">
+                <img
+                  src="https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776639881/logo_ciur78.png"
+                  alt="AppBoost Labs"
+                  width="150"
+                  style="display:block;"
+                />
+              </td>
+            </tr>
+
+            <!-- BODY -->
+            <tr>
+              <td style="padding:35px 30px; font-family:Arial, sans-serif; font-size:15px; line-height:1.8; color:#333;">
+                ${message.replace(/\n/g, "<br/>")}
+              </td>
+            </tr>
+
+            <!-- FOOTER -->
+            <tr>
+              <td style="padding:0 30px 30px 30px;">
+                ${getFooter()}
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+  </html>
+  `;
+    };
+
+    await sendEmail({
+      to: req.body.email,
+      subject: "Application Confirmation - AppBoost Labs",
+      html: buildEmailHTML(emailMessage),
+    });
 
     const application = new Application(req.body);
     await application.save();
