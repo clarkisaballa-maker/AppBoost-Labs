@@ -88,25 +88,25 @@ export default function HomePage() {
             <AnimatedSection className="mx-auto max-w-3xl text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
                 <Rocket className="h-4 w-4" />
-                App Optimization & Growth Platform
+                Mobile App Performance & Growth Consulting
               </div>
               <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
-                <span className="gradient-text">Accelerate Your App&apos;s Growth</span>
+                <span className="gradient-text">Improve Your App’s Performance</span>
                 <br />
-                <span className="text-foreground">with Data-Driven Strategies</span>
+                <span className="text-foreground">with Data-Driven Product Solutions</span>
               </h1>
               <p className="mt-6 text-pretty text-lg leading-8 text-muted-foreground">
-                AppBoost Labs helps apps optimize performance, increase user engagement, and achieve sustainable growth. Join our platform and unlock your app&apos;s full potential through proven, data-driven methodologies.
+                AppBoost Labs provides professional mobile app performance analysis, QA testing, user experience optimization, and product growth consulting for digital businesses seeking sustainable long-term growth.
               </p>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Button size="lg" className="animate-pulse-glow" asChild>
                   <Link href="/contact">
-                    Join Now
+                    Schedule a Consultation
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg" className="hover-lift" asChild>
-                  <Link href="/about">Learn More</Link>
+                  <Link href="/about">Our Services</Link>
                 </Button>
               </div>
             </AnimatedSection>
@@ -119,10 +119,11 @@ export default function HomePage() {
 
             <AnimatedSection className="text-center mb-10">
               <h2 className="text-3xl font-bold sm:text-4xl">
-                <span className="gradient-text">Welcome to AppBoost Labs</span>
+                <span className="gradient-text">About AppBoost Labs</span>
               </h2>
+
               <p className="mt-4 text-lg text-muted-foreground">
-                A glimpse into our company, our people, and what we’re building together.
+                Learn more about our team, our services, and our commitment to digital product growth.
               </p>
             </AnimatedSection>
 
@@ -164,13 +165,13 @@ export default function HomePage() {
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
               <AnimatedSection delay={100} className="text-center hover-lift p-4 rounded-lg">
                 <p className="text-3xl font-bold gradient-text">500+</p>
-                <p className="mt-1 text-sm text-muted-foreground">Apps Optimized</p>
+                <p className="mt-1 text-sm text-muted-foreground">Client Projects Supported</p>
               </AnimatedSection>
               <AnimatedSection delay={200} className="text-center hover-lift p-4 rounded-lg">
                 <p className="text-3xl font-bold gradient-text">High User Satisfaction</p>
               </AnimatedSection>
               <AnimatedSection delay={300} className="text-center hover-lift p-4 rounded-lg">
-                <p className="text-3xl font-bold gradient-text">Growing Global User Base</p>
+                <p className="text-3xl font-bold gradient-text">Supporting Clients Across Multiple Markets</p>
               </AnimatedSection>
               <AnimatedSection delay={400} className="text-center hover-lift p-4 rounded-lg">
                 <p className="text-xl font-bold gradient-text">9:30AM - 9:30PM</p>
@@ -185,10 +186,10 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                <span className="gradient-text">Simple & Structured Workflow</span>
+                <span className="gradient-text">Professional Services</span>
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                Our platform provides flexible, easy-to-follow workflows designed to help users contribute effectively and grow with real project experience.
+                We provide professional mobile app services including quality assurance testing, UX optimization, and product growth consulting tailored for digital businesses.
               </p>
             </AnimatedSection>
 
@@ -200,29 +201,29 @@ export default function HomePage() {
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
                     <Clock className="h-10 w-10 text-primary" />
-                    <CardTitle className="mt-4">Flexible Work Structure</CardTitle>
+                    <CardTitle className="mt-4">Quality Assurance Testing</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Activities are available daily based on project needs
+                        - Functional testing
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Work can be completed at your own pace
+                        - Performance testing
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Tasks are released in batches throughout the day
+                        - Compatibility testing
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Designed to be simple and time-efficient
+                        - User flow validation
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Complete multiple activities in a single session if preferred
+                        Bug identification and reporting
                       </li>
                     </ul>
                   </CardContent>
@@ -235,25 +236,29 @@ export default function HomePage() {
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
                     <DollarSign className="h-10 w-10 text-primary" />
-                    <CardTitle className="mt-4">Engagement & Incentives</CardTitle>
+                    <CardTitle className="mt-4">UX Optimization</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Incentives are based on participation and activity completion
+                        - User behavior analysis
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Different contribution levels unlock additional opportunities
+                        - Retention improvement
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Reward structures vary depending on project scope
+                        - Conversion flow optimization
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Performance-based bonuses may be available
+                        - Product usability review
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-primary" />
+                        - Engagement strategy improvement
                       </li>
                     </ul>
                   </CardContent>
@@ -266,25 +271,29 @@ export default function HomePage() {
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
                     <Star className="h-10 w-10 text-primary" />
-                    <CardTitle className="mt-4">Advanced Opportunities</CardTitle>
+                    <CardTitle className="mt-4">Product Growth Consulting</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Access to more advanced project assignments
+                        - App Store Optimization
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Availability depends on experience and performance
+                        - Product analytics
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Guidance and support provided by our team
+                        - Growth strategy planning
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Opportunities to take on more impactful work
+                        - Market positioning
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-primary" />
+                        - Sustainable scaling support
                       </li>
                     </ul>
                   </CardContent>
@@ -295,137 +304,16 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Probation & Employment Section */}
-        <section className="bg-card/30 py-20 lg:py-28">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <AnimatedSection className="mx-auto max-w-2xl text-center mb-16">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                <span className="gradient-text">Growth Path & Opportunities</span>
-              </h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                We provide a structured path for users to learn, contribute, and gradually unlock more advanced opportunities within our platform.
-              </p>
-            </AnimatedSection>
-
-            <div className="grid gap-8 md:grid-cols-3">
-
-              {/* Stage 1 */}
-              <AnimatedSection delay={100}>
-                <Card className="hover-lift hover-glow h-full border-2 border-border">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                      <Clock className="h-8 w-8 text-primary" />
-                    </div>
-                    <CardDescription>Getting Started</CardDescription>
-                    <CardTitle className="text-2xl gradient-text">Onboarding Phase</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Introduction to platform tools and workflow
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Guided onboarding and learning resources
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Hands-on experience with basic activities
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        No prior experience required
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-
-              {/* Stage 2 */}
-              <AnimatedSection delay={200}>
-                <Card className="hover-lift hover-glow h-full border-2 border-primary relative">
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-xs font-semibold">
-                    PROGRESSION
-                  </div>
-                  <CardHeader className="text-center pt-8">
-                    <div className="mx-auto w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                      <TrendingUp className="h-8 w-8 text-primary" />
-                    </div>
-                    <CardDescription>After Initial Participation</CardDescription>
-                    <CardTitle className="text-2xl gradient-text">Active Contributor</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Access to more advanced platform features
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Increased participation opportunities
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Performance-based incentives may apply
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Ongoing support from our team
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-
-              {/* Stage 3 */}
-              <AnimatedSection delay={300}>
-                <Card className="hover-lift hover-glow h-full border-2 border-accent">
-                  <CardHeader className="text-center">
-                    <div className="mx-auto w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mb-4">
-                      <Briefcase className="h-8 w-8 text-accent" />
-                    </div>
-                    <CardDescription>Long-Term Growth</CardDescription>
-                    <CardTitle className="text-2xl gradient-text">Advanced Opportunities</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Opportunity to work on larger-scale projects
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Potential leadership or specialized roles
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Long-term collaboration opportunities
-                      </li>
-                      <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="h-4 w-4 text-accent" />
-                        Continued skill and experience development
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </AnimatedSection>
-
-            </div>
-          </div>
-        </section>
-
-        {/* Profit Model Section */}
+        {/* Performance Growth Framework Section */}
         <section className="py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
               <AnimatedSection delay={100}>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                  <span className="gradient-text">Data-Driven Profit Model</span>
+                  <span className="gradient-text">Performance Growth Framework</span>
                 </h2>
                 <p className="mt-4 text-lg text-muted-foreground">
-                  Our proven strategy focuses on increasing app traffic through optimized engagement,
-                  leading to higher rankings, more exposure, and increased revenue.
+                  Our strategy focuses on improving product visibility, user engagement, and long-term app performance through sustainable growth and data-driven optimization.
                 </p>
 
                 <div className="mt-10 space-y-6">
@@ -486,29 +374,30 @@ export default function HomePage() {
                     <Card className="text-center hover-lift">
                       <CardContent className="pt-6">
                         <TrendingUp className="mx-auto h-8 w-8 text-primary" />
-                        <p className="mt-2 text-2xl font-bold gradient-text">300%</p>
-                        <p className="text-xs text-muted-foreground">Avg. Traffic Increase</p>
+                        <p className="mt-2 text-2xl font-bold gradient-text">Improved</p>
+                        <p className="text-xs text-muted-foreground">User Retention</p>
                       </CardContent>
                     </Card>
                     <Card className="text-center hover-lift">
                       <CardContent className="pt-6">
                         <Users className="mx-auto h-8 w-8 text-primary" />
-                        <p className="mt-2 text-2xl font-bold gradient-text">150%</p>
-                        <p className="text-xs text-muted-foreground">User Growth Rate</p>
+                        <p className="mt-2 text-2xl font-bold gradient-text">Higher</p>
+                        <p className="text-xs text-muted-foreground">Engagement Performance</p>
                       </CardContent>
                     </Card>
                     <Card className="text-center hover-lift">
                       <CardContent className="pt-6">
                         <BarChart3 className="mx-auto h-8 w-8 text-primary" />
-                        <p className="mt-2 text-2xl font-bold gradient-text">Top 10</p>
-                        <p className="text-xs text-muted-foreground">Ranking Position</p>
+                        <p className="mt-2 text-2xl font-bold gradient-text">Enhanced</p>
+                        <p className="text-xs text-muted-foreground">Product Visibility</p>
+
                       </CardContent>
                     </Card>
                     <Card className="text-center hover-lift">
                       <CardContent className="pt-6">
                         <DollarSign className="mx-auto h-8 w-8 text-primary" />
-                        <p className="mt-2 text-2xl font-bold gradient-text">200%</p>
-                        <p className="text-xs text-muted-foreground">Revenue Boost</p>
+                        <p className="mt-2 text-2xl font-bold gradient-text">Stronger</p>
+                        <p className="text-xs text-muted-foreground">Revenue Opportunities</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -524,28 +413,28 @@ export default function HomePage() {
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
               <AnimatedSection delay={100}>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                  <span className="gradient-text">Work With Us</span>
+                  <span className="gradient-text">Request a Consultation</span>
                 </h2>
                 <p className="mt-4 text-lg text-muted-foreground">
-                  Ready to collaborate with AppBoost Labs? Fill out your basic information and our team will contact you within 24 hours.
+                  Ready to collaborate with AppBoost Labs? Tell us about your app, product goals, and business needs. Our consulting team will review your request and respond within 1 business day.
                 </p>
 
                 <div className="mt-8 space-y-4">
                   <div className="flex items-center gap-3 glass p-4 rounded-lg">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">No experience required</span>
+                    <span className="text-muted-foreground">Professional mobile app performance analysis</span>
                   </div>
                   <div className="flex items-center gap-3 glass p-4 rounded-lg">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Flexible remote work</span>
+                    <span className="text-muted-foreground">Quality assurance testing and product validation</span>
                   </div>
                   <div className="flex items-center gap-3 glass p-4 rounded-lg">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Start contributing to projects within a few days after onboarding</span>
+                    <span className="text-muted-foreground">User experience optimization and engagement improvement</span>
                   </div>
                   <div className="flex items-center gap-3 glass p-4 rounded-lg">
                     <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Professional training provided</span>
+                    <span className="text-muted-foreground">Data-driven consulting for sustainable product growth</span>
                   </div>
                 </div>
               </AnimatedSection>
@@ -553,8 +442,8 @@ export default function HomePage() {
               <AnimatedSection delay={200}>
                 <Card className="hover-glow">
                   <CardHeader>
-                    <CardTitle>Your Information</CardTitle>
-                    <CardDescription>Fill in your details to get started</CardDescription>
+                    <CardTitle>Project Inquiry Form</CardTitle>
+                    <CardDescription>Tell us about your business goals</CardDescription>
                   </CardHeader>
                   <Form />
                 </Card>
@@ -571,18 +460,18 @@ export default function HomePage() {
             <AnimatedSection className="mx-auto max-w-2xl text-center">
 
               <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-                Ready to Grow with AppBoost Labs?
+                Ready to Improve Your Product Performance?
               </h2>
 
               <p className="mt-4 text-lg text-primary-foreground/80">
-                Join our platform to collaborate on real projects, build valuable experience, and explore new opportunities in a flexible digital environment.
+                We help businesses improve mobile app performance, user experience, and long-term product growth through professional consulting and data-driven strategies.
               </p>
 
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
 
                 <Button size="lg" variant="secondary" className="hover-lift" asChild>
                   <Link href="/contact">
-                    Get Started
+                    Book a Consultation
                     <Rocket className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -593,7 +482,7 @@ export default function HomePage() {
                   className="border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover-lift"
                   asChild
                 >
-                  <Link href="/events">Explore Opportunities</Link>
+                  <Link href="/events">View Our Services</Link>
                 </Button>
 
               </div>

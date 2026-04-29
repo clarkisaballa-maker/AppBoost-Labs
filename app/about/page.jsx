@@ -6,12 +6,12 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { 
-  Target, 
-  Lightbulb, 
-  Users, 
-  BarChart3, 
-  Globe2, 
+import {
+  Target,
+  Lightbulb,
+  Users,
+  BarChart3,
+  Globe2,
   Sparkles,
   CheckCircle2,
   ArrowRight,
@@ -27,10 +27,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -41,13 +40,13 @@ export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 lg:py-28">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-          
+
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-3xl text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
@@ -58,7 +57,7 @@ export default function AboutPage() {
                 <span className="gradient-text">About AppBoost Labs</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                We are a leading app optimization company dedicated to helping apps achieve their full potential through innovative, data-driven strategies.
+                We provide professional mobile app performance analysis, quality assurance testing, user experience optimization, and product growth consulting for digital businesses.
               </p>
             </AnimatedSection>
           </div>
@@ -77,16 +76,16 @@ export default function AboutPage() {
                   <span className="gradient-text">Empowering Apps to Reach New Heights</span>
                 </h2>
                 <p className="mt-6 text-lg text-muted-foreground">
-                  At AppBoost Labs, we believe every app has the potential for greatness. Our mission is to bridge the gap between 
-                  where your app is today and where it could be tomorrow. Through cutting-edge optimization techniques, 
+                  At AppBoost Labs, we believe every app has the potential for greatness. Our mission is to bridge the gap between
+                  where your app is today and where it could be tomorrow. Through cutting-edge optimization techniques,
                   deep user experience analysis, and strategic promotion, we transform apps into market leaders.
                 </p>
                 <p className="mt-4 text-lg text-muted-foreground">
-                  Whether you&apos;re a startup looking to gain traction or an enterprise seeking to optimize your existing app portfolio, 
+                  Whether you&apos;re a startup looking to gain traction or an enterprise seeking to optimize your existing app portfolio,
                   our team of experts is dedicated to delivering measurable results that drive sustainable growth.
                 </p>
               </AnimatedSection>
-              
+
               <AnimatedSection delay={200} className="flex items-center justify-center">
                 <div className="grid grid-cols-2 gap-4">
                   <Card className="text-center hover-lift hover-glow">
@@ -144,7 +143,7 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">App Optimization</h3>
                     <p className="mt-2 text-muted-foreground">
-                      We analyze and enhance every aspect of your app to maximize performance, 
+                      We analyze and enhance every aspect of your app to maximize performance,
                       from load times to user interface responsiveness, ensuring a seamless experience.
                     </p>
                   </div>
@@ -159,7 +158,7 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">User Experience Enhancement</h3>
                     <p className="mt-2 text-muted-foreground">
-                      Our UX experts identify friction points and implement solutions that keep users 
+                      Our UX experts identify friction points and implement solutions that keep users
                       engaged, leading to higher retention rates and increased lifetime value.
                     </p>
                   </div>
@@ -174,7 +173,7 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">Data Analysis</h3>
                     <p className="mt-2 text-muted-foreground">
-                      We leverage advanced analytics to understand user behavior, identify trends, 
+                      We leverage advanced analytics to understand user behavior, identify trends,
                       and make data-driven decisions that drive measurable improvements.
                     </p>
                   </div>
@@ -187,10 +186,9 @@ export default function AboutPage() {
                     <Globe2 className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground">Strategic Promotion</h3>
+                    <h3 className="text-lg font-semibold text-foreground">Product Growth Strategy</h3>
                     <p className="mt-2 text-muted-foreground">
-                      Our promotion strategies are designed to increase visibility, drive downloads, 
-                      and build a loyal user base through targeted marketing initiatives.
+                      We help improve product visibility, user engagement, and sustainable long-term growth through data-driven planning and market positioning.
                     </p>
                   </div>
                 </div>
@@ -218,7 +216,7 @@ export default function AboutPage() {
                     <CheckCircle2 className="h-8 w-8 text-primary mb-4" />
                     <h3 className="font-semibold text-foreground">Proven Track Record</h3>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      500+ apps optimized with a 98% success rate
+                      Supporting digital products with measurable performance improvements
                     </p>
                   </CardContent>
                 </Card>
@@ -242,7 +240,7 @@ export default function AboutPage() {
                     <CheckCircle2 className="h-8 w-8 text-primary mb-4" />
                     <h3 className="font-semibold text-foreground">24/7 Support</h3>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Round-the-clock assistance for all members
+                      Reliable support for all client projects
                     </p>
                   </CardContent>
                 </Card>
@@ -252,9 +250,9 @@ export default function AboutPage() {
                 <Card className="hover-lift hover-glow h-full">
                   <CardContent className="pt-6">
                     <CheckCircle2 className="h-8 w-8 text-primary mb-4" />
-                    <h3 className="font-semibold text-foreground">Flexible Work</h3>
+                    <h3 className="font-semibold text-foreground">Dedicated Client Support</h3>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Work remotely on your own schedule
+                      Responsive communication and ongoing project guidance
                     </p>
                   </CardContent>
                 </Card>
@@ -264,9 +262,9 @@ export default function AboutPage() {
                 <Card className="hover-lift hover-glow h-full">
                   <CardContent className="pt-6">
                     <CheckCircle2 className="h-8 w-8 text-primary mb-4" />
-                    <h3 className="font-semibold text-foreground">Competitive Pay</h3>
+                    <h3 className="font-semibold text-foreground">Transparent Project Management</h3>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Transparent compensation with growth opportunities
+                      Clear workflows, reporting, and measurable business outcomes
                     </p>
                   </CardContent>
                 </Card>
@@ -276,9 +274,9 @@ export default function AboutPage() {
                 <Card className="hover-lift hover-glow h-full">
                   <CardContent className="pt-6">
                     <CheckCircle2 className="h-8 w-8 text-primary mb-4" />
-                    <h3 className="font-semibold text-foreground">Training Provided</h3>
+                    <h3 className="font-semibold text-foreground">Professional Consulting Approach</h3>
                     <p className="mt-2 text-sm text-muted-foreground">
-                      Comprehensive onboarding and ongoing education
+                      Structured solutions tailored to your business goals
                     </p>
                   </CardContent>
                 </Card>
@@ -294,10 +292,10 @@ export default function AboutPage() {
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-                Ready to Partner with Us?
+                Ready to Improve Your Product Performance?
               </h2>
               <p className="mt-4 text-lg text-primary-foreground/80">
-                Join the growing list of apps that have achieved remarkable success with AppBoost Labs.
+                Let’s discuss how AppBoost Labs can support your app’s growth, user experience, and long-term product success.
               </p>
               <div className="mt-8">
                 <Button size="lg" variant="secondary" className="hover-lift" asChild>

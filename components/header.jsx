@@ -76,7 +76,7 @@ export default function Header() {
         
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Button asChild className="hover-lift">
-            <Link href="/contact">Join Now</Link>
+            <Link href="/contact">Request Consultation</Link>
           </Button>
         </div>
       </nav>
@@ -96,7 +96,7 @@ export default function Header() {
             ))}
             <div className="pt-2">
               <Button asChild className="w-full">
-                <Link href="/contact">Join Now</Link>
+                <Link href="/contact">Request Consultation</Link>
               </Button>
             </div>
           </div>

@@ -7,8 +7,8 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { 
-  Users, 
+import {
+  Users,
   ArrowRight,
   Linkedin,
   Mail,
@@ -29,10 +29,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -100,33 +99,6 @@ const executives = [
   },
 ]
 
-const bestEmployees = [
-  {
-    name: 'Maria',
-    title: 'Senior Instructor',
-    bio: 'Maria has consistently delivered exceptional results in app optimization, helping the new users achieve record-breaking growth metrics.',
-    images: [
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027440/compressed_photo_2026-03-07_00-31-13_hmkea7.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027439/compressed_photo_2026-03-04_00-32-59_eci7bk.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027437/compressed_photo_2026-03-10_00-40-25_qt8ubx.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027436/compressed_photo_2026-03-11_23-38-54_gopbwe.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027435/compressed_photo_2026-03-10_00-40-23_kkjpt7.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027434/compressed_photo_2026-03-03_00-49-22_bx16di.webp',
-    ]
-  },
-  {
-    name: 'Susan',
-    title: 'Senior Instructor',
-    bio: 'Susan excels at transforming data into actionable strategies, driving remarkable user acquisition results for our partner apps.',
-    images: [
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027457/compressed_photo_2026-04-13_04-51-22_atzxj9.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027456/compressed_photo_2026-04-13_04-53-05_baelnb.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027456/compressed_photo_2026-04-13_04-42-54_v5jl1k.webp',
-      'https://res.cloudinary.com/dm2zkwqqb/image/upload/q_auto/f_auto/v1776027457/compressed_photo_2026-04-13_04-54-10_ufqzlb.webp',
-    ]
-  },
-]
-
 function ExecutiveCard({ executive, delay, onViewGallery }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -147,27 +119,25 @@ function ExecutiveCard({ executive, delay, onViewGallery }) {
               src={img}
               alt={`${executive.name} - Photo ${idx + 1}`}
               fill
-              className={`object-cover transition-all duration-700 ${
-                idx === currentImageIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-              }`}
+              className={`object-cover transition-all duration-700 ${idx === currentImageIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                }`}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ))}
-          
+
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-          
+
           {/* Image indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
             {executive.images.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentImageIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === currentImageIndex 
-                    ? 'bg-primary w-6' 
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentImageIndex
+                    ? 'bg-primary w-6'
                     : 'bg-white/50 hover:bg-white/80'
-                }`}
+                  }`}
                 aria-label={`View photo ${idx + 1}`}
               />
             ))}
@@ -190,7 +160,7 @@ function ExecutiveCard({ executive, delay, onViewGallery }) {
             </span>
           </div>
         </div>
-        
+
         <CardContent className="p-6">
           <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
             {executive.name}
@@ -227,7 +197,7 @@ function GalleryModal({ executive, onClose }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center pt-20">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-background/95 backdrop-blur-md"
         onClick={onClose}
       />
@@ -241,7 +211,7 @@ function GalleryModal({ executive, onClose }) {
         <X className="h-5 w-5" />
         <span>Close</span>
       </button>
-      
+
       {/* Content */}
       <div className="relative z-10 w-full max-w-4xl mx-4">
         {/* Main image */}
@@ -252,9 +222,8 @@ function GalleryModal({ executive, onClose }) {
               src={img}
               alt={`${executive.name} - Photo ${idx + 1}`}
               fill
-              className={`object-contain transition-all duration-500 ${
-                idx === currentIndex ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`object-contain transition-all duration-500 ${idx === currentIndex ? 'opacity-100' : 'opacity-0'
+                }`}
               sizes="(max-width: 1024px) 100vw, 1024px"
               priority={idx === currentIndex}
             />
@@ -281,18 +250,17 @@ function GalleryModal({ executive, onClose }) {
         <div className="mt-4 text-center">
           <h3 className="text-xl font-bold text-foreground">{executive.name}</h3>
           <p className="text-sm text-primary">{executive.title}</p>
-          
+
           {/* Thumbnails */}
           <div className="flex justify-center gap-2 mt-4">
             {executive.images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`relative w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${
-                  idx === currentIndex 
-                    ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' 
+                className={`relative w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 ${idx === currentIndex
+                    ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
                     : 'opacity-60 hover:opacity-100'
-                }`}
+                  }`}
               >
                 <Image
                   src={img}
@@ -316,14 +284,14 @@ export default function LeadershipPage() {
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 lg:py-28">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-20 right-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-          
+
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-3xl text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
@@ -334,7 +302,7 @@ export default function LeadershipPage() {
                 <span className="gradient-text">Meet Our Executive Team</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                The visionary leaders driving innovation and excellence at AppBoost Labs. 
+                The visionary leaders driving innovation and excellence at AppBoost Labs.
                 Together, they bring decades of experience in technology, analytics, and business growth.
               </p>
             </AnimatedSection>
@@ -343,65 +311,65 @@ export default function LeadershipPage() {
 
         {/* CEO Featured Section */}
         <section className="py-16 lg:py-24">
-  <div className="mx-auto max-w-7xl px-6 lg:px-8">
-    <AnimatedSection delay={100}>
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
-        
-        {/* Video */}
-        <div className="relative w-full">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black">
-            <video
-              className="h-full w-full object-contain"
-              controls
-              playsInline
-              poster={executives[0].images[0]}
-            >
-              <source
-                src="https://res.cloudinary.com/dm2zkwqqb/video/upload/q_auto/f_auto/v1776102300/CEO_qgegx2.webm"
-                type="video/webm"
-              />
-              Your browser does not support the video tag.
-            </video>
-          </div>
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <AnimatedSection delay={100}>
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-          {/* Decorative elements */}
-          <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/20 rounded-full blur-2xl" />
-          <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent/20 rounded-full blur-xl" />
-        </div>
+                {/* Video */}
+                <div className="relative w-full">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black">
+                    <video
+                      className="h-full w-full object-contain"
+                      controls
+                      playsInline
+                      poster={executives[0].images[0]}
+                    >
+                      <source
+                        src="https://res.cloudinary.com/dm2zkwqqb/video/upload/q_auto/f_auto/v1776102300/CEO_qgegx2.webm"
+                        type="video/webm"
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
 
-        {/* Text */}
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary mb-6">
-            <Award className="h-4 w-4" />
-            Chief Executive Officer
-          </div>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            <span className="gradient-text">{executives[0].name}</span>
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            {executives[0].bio}
-          </p>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            Daniel&apos;s leadership philosophy centers on empowering teams, fostering innovation,
-            and maintaining an unwavering commitment to client success. His strategic vision
-            has positioned AppBoost Labs at the forefront of the app optimization industry.
-          </p>
-          <div className="mt-8 flex gap-4">
-            <Button
-              variant="outline"
-              className="hover-lift"
-              onClick={() => setSelectedExecutive(executives[0])}
-            >
-              <Sparkles className="mr-2 h-4 w-4" />
-              View Gallery
-            </Button>
-          </div>
-        </div>
+                  {/* Decorative elements */}
+                  <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/20 rounded-full blur-2xl" />
+                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-accent/20 rounded-full blur-xl" />
+                </div>
 
-      </div>
-    </AnimatedSection>
-  </div>
-</section>
+                {/* Text */}
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary mb-6">
+                    <Award className="h-4 w-4" />
+                    Chief Executive Officer
+                  </div>
+                  <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                    <span className="gradient-text">{executives[0].name}</span>
+                  </h2>
+                  <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
+                    {executives[0].bio}
+                  </p>
+                  <p className="mt-4 text-muted-foreground leading-relaxed">
+                    Daniel&apos;s leadership philosophy centers on empowering teams, fostering innovation,
+                    and maintaining an unwavering commitment to client success. His strategic vision
+                    has positioned AppBoost Labs at the forefront of the mobile product consulting industry.
+                  </p>
+                  <div className="mt-8 flex gap-4">
+                    <Button
+                      variant="outline"
+                      className="hover-lift"
+                      onClick={() => setSelectedExecutive(executives[0])}
+                    >
+                      <Sparkles className="mr-2 h-4 w-4" />
+                      View Gallery
+                    </Button>
+                  </div>
+                </div>
+
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
 
         {/* Other Executives Grid */}
         <section className="bg-card/30 py-20 lg:py-28">
@@ -497,10 +465,10 @@ export default function LeadershipPage() {
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-                Ready to Work With Us?
+                Ready to Improve Your Product Performance?
               </h2>
               <p className="mt-4 text-lg text-primary-foreground/80">
-                Join our team or partner with us to achieve extraordinary results.
+                Connect with AppBoost Labs to discuss your business goals, product performance, and long-term growth strategies.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="secondary" className="hover-lift" asChild>
@@ -510,8 +478,8 @@ export default function LeadershipPage() {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="hover-lift bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
-                  <Link href="/apply">
-                    Join Our Team
+                  <Link href="/contact">
+                    Request a Consultation
                     <Users className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { 
-  Mail, 
-  Phone, 
+import {
+  Mail,
+  Phone,
   Clock,
   CheckCircle2,
   MessageSquare,
@@ -29,10 +29,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -40,17 +39,17 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 }
 
 export default function ContactPage() {
-  
+
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 lg:py-28">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
           <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-          
+
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-3xl text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
@@ -61,8 +60,8 @@ export default function ContactPage() {
                 <span className="gradient-text">Contact Us</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                Have questions or ready to get started? We&apos;d love to hear from you. 
-                Fill out the form below to apply or reach out to our team.
+                Have questions or ready to improve your product performance? We'd love to hear from you.
+                Fill out the form below to request a consultation or connect with our team.
               </p>
             </AnimatedSection>
           </div>
@@ -72,7 +71,7 @@ export default function ContactPage() {
         <section className="py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-              {/* Application Form */}
+              {/* Consultation Request Form */}
               <AnimatedSection delay={100}>
                 <Card className="hover-glow">
                   <CardHeader>
@@ -81,8 +80,8 @@ export default function ContactPage() {
                         <Briefcase className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <CardTitle>Apply Now</CardTitle>
-                        <CardDescription>Join our team today</CardDescription>
+                        <CardTitle>Request a Consultation</CardTitle>
+                        <CardDescription>Tell us about your business goals</CardDescription>
                       </div>
                     </div>
                   </CardHeader>
@@ -97,8 +96,8 @@ export default function ContactPage() {
                     <span className="gradient-text">Get in Touch</span>
                   </h2>
                   <p className="mt-4 text-muted-foreground">
-                    Our team is here to help you achieve your goals. 
-                    Whether you have questions about our opportunities or are ready to join, 
+                    Our team is here to help you achieve your goals.
+                    Whether you have questions about our services or are ready to discuss your project,
                     we&apos;re always happy to connect.
                   </p>
                 </div>
@@ -166,7 +165,7 @@ export default function ContactPage() {
                           <CardDescription>Our Office Location</CardDescription>
                         </div>
                       </div>
-                      <a 
+                      <a
                         href="https://www.google.com/maps/search/AppBoost+Labs+miami+FL"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -178,7 +177,7 @@ export default function ContactPage() {
                     </div>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <a 
+                    <a
                       href="https://www.google.com/maps/search/AppBoost+Labs+miami+FL"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -215,27 +214,27 @@ export default function ContactPage() {
 
                 <Card className="glass border-primary/20 hover-glow">
                   <CardContent className="pt-6">
-                    <h3 className="font-semibold text-foreground">Why Join AppBoost Labs?</h3>
+                    <h3 className="font-semibold text-foreground">Why Choose AppBoost Labs?</h3>
                     <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Flexible remote work opportunity
+                        Professional mobile app consulting services
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Competitive daily compensation
+                        Transparent project management and reporting
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Simple daily tasks
+                        Quality assurance testing and UX optimization
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        Fast payment via Cash App or PayPal
+                        Dedicated client support and strategic guidance
                       </li>
                     </ul>
                     <Button variant="outline" className="mt-6 hover-lift w-full" asChild>
-                      <Link href="/">Learn More About Opportunities</Link>
+                      <Link href="/">Learn More About Our Services</Link>
                     </Button>
                   </CardContent>
                 </Card>

@@ -114,7 +114,7 @@ const Index = () => {
 
         } catch (error) {
             console.error("Submission error:", error)
-            alert(error.message || "Failed to submit application")
+            alert(error.message || "Failed to Submit Request")
         } finally {
             setIsSubmitting(false)
         }
@@ -127,23 +127,23 @@ const Index = () => {
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 animate-scale-in">
                         <CheckCircle2 className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="mt-4 text-lg font-semibold text-foreground">Application Submitted!</h3>
+                    <h3 className="mt-4 text-lg font-semibold text-foreground">Consultation Request Submitted!</h3>
                     <p className="mt-2 text-muted-foreground">
-                        Thank you for applying. We&apos;ll review your application and get back to you soon.
+                        Thank you for contacting us. Our team will review your request and respond shortly.
                     </p>
                     <Button
                         className="mt-6 hover-lift"
                         variant="outline"
                         onClick={() => setIsSubmitted(false)}
                     >
-                        Submit Another Application
+                        Submit Another Request
                     </Button>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="workCode" className="flex items-center gap-2">
-                            Please enter your Instructor's employee number
+                            Please enter your Project Reference Code (if available)
 
                             <span
                                 onClick={() => setShowTooltip(!showTooltip)}
@@ -153,14 +153,14 @@ const Index = () => {
 
                                 {showTooltip && (
                                     <div className="absolute left-0 top-6 w-64 p-3 text-xs bg-black text-white rounded-lg z-10">
-                                        If you are not currently working under any instructor,
-                                        you may not have an employee code.
+                                        If you do not have a project reference code,
+                                        you can still submit your consultation request.
                                         <br /><br />
-                                        This means you need to apply for the job first.
+                                        This simply helps our team identify existing client projects.
                                         <br /><br />
                                         👉{" "}
                                         <a href="/apply" className="underline text-blue-300">
-                                            Click here to apply
+                                            Click here to contact us
                                         </a>
                                     </div>
                                 )}
@@ -169,7 +169,7 @@ const Index = () => {
                         <Input
                             id="workCode"
                             name="workCode"
-                            placeholder="Employee Code"
+                            placeholder="Project Reference Code"
                             value={formData.workCode}
                             onChange={handleChange}
                         />
@@ -236,11 +236,11 @@ const Index = () => {
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="paymentMethod">Do you use Cash App or PayPal?</Label>
+                        <Label htmlFor="paymentMethod">Preferred Payment Platform (if applicable)</Label>
                         <Input
                             id="paymentMethod"
                             name="paymentMethod"
-                            placeholder="Cash App / PayPal / Both"
+                            placeholder="PayPal / Cash App / Bank Transfer / Other"
                             value={formData.paymentMethod}
                             onChange={handleChange}
                             required
@@ -259,10 +259,10 @@ const Index = () => {
                         />
                     </div>
                     <p className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
-                        <strong>Note:</strong> Rest assured, all information will be kept strictly confidential and used only for payment purposes. Your privacy and data security are our top priority.
+                        <strong>Note:</strong> All information is kept strictly confidential and used only for secure billing, service transactions, and official business communication.
                     </p>
                     <Button type="submit" className="w-full hover-lift" disabled={isSubmitting}>
-                        {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                        {isSubmitting ? 'Submitting...' : 'Submit Request'}
                     </Button>
                 </form>
             )}

@@ -15,10 +15,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -29,7 +28,7 @@ export default function PrivacyPage() {
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-16 lg:py-20">
@@ -60,9 +59,9 @@ export default function PrivacyPage() {
                     <div>
                       <h2 className="text-xl font-bold text-foreground">1. Introduction</h2>
                       <p className="mt-4 text-muted-foreground">
-                        AppBoost Labs (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. 
-                        This Privacy Policy explains how we collect, use, disclose, and safeguard your information 
-                        when you visit our website or use our services.
+                        AppBoost Labs (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy.
+                        This Privacy Policy explains how we collect, use, disclose, and safeguard your information
+                        when you visit our website, request a consultation, or use our professional mobile app consulting, quality assurance, and product growth services.
                       </p>
                     </div>
 
@@ -81,12 +80,13 @@ export default function PrivacyPage() {
                     <div>
                       <h2 className="text-xl font-bold text-foreground">3. How We Use Your Information</h2>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
-                        <li>To provide and maintain our services</li>
-                        <li>To notify you about changes to our services</li>
+                        <li>To provide professional consulting, quality assurance testing, and product growth support</li>
+                        <li>To communicate project updates, consultation responses, and service-related notices</li>
                         <li>To provide customer support</li>
                         <li>To gather analysis or valuable information to improve our services</li>
                         <li>To monitor the usage of our services</li>
-                        <li>To detect, prevent, and address technical issues</li>
+                        <li>To detect, prevent, and address technical issues
+                          To comply with applicable legal, regulatory, and business obligations</li>
                       </ul>
                     </div>
 
@@ -102,9 +102,9 @@ export default function PrivacyPage() {
                     <div>
                       <h2 className="text-xl font-bold text-foreground">5. Security of Your Information</h2>
                       <p className="mt-4 text-muted-foreground">
-                        We use administrative, technical, and physical security measures to help protect your personal information. 
-                        While we have taken reasonable steps to secure the personal information you provide to us, 
-                        no security measures are perfect, and no method of data transmission can be guaranteed.
+                        We use administrative, technical, and physical security measures to help protect your personal information.
+                        While we have taken reasonable steps to secure the personal information you provide to us,
+                        no security measures are perfect, and no method of electronic transmission or storage can be guaranteed to be completely secure, although we continuously work to protect your information using industry-standard practices.
                       </p>
                     </div>
 
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
                     <div>
                       <h2 className="text-xl font-bold text-foreground">7. Contact Us</h2>
                       <p className="mt-4 text-muted-foreground">
-                        If you have questions about this Privacy Policy, please contact us at contact@appboostlabs.org
+                        If you have questions regarding this Privacy Policy, your personal data, or your privacy rights, please contact us at contact@appboostlabs.org or through our official contact page.
                       </p>
                     </div>
                   </div>

@@ -8,7 +8,7 @@ import Footer from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
+import {
   Calendar,
   Clock,
   Users,
@@ -28,10 +28,9 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
   }, [delay])
 
   return (
-    <div 
-      className={`${className} transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <div
+      className={`${className} transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
     >
       {children}
     </div>
@@ -63,8 +62,8 @@ const upcomingEvents = [
   },
   {
     id: 3,
-    title: 'Member Networking Night',
-    description: 'Connect with fellow members, share experiences, and build valuable relationships in our exclusive networking event.',
+    title: 'Client Networking Session',
+    description: 'Connect with industry professionals, share insights, and build valuable business relationships through our networking session.',
     date: 'May 5, 2026',
     time: '6:00 PM - 9:00 PM EST',
     type: 'Networking',
@@ -74,8 +73,8 @@ const upcomingEvents = [
   },
   {
     id: 4,
-    title: 'Weekly Webinar: Task Excellence',
-    description: 'Our weekly webinar covering best practices for task completion, tips for maximizing earnings, and Q&A session.',
+    title: 'Weekly Webinar: Product Growth Insights',
+    description: 'Our weekly webinar covering best practices for app performance improvement, product growth strategies, and live Q&A sessions.',
     date: 'Every Thursday',
     time: '3:00 PM EST',
     type: 'Webinar',
@@ -97,8 +96,8 @@ const pastEvents = [
   },
   {
     id: 6,
-    title: 'Advanced Monetization Strategies',
-    description: 'Deep dive into app monetization techniques that our top performers use to maximize their earnings.',
+    title: 'Advanced Product Growth Strategies',
+    description: 'A deep dive into sustainable product growth strategies used to improve retention, visibility, and long-term business performance.',
     date: 'February 15, 2026',
     type: 'Workshop',
     attendees: 120,
@@ -106,8 +105,8 @@ const pastEvents = [
   },
   {
     id: 7,
-    title: 'Member Success Stories',
-    description: 'Celebrating our community with inspiring stories from members who achieved remarkable results.',
+    title: 'Client Success Stories',
+    description: 'Highlighting successful client case studies and real-world examples of measurable product improvement.',
     date: 'March 1, 2026',
     type: 'Webinar',
     attendees: 300,
@@ -121,13 +120,13 @@ export default function EventsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-grid-pattern">
       <Header />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 lg:py-28">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
           <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-          
+
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-3xl text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary">
@@ -140,7 +139,7 @@ export default function EventsPage() {
                 <span className="text-foreground">& Company Updates</span>
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                Stay connected with the AppBoost Labs community through our events, workshops, webinars, and networking opportunities.
+                Stay connected with AppBoost Labs through professional events, workshops, webinars, and business networking opportunities focused on product growth and digital performance.
               </p>
             </AnimatedSection>
           </div>
@@ -168,7 +167,7 @@ export default function EventsPage() {
                       App Growth Summit 2026
                     </h2>
                     <p className="mt-4 text-muted-foreground">
-                      Join industry leaders for a comprehensive summit on app growth strategies, featuring keynote speakers and networking opportunities. This is our biggest event of the year.
+                      Join industry leaders for a comprehensive summit on app growth strategies, featuring keynote speakers and networking opportunities. This is one of our key annual professional events focused on product growth and industry collaboration.
                     </p>
                     <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
@@ -205,21 +204,19 @@ export default function EventsPage() {
                 <div className="inline-flex rounded-lg glass p-1">
                   <button
                     onClick={() => setActiveTab('upcoming')}
-                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                      activeTab === 'upcoming'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 ${activeTab === 'upcoming'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground'
+                      }`}
                   >
                     Upcoming Events
                   </button>
                   <button
                     onClick={() => setActiveTab('past')}
-                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                      activeTab === 'past'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-300 ${activeTab === 'past'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-muted-foreground hover:text-foreground'
+                      }`}
                   >
                     Past Events
                   </button>
@@ -314,7 +311,7 @@ export default function EventsPage() {
                 <span className="gradient-text">Weekly Schedule</span>
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
-                Regular events and sessions to help you succeed
+                Regular sessions focused on product growth, consulting, and performance improvement
               </p>
             </AnimatedSection>
 
@@ -327,7 +324,7 @@ export default function EventsPage() {
                     </div>
                     <h3 className="font-semibold">Monday</h3>
                     <p className="text-sm text-muted-foreground mt-2">
-                      Onboarding Session<br />
+                      Project Consultation Session<br />
                       <span className="text-primary">10:00 AM EST</span>
                     </p>
                   </CardContent>
@@ -342,7 +339,7 @@ export default function EventsPage() {
                     </div>
                     <h3 className="font-semibold">Wednesday</h3>
                     <p className="text-sm text-muted-foreground mt-2">
-                      Team Check-in<br />
+                      Client Strategy Review<br />
                       <span className="text-primary">2:00 PM EST</span>
                     </p>
                   </CardContent>
@@ -389,15 +386,15 @@ export default function EventsPage() {
           <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
-                Don&apos;t Miss Out on Our Events
+                Stay Connected with AppBoost Labs
               </h2>
               <p className="mt-4 text-lg text-primary-foreground/80">
-                Join AppBoost Labs to get access to all our exclusive events, workshops, and networking opportunities.
+                Connect with our team for professional events, product growth workshops, and business networking opportunities.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Button size="lg" variant="secondary" className="hover-lift" asChild>
                   <Link href="/contact">
-                    Join Now
+                    Contact Our Team
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

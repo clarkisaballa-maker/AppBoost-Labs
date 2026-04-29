@@ -61,7 +61,7 @@ export default function SecurityNoticePage() {
                 <span className="text-destructive">Beware of Fraudulent Activities</span>
               </h1>
               <p className="mt-6 text-pretty text-lg leading-8 text-muted-foreground">
-                We have received reports that some fraudulent entities are misusing the name of <strong className="text-foreground">AppBoost Labs</strong> to scam unsuspecting users. Please read this notice carefully to protect yourself from such scams.
+                We are aware of unauthorized third parties attempting to misuse the AppBoost Labs name and branding. This notice is provided to help visitors recognize unofficial communications and protect their personal information.
               </p>
             </AnimatedSection>
           </div>
@@ -77,9 +77,9 @@ export default function SecurityNoticePage() {
                     <AlertTriangle className="h-8 w-8 text-destructive" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-destructive mb-3">Critical Warning</h2>
+                    <h2 className="text-xl font-bold text-destructive mb-3">Security Advisory</h2>
                     <p className="text-muted-foreground leading-relaxed">
-                      We have become aware that certain individuals and fake companies are sending fraudulent emails, creating fake websites, and impersonating AppBoost Labs representatives to deceive users. These scammers may request personal information, payments, or access to your accounts under false pretenses.
+                      We have become aware that certain individuals and fake companies are sending fraudulent emails, creating fake websites, and impersonating AppBoost Labs representatives to deceive users. Unauthorized parties may request personal information, financial details, or account access under false pretenses. We strongly recommend verifying all communications through our official channels.
                     </p>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ export default function SecurityNoticePage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <AnimatedSection className="mx-auto max-w-2xl text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                <span className="gradient-text">Common Scam Tactics to Watch Out For</span>
+                <span className="gradient-text">Common Security Risks to Watch For</span>
               </h2>
               <p className="mt-4 text-lg text-muted-foreground">
                 Be vigilant and recognize these warning signs of fraudulent activities.
@@ -222,7 +222,7 @@ export default function SecurityNoticePage() {
                     <div className="w-14 h-14 rounded-full bg-destructive/20 flex items-center justify-center mb-4">
                       <XCircle className="h-7 w-7 text-destructive" />
                     </div>
-                    <CardTitle className="text-xl text-destructive">Avoid This</CardTitle>
+                    <CardTitle className="text-xl text-destructive">Please Avoid</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-4">
@@ -339,10 +339,10 @@ export default function SecurityNoticePage() {
                   <span className="gradient-text">Your Safety is Our Priority</span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
-                  AppBoost Labs is committed to protecting our community from fraudulent activities. We take these matters very seriously and are actively working to address any misuse of our name and brand.
+                  AppBoost Labs is committed to maintaining secure communication standards and protecting clients and visitors from unauthorized third-party activity.
                 </p>
                 <p className="text-muted-foreground max-w-2xl mx-auto">
-                  If you have encountered any suspicious activity or believe you have been contacted by someone impersonating AppBoost Labs, please report it to us immediately at <strong className="text-foreground">contact@appboostlabs.org</strong>. Together, we can help prevent others from falling victim to these scams.
+                  If you have encountered any suspicious activity or believe you have been contacted by someone impersonating AppBoost Labs, please report it to us immediately at <strong className="text-foreground">contact@appboostlabs.org</strong>. Maintaining secure communication practices helps protect both our clients and the integrity of our services.
                 </p>
               </div>
             </AnimatedSection>

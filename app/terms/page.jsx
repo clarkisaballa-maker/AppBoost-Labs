@@ -82,39 +82,38 @@ export default function TermsPage() {
                         <li>User experience (UX) improvements</li>
                         <li>Data analysis and reporting</li>
                         <li>Marketing strategy support</li>
-                        <li>Partner-based data optimization programs</li>
+                        <li>Professional consulting and product performance support services</li>
                       </ul>
                     </div>
 
                     {/* 3 */}
                     <div>
                       <h2 className="text-xl font-bold text-foreground">
-                        3. Collaboration & Engagement Terms
+                        3. Client Service Terms
                       </h2>
                       <p className="mt-4 text-muted-foreground">
-                        AppBoost Labs may collaborate with independent partners or contractors for specific
-                        data optimization projects.
+                        AppBoost Labs provides professional consulting, quality assurance testing, and product growth services for clients based on project-specific agreements and business requirements.
                       </p>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
-                        <li>Participation is voluntary and project-based</li>
-                        <li>Compensation (if applicable) is defined per project agreement</li>
-                        <li>No guaranteed earnings or fixed salary unless stated in a formal contract</li>
-                        <li>All onboarding or trial processes are communicated transparently</li>
+                        <li>Service scope is defined according to project requirements</li>
+                        <li>Project timelines and deliverables are agreed upon before engagement</li>
+                        <li>Pricing and service terms are communicated transparently</li>
+                        <li>All consultations and service processes are handled through formal business communication</li>
                       </ul>
                     </div>
 
                     {/* 4 */}
                     <div>
                       <h2 className="text-xl font-bold text-foreground">
-                        4. Work Guidelines
+                        4. Service Delivery Guidelines
                       </h2>
                       <p className="mt-4 text-muted-foreground">
-                        Participants involved in data optimization programs are expected to:
+                        Clients and project stakeholders are expected to:
                       </p>
                       <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
                         <li>Follow provided instructions and guidelines</li>
                         <li>Maintain quality and accuracy in submitted work</li>
-                        <li>Complete assigned activities within agreed timelines</li>
+                        <li>Provide necessary project information within agreed timelines</li>
                         <li>Use only authorized tools and methods</li>
                       </ul>
                     </div>
@@ -122,11 +121,11 @@ export default function TermsPage() {
                     {/* 5 */}
                     <div>
                       <h2 className="text-xl font-bold text-foreground">
-                        5. Working Hours
+                        5. Business Operations
                       </h2>
                       <p className="mt-4 text-muted-foreground">
                         Our operational hours are Monday to Sunday, 9:00 AM to 5:30 PM (Eastern Time).
-                        Support and coordination are available during these hours.
+                        Client communication and support services are available during these hours.
                       </p>
                     </div>
 
@@ -158,12 +157,11 @@ export default function TermsPage() {
                     {/* 8 */}
                     <div>
                       <h2 className="text-xl font-bold text-foreground">
-                        8. Compensation Disclaimer
+                        8. Service Pricing Disclaimer
                       </h2>
                       <p className="mt-4 text-muted-foreground">
-                        Compensation varies depending on project scope, role, and agreement terms.
-                        AppBoost Labs does not guarantee fixed income, daily rewards, or employment
-                        unless explicitly stated in a signed agreement.
+                        Service pricing varies depending on project scope, business requirements, and agreement terms.
+                        AppBoost Labs does not guarantee specific commercial outcomes unless explicitly stated in a formal service agreement.
                       </p>
                     </div>
 
@@ -195,7 +193,7 @@ export default function TermsPage() {
                         11. Contact
                       </h2>
                       <p className="mt-4 text-muted-foreground">
-                        For inquiries, please contact: contact@appboostlabs.org
+                        For legal inquiries, service questions, or business-related concerns, please contact: contact@appboostlabs.org
                       </p>
                     </div>
 

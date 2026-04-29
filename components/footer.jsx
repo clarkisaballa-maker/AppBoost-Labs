@@ -51,7 +51,7 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-8 lg:px-8">
         {/* Main footer content */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          
+
           {/* Brand Section - Takes more space */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="inline-flex items-center group">
@@ -67,18 +67,18 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-muted-foreground leading-relaxed max-w-sm">
-              Helping apps optimize performance, increase user engagement, and achieve growth through data-driven strategies.
+              Providing professional mobile app performance analysis, quality assurance testing, user experience optimization, and product growth consulting for digital businesses.
             </p>
-            
+
             {/* Trust badges */}
             <div className="flex flex-wrap gap-3 pt-2">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
                 <Shield className="h-3.5 w-3.5 text-primary" />
-                <span className="text-xs font-medium text-primary">Verified Business</span>
+                <span className="text-xs font-medium text-primary">Verified Consulting Services</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20">
                 <Globe className="h-3.5 w-3.5 text-green-500" />
-                <span className="text-xs font-medium text-green-500">Global Support</span>
+                <span className="text-xs font-medium text-green-500">Professional Support</span>
               </div>
             </div>
 
@@ -86,32 +86,32 @@ export default function Footer() {
             <div className="pt-4">
               <p className="text-sm font-medium text-foreground mb-3">Connect With Us</p>
               <div className="flex items-center gap-2">
-                <a 
-                  href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr" 
+                <a
+                  href="https://www.facebook.com/share/1aJRp4ja4C/?mibextid=wwXIfr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300"
                 >
                   <Facebook className="h-4 w-4 text-muted-foreground group-hover:text-blue-500 transition-colors" />
                 </a>
-                <a 
-                  href="https://www.instagram.com/appboostlabs?igsh=YTI3YmFkbmlkMzg1&utm_source=qr" 
+                <a
+                  href="https://www.instagram.com/appboostlabs?igsh=YTI3YmFkbmlkMzg1&utm_source=qr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:border-pink-500 hover:bg-pink-500/10 transition-all duration-300"
                 >
                   <Instagram className="h-4 w-4 text-muted-foreground group-hover:text-pink-500 transition-colors" />
                 </a>
-                <a 
-                  href="https://x.com/appboostlabs?s=21" 
+                <a
+                  href="https://x.com/appboostlabs?s=21"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:border-foreground hover:bg-foreground/10 transition-all duration-300"
                 >
                   <XIcon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
                 </a>
-                <a 
-                  href="https://www.tiktok.com/@appboostlabs_" 
+                <a
+                  href="https://www.tiktok.com/@appboostlabs_"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center hover:border-foreground hover:bg-foreground/10 transition-all duration-300"
@@ -125,7 +125,7 @@ export default function Footer() {
           {/* Links Sections */}
           <div className="lg:col-span-8">
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-              
+
               {/* Quick Links */}
               <div>
                 <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
@@ -138,11 +138,11 @@ export default function Footer() {
                     { href: '/about', label: 'About Us' },
                     { href: '/events', label: 'Events' },
                     { href: '/contact', label: 'Contact' },
-                    { href: '/apply', label: 'Apply Now' },
+                    { href: '/apply', label: 'Request Consultation' },
                   ].map((link) => (
                     <li key={link.href}>
-                      <Link 
-                        href={link.href} 
+                      <Link
+                        href={link.href}
                         className="group flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors"
                       >
                         <span>{link.label}</span>
@@ -166,8 +166,8 @@ export default function Footer() {
                     { href: '/security-notice', label: 'Security Notice' },
                   ].map((link) => (
                     <li key={link.href}>
-                      <Link 
-                        href={link.href} 
+                      <Link
+                        href={link.href}
                         className="group flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors"
                       >
                         <span>{link.label}</span>
@@ -186,7 +186,7 @@ export default function Footer() {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <a 
+                    <a
                       href="https://maps.google.com/?q=1450+S+Miami+Ave,+Miami,+FL+33130"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -199,7 +199,7 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a 
+                    <a
                       href="mailto:contact@appboostlabs.org"
                       className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
                     >
@@ -210,7 +210,7 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <a 
+                    <a
                       href="tel:+13322566866"
                       className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
                     >
@@ -230,8 +230,8 @@ export default function Footer() {
 
                 {/* Quick contact buttons */}
                 <div className="flex gap-2 mt-4">
-                  <a 
-                    href="https://wa.me/+13322566866" 
+                  <a
+                    href="https://wa.me/+13322566866"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-medium hover:bg-green-500/20 transition-colors"
@@ -239,14 +239,14 @@ export default function Footer() {
                     <MessageCircle className="h-4 w-4" />
                     WhatsApp
                   </a>
-                  <a 
-                    href="https://t.me/AppBoostLabs" 
+                  <a
+                    href="https://t.me/AppBoostLabs"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-500 text-sm font-medium hover:bg-sky-500/20 transition-colors"
                   >
                     <Send className="h-4 w-4" />
-                    Telegram
+                    Support Chat
                   </a>
                 </div>
               </div>

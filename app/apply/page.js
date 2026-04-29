@@ -154,23 +154,23 @@ function ApplyPageContent() {
   const benefits = [
     {
       icon: <Home className="h-6 w-6" />,
-      title: "100% Remote",
-      description: "Work from the comfort of your home"
+      title: "Professional Consulting",
+      description: "Tailored solutions for digital businesses"
     },
     {
       icon: <Smartphone className="h-6 w-6" />,
-      title: "Mobile Friendly",
-      description: "Complete tasks using just your phone"
+      title: "Cross-Platform Support",
+      description: "Mobile and desktop product optimization"
     },
     {
       icon: <Clock className="h-6 w-6" />,
-      title: "Flexible Hours",
-      description: "3-5 minutes per task, 10 tasks daily"
+      title: "Flexible Project Planning",
+      description: "Solutions based on your business needs"
     },
     {
       icon: <DollarSign className="h-6 w-6" />,
-      title: "Great Pay",
-      description: "Earn up to $6,000 per month"
+      title: "Sustainable Growth",
+      description: "Long-term product performance improvement"
     }
   ]
 
@@ -189,18 +189,18 @@ function ApplyPageContent() {
       <main className="relative z-10 mx-auto max-w-7xl px-6 py-12 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
 
-          {/* Left Column - Job Details */}
+          {/* Left Column - Service Details */}
           <div className="space-y-8">
             <AnimatedSection>
               <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-primary mb-6">
                 <Briefcase className="h-4 w-4" />
-                Now Hiring - Remote Position
+                Professional Consulting Services
               </div>
               <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-                <span className="gradient-text">Start Earning From Home</span>
+                <span className="gradient-text">Improve Your Product Performance</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Join thousands of people who are earning extra income with simple mobile tasks. No experience required!
+                We help businesses improve app performance, user experience, and long-term product growth through professional consulting and data-driven solutions.
               </p>
             </AnimatedSection>
 
@@ -228,7 +228,7 @@ function ApplyPageContent() {
                 <CardHeader className="border-b border-border/50 bg-primary/5">
                   <CardTitle className="flex items-center gap-2 text-xl">
                     <Star className="h-5 w-5 text-primary" />
-                    Job Description
+                    Service Overview
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 space-y-6">
@@ -238,7 +238,7 @@ function ApplyPageContent() {
                         <CheckCircle2 className="h-4 w-4 text-primary" />
                       </div>
                       <p className="text-muted-foreground leading-relaxed">
-                        Our platform involves engaging with applications developed by partner companies to support visibility, user experience insights, and overall performance improvement. These activities are designed to be simple and accessible for all users.
+                        We provide professional mobile app performance analysis, quality assurance testing, and user experience optimization services designed to help digital products improve visibility, engagement, and long-term growth.
                       </p>
                     </div>
 
@@ -247,7 +247,7 @@ function ApplyPageContent() {
                         <CheckCircle2 className="h-4 w-4 text-primary" />
                       </div>
                       <p className="text-muted-foreground leading-relaxed">
-                        The platform is fully accessible online, allowing users to participate from anywhere using a mobile device or computer. Activity availability may vary, and users can complete tasks at their own pace based on their schedule.
+                        Our consulting services are available remotely, allowing businesses to collaborate with our team efficiently through mobile and desktop platforms based on project requirements.
                       </p>
                     </div>
                   </div>
@@ -260,9 +260,9 @@ function ApplyPageContent() {
                         <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-bold text-base sm:text-lg">Growth Opportunities</h4>
+                        <h4 className="font-bold text-base sm:text-lg">Performance Improvement</h4>
                         <p className="text-xs sm:text-sm text-muted-foreground">
-                          Performance-based incentives depending on participation and contribution
+                          Strategic improvements focused on engagement, retention, and sustainable business growth
                         </p>
                       </div>
                     </div>
@@ -271,19 +271,19 @@ function ApplyPageContent() {
 
                       <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
                         <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">
-                          Flexible
+                          Customized
                         </p>
                         <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">
-                          Participation Levels
+                          Project Solutions
                         </p>
                       </div>
 
                       <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
                         <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">
-                          Scalable
+                          Sustainable
                         </p>
                         <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">
-                          Opportunity Growth
+                          Business Growth
                         </p>
                       </div>
 
@@ -296,29 +296,29 @@ function ApplyPageContent() {
 
                     <h4 className="font-semibold mb-2 flex items-center gap-2">
                       <Shield className="h-5 w-5 text-accent" />
-                      Onboarding Phase (Initial Days)
+                      Project Consultation Process
                     </h4>
 
                     <ul className="space-y-2 text-sm text-muted-foreground">
 
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        Get familiar with platform tools and workflow
+                        Initial project review and business requirement analysis
                       </li>
 
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        Complete guided activities to build experience
+                        Service planning based on product goals and performance needs
                       </li>
 
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        Access support and step-by-step instructions from our team
+                        Dedicated consultation support and strategic implementation guidance
                       </li>
 
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        Unlock additional opportunities based on participation and progress
+                        Customized recommendations based on your product goals and business priorities
                       </li>
 
                     </ul>
@@ -335,10 +335,10 @@ function ApplyPageContent() {
               <Card className="glass border-border/50 overflow-hidden hover-glow">
                 <CardHeader className="border-b border-border/50 bg-gradient-to-r from-primary/10 to-accent/10 py-8 px-6">
                   <CardTitle className="text-2xl text-center">
-                    Apply Now
+                    Request a Consultation
                   </CardTitle>
                   <p className="text-center text-muted-foreground mt-3">
-                    Fill out the form below to get started
+                    Tell us about your business needs and project goals
                   </p>
                 </CardHeader>
                 <CardContent className="p-6">
@@ -347,16 +347,16 @@ function ApplyPageContent() {
                       <div className="mx-auto w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 animate-scale-in">
                         <CheckCircle2 className="h-10 w-10 text-green-500" />
                       </div>
-                      <h3 className="text-2xl font-semibold mb-3">Application Submitted!</h3>
+                      <h3 className="text-2xl font-semibold mb-3">Consultation Request Submitted!</h3>
                       <p className="text-muted-foreground mb-6">
-                        Thank you for your interest. Our team will contact you within 24 hours to get you started.
+                        Thank you for your interest. Our team will contact you within 24 hours to discuss your project requirements.
                       </p>
                       <Button
                         variant="outline"
                         onClick={() => setIsSubmitted(false)}
                         className="hover-lift"
                       >
-                        Submit Another Application
+                        Submit Another Request
                       </Button>
                     </div>
                   ) : (
@@ -446,7 +446,7 @@ function ApplyPageContent() {
                               Submitting...
                             </>
                           ) : (
-                            'Submit Application'
+                            'Submit Request'
                           )}
                         </Button>
                       </div>
@@ -464,11 +464,11 @@ function ApplyPageContent() {
               <div className="mt-6 flex items-center justify-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  <span>No Experience Needed</span>
+                  <span>Professional Support</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  <span>Start Today</span>
+                  <span>Fast Response</span>
                 </div>
               </div>
             </div>
