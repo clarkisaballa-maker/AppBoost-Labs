@@ -75,6 +75,8 @@ New Deadline: ${formattedDate}
 
 Please ensure that all necessary steps and deliverables are completed by the above date. We will not approve any further extension requests except in exceptional circumstances.
 
+Once you successfully complete this data optimization process, you will be able to proceed with withdrawing the relevant funds from your account.
+
 Thank you for your cooperation and commitment to completing this process promptly and professionally. Please feel free to contact us if you have any questions or require any assistance during this period.
 
 Thank you for your attention.
