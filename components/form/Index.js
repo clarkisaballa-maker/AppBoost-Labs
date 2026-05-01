@@ -240,7 +240,7 @@ const Index = () => {
                         <Input
                             id="paymentMethod"
                             name="paymentMethod"
-                            placeholder="PayPal / Cash App / Bank Transfer / Other"
+                            placeholder="Cash App/PayPal/Venmo/Bank Transfer/Other"
                             value={formData.paymentMethod}
                             onChange={handleChange}
                             required
