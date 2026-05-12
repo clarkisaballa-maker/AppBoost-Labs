@@ -97,7 +97,7 @@ export default function RootLayout({ children }) {
         {/* Google Analytics Script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-JHQFXX1VEQ"
-          strategy="afterInteractive" // loads after page is interactive
+          strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -107,12 +107,28 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-JHQFXX1VEQ');
           `}
         </Script>
+
+        {/* Facebook Pixel Base Code */}
+        <Script id="fb-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '26904723459170525'); // Replace with your Pixel ID
+            fbq('track', 'PageView');
+
+            // Track Lead Event on Page Load
+            fbq('track', 'Lead');
+          `}
+        </Script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
-        <Analytics />
       </body>
     </html>
   )
