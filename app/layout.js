@@ -121,9 +121,6 @@ export default function RootLayout({ children }) {
             'https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '26904723459170525'); // Replace with your Pixel ID
             fbq('track', 'PageView');
-
-            // Track Lead Event on Page Load
-            fbq('track', 'Lead');
           `}
         </Script>
       </head>

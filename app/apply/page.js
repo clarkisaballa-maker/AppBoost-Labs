@@ -140,6 +140,7 @@ function ApplyPageContent() {
       })
 
       if (response.ok) {
+        if (window.fbq) window.fbq('track', 'Lead');
         setIsSubmitted(true)
         setPhoneError('')
         setFormData({ name: '', age: '', phone: '', email: '', message: '' })
