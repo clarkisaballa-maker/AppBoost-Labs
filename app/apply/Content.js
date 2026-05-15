@@ -401,7 +401,7 @@ function ApplyPageContent() {
                                         </div>
                                     </div>
 
-                                    {/* Earnings Highlight */}
+                                    {/* Career Growth Highlight */}
                                     <div className="rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 p-4 sm:p-6 border border-primary/20">
 
                                         <div className="flex items-center gap-3 mb-4">
@@ -409,9 +409,9 @@ function ApplyPageContent() {
                                                 <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                                             </div>
                                             <div className="min-w-0 flex-1">
-                                                <h4 className="font-bold text-base sm:text-lg">Performance Improvement</h4>
+                                                <h4 className="font-bold text-base sm:text-lg">Career Growth & Development</h4>
                                                 <p className="text-xs sm:text-sm text-muted-foreground">
-                                                    Strategic improvements focused on engagement, retention, and sustainable business growth
+                                                    Opportunities designed to enhance skills, accelerate learning, and foster long-term career growth in a dynamic on-site environment
                                                 </p>
                                             </div>
                                         </div>
@@ -420,19 +420,19 @@ function ApplyPageContent() {
 
                                             <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
                                                 <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">
-                                                    Customized
+                                                    Skill
                                                 </p>
                                                 <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">
-                                                    Project Solutions
+                                                    Enhancement
                                                 </p>
                                             </div>
 
                                             <div className="text-center p-2 sm:p-4 rounded-lg bg-background/50">
                                                 <p className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold text-primary whitespace-nowrap">
-                                                    Sustainable
+                                                    Career
                                                 </p>
                                                 <p className="text-[10px] xs:text-xs sm:text-sm text-muted-foreground">
-                                                    Business Growth
+                                                    Advancement
                                                 </p>
                                             </div>
 
@@ -440,34 +440,34 @@ function ApplyPageContent() {
 
                                     </div>
 
-                                    {/* Trial Period Info */}
+                                    {/* Job Application Consultation Info */}
                                     <div className="rounded-xl bg-accent/10 p-5 border border-accent/20">
 
                                         <h4 className="font-semibold mb-2 flex items-center gap-2">
                                             <Shield className="h-5 w-5 text-accent" />
-                                            Project Consultation Process
+                                            Candidate Consultation Process
                                         </h4>
 
                                         <ul className="space-y-2 text-sm text-muted-foreground">
 
                                             <li className="flex items-center gap-2">
                                                 <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                                                Initial project review and business requirement analysis
+                                                Initial application review and assessment of your skills and experience
                                             </li>
 
                                             <li className="flex items-center gap-2">
                                                 <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                                                Service planning based on product goals and performance needs
+                                                Discussion of the role, responsibilities, and performance expectations
                                             </li>
 
                                             <li className="flex items-center gap-2">
                                                 <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                                                Dedicated consultation support and strategic implementation guidance
+                                                Personalized guidance on how to succeed during the on-site process
                                             </li>
 
                                             <li className="flex items-center gap-2">
                                                 <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                                                Customized recommendations based on your product goals and business priorities
+                                                Clear next steps for interviews, assessments, and joining the AppBoost Labs team
                                             </li>
 
                                         </ul>
