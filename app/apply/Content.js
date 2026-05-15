@@ -309,7 +309,7 @@ function ApplyPageContent() {
                                                             Submitting...
                                                         </>
                                                     ) : (
-                                                        'Submit Request'
+                                                        'Submit Application'
                                                     )}
                                                 </Button>
                                             </div>
