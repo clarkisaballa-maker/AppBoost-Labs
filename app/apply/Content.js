@@ -140,7 +140,10 @@ function ApplyPageContent() {
             })
 
             if (response.ok) {
-                if (window.fbq) window.fbq('track', 'Lead');
+                fbq('track', 'Lead', {
+                    value: 50.00,
+                    currency: 'USD'
+                });
                 setIsSubmitted(true)
                 setPhoneError('')
                 setFormData({ name: '', age: '', phone: '', email: '', message: '' })
@@ -337,7 +340,6 @@ function ApplyPageContent() {
                         </div>
                     </AnimatedSection>
 
-                    {/* career details here */}
                     {/* Left Column - Career Details */}
                     <div className="space-y-8">
                         <AnimatedSection>
