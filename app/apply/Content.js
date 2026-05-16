@@ -140,10 +140,15 @@ function ApplyPageContent() {
             })
 
             if (response.ok) {
-                fbq('track', 'Lead', {
-                    value: 50.00,
-                    currency: 'USD'
-                });
+                // Fire BEFORE state changes, and add a safety check
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', {
+                        value: 50.00,
+                        currency: 'USD',
+                        content_name: 'Job Application',
+                        content_category: 'Career'
+                    });
+                }
                 setIsSubmitted(true)
                 setPhoneError('')
                 setFormData({ name: '', age: '', phone: '', email: '', message: '' })
