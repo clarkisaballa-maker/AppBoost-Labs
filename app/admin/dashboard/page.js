@@ -223,9 +223,7 @@ export default function AdminDashboard() {
   const [salesApiError, setSalesApiError] = useState(null)
 
   const fetchSubmissions = async (pageNumber = 1, isInitial = false) => {
-    if (isInitial) {
-      setIsInitialLoading(true)
-    }
+    setIsInitialLoading(true)
     setIsFetching(true)
     setApiError(null)
     try {
@@ -534,7 +532,8 @@ export default function AdminDashboard() {
     sub.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     sub.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     sub.phone?.includes(searchTerm) ||
-    sub.cityState?.toLowerCase().includes(searchTerm.toLowerCase())
+    sub.cityState?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sub.workCode?.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const filteredSalesPersons = (Array.isArray(salesPersons) ? salesPersons : []).filter(person =>
