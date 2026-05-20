@@ -1,0 +1,5 @@
+Username : clarkisaballa_db_user
+Password : 413spq5floRlH5YS
+
+Use this connection string in your application
+mongodb+srv://clarkisaballa_db_user:413spq5floRlH5YS@cluster0.jhzpugm.mongodb.net/
