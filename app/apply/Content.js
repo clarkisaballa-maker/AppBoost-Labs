@@ -149,6 +149,15 @@ function ApplyPageContent() {
                         content_category: 'Career'
                     });
                 }
+
+                // TikTok Pixel ✅
+                if (typeof ttq !== 'undefined') {
+                    ttq.track('CompleteRegistration', {
+                        value: 50.00,
+                        currency: 'USD',
+                        content_name: 'Job Application'
+                    });
+                }
                 setIsSubmitted(true)
                 setPhoneError('')
                 setFormData({ name: '', age: '', phone: '', email: '', message: '' })
