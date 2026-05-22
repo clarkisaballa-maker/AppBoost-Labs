@@ -8,9 +8,100 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { AtSign, Loader2, X, Paperclip, Sparkles, Mail, FileText, Calendar } from 'lucide-react'
+import { AtSign, Loader2, X, Paperclip, Sparkles, Mail, FileText, Calendar, Bold, Italic, Underline, Strikethrough, List, ListOrdered, AlignLeft, AlignCenter, AlignRight } from 'lucide-react'
+import { useRef } from 'react'
+import { useCallback } from 'react'
 
 const API_BASE = 'https://app-boost-labs-backend.vercel.app'
+
+function sanitizePastedHTML(html) {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(html, 'text/html')
+  doc.querySelectorAll('script, style, meta, link, head').forEach(el => el.remove())
+  doc.querySelectorAll('*').forEach(el => {
+    const allowed = []
+    if (el.tagName === 'A' && el.getAttribute('href')) allowed.push(['href', el.getAttribute('href')])
+    if (el.tagName === 'IMG' && el.getAttribute('src')) allowed.push(['src', el.getAttribute('src')])
+    while (el.attributes.length > 0) el.removeAttribute(el.attributes[0].name)
+    allowed.forEach(([k, v]) => el.setAttribute(k, v))
+  })
+  return doc.body.innerHTML
+}
+
+function RichTextEditor({ value, onChange, placeholder }) {
+  const editorRef = useRef(null)
+  const isInternalUpdate = useRef(false)
+
+  useEffect(() => {
+    if (!editorRef.current) return
+    if (isInternalUpdate.current) return
+    if (value === '') editorRef.current.innerHTML = ''
+  }, [value])
+
+  const exec = useCallback((command, val = null) => {
+    editorRef.current?.focus()
+    document.execCommand(command, false, val)
+    handleInput()
+  }, [])
+
+  const handleInput = useCallback(() => {
+    if (!editorRef.current) return
+    isInternalUpdate.current = true
+    onChange(editorRef.current.innerHTML)
+    setTimeout(() => { isInternalUpdate.current = false }, 0)
+  }, [onChange])
+
+  const handlePaste = useCallback((e) => {
+    e.preventDefault()
+    const html = e.clipboardData.getData('text/html')
+    const text = e.clipboardData.getData('text/plain')
+    if (html) {
+      document.execCommand('insertHTML', false, sanitizePastedHTML(html))
+    } else {
+      const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>')
+      document.execCommand('insertHTML', false, escaped)
+    }
+    handleInput()
+  }, [handleInput])
+
+  const ToolbarBtn = ({ cmd, icon: Icon, title, onClick }) => (
+    <button
+      type="button"
+      title={title}
+      onMouseDown={(e) => { e.preventDefault(); onClick ? onClick() : exec(cmd) }}
+      className="p-1.5 rounded-md transition-all text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+    >
+      <Icon className="h-3.5 w-3.5" />
+    </button>
+  )
+
+  return (
+    <div className="rounded-xl border border-border bg-background overflow-hidden focus-within:ring-1 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all">
+      <div className="flex flex-wrap items-center gap-0.5 px-2 py-1.5 border-b border-border bg-muted/40">
+        <ToolbarBtn cmd="bold" icon={Bold} title="Bold" />
+        <ToolbarBtn cmd="italic" icon={Italic} title="Italic" />
+        <ToolbarBtn cmd="underline" icon={Underline} title="Underline" />
+        <ToolbarBtn cmd="strikeThrough" icon={Strikethrough} title="Strikethrough" />
+        <div className="w-px h-4 bg-border mx-1" />
+        <ToolbarBtn cmd="insertUnorderedList" icon={List} title="Bullet List" />
+        <ToolbarBtn cmd="insertOrderedList" icon={ListOrdered} title="Numbered List" />
+        <div className="w-px h-4 bg-border mx-1" />
+        <ToolbarBtn cmd="justifyLeft" icon={AlignLeft} title="Align Left" />
+        <ToolbarBtn cmd="justifyCenter" icon={AlignCenter} title="Align Center" />
+        <ToolbarBtn cmd="justifyRight" icon={AlignRight} title="Align Right" />
+      </div>
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        onInput={handleInput}
+        onPaste={handlePaste}
+        data-placeholder={placeholder}
+        className="min-h-[200px] max-h-[400px] overflow-y-auto px-3 py-3 text-sm text-foreground outline-none [&_strong]:font-bold [&_em]:italic [&_u]:underline [&_ul]:list-disc [&_ul]:ml-5 [&_ul]:my-1 [&_ol]:list-decimal [&_ol]:ml-5 [&_ol]:my-1 [&_li]:my-0.5 [&_a]:text-blue-600 [&_a]:underline empty:before:content-[attr(data-placeholder)] empty:before:text-muted-foreground empty:before:pointer-events-none"
+      />
+    </div>
+  )
+}
 
 export default function EmailSenderModal() {
   const [open, setOpen] = useState(false)
@@ -535,13 +626,20 @@ AppBoost Labs`
 
             <div className="space-y-2">
               <Label className="text-sm font-medium">Message</Label>
-              <Textarea
-                placeholder={selectedTemplate !== 'none' ? "Message will be auto-generated..." : "Write your message..."}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="min-h-[200px] resize-none"
-                readOnly={selectedTemplate !== 'none'}
-              />
+              {selectedTemplate === 'none' ? (
+                <RichTextEditor
+                  value={message}
+                  onChange={setMessage}
+                  placeholder="Paste or write your formatted message here..."
+                />
+              ) : (
+                <Textarea
+                  placeholder="Message will be auto-generated..."
+                  value={message}
+                  readOnly
+                  className="min-h-[200px] resize-none"
+                />
+              )}
               {selectedTemplate !== 'none' && (
                 <p className="text-xs text-amber-600 dark:text-amber-400">
                   Template mode: Message is auto-generated. Switch to Custom Email to edit manually.

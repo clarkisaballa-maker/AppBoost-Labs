@@ -168,10 +168,12 @@ export default function HomePage() {
                 <p className="mt-1 text-sm text-muted-foreground">Client Projects Supported</p>
               </AnimatedSection>
               <AnimatedSection delay={200} className="text-center hover-lift p-4 rounded-lg">
-                <p className="text-3xl font-bold gradient-text">High User Satisfaction</p>
+                <p className="text-3xl font-bold gradient-text">98%</p>
+                <p className="mt-1 text-sm text-muted-foreground">Client Satisfaction Rate</p>
               </AnimatedSection>
               <AnimatedSection delay={300} className="text-center hover-lift p-4 rounded-lg">
-                <p className="text-3xl font-bold gradient-text">Supporting Clients Across Multiple Markets</p>
+                <p className="text-3xl font-bold gradient-text">12+</p>
+                <p className="mt-1 text-sm text-muted-foreground">Industries Served</p>
               </AnimatedSection>
               <AnimatedSection delay={400} className="text-center hover-lift p-4 rounded-lg">
                 <p className="text-xl font-bold gradient-text">9:30AM - 9:30PM</p>
@@ -207,19 +209,19 @@ export default function HomePage() {
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Functional testing
+                        Functional testing
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Performance testing
+                        Performance testing
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Compatibility testing
+                        Compatibility testing
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - User flow validation
+                        User flow validation
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -235,30 +237,30 @@ export default function HomePage() {
                 <Card className="relative overflow-hidden hover-lift hover-glow h-full">
                   <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-primary/20" />
                   <CardHeader>
-                    <DollarSign className="h-10 w-10 text-primary" />
+                    <BarChart3 className="h-10 w-10 text-primary" />
                     <CardTitle className="mt-4">UX Optimization</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - User behavior analysis
+                        User behavior analysis
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Retention improvement
+                        Retention improvement
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Conversion flow optimization
+                        Conversion flow optimization
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Product usability review
+                        Product usability review
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Engagement strategy improvement
+                        Engagement strategy improvement
                       </li>
                     </ul>
                   </CardContent>
@@ -277,23 +279,23 @@ export default function HomePage() {
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - App Store Optimization
+                        App Store Optimization
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Product analytics
+                        Product analytics
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Growth strategy planning
+                        Growth strategy planning
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Market positioning
+                        Market positioning
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-primary" />
-                        - Sustainable scaling support
+                        Sustainable scaling support
                       </li>
                     </ul>
                   </CardContent>
