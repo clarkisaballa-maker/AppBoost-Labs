@@ -86,111 +86,100 @@ function ApplyPageContent() {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+    e.preventDefault()
 
-        setSubmitError('')
+    setSubmitError('')
 
-        if (!formData.contactMethod || !formData.contactValue) {
-            return
-        }
-
-        setIsSubmitting(true)
-
-        try {
-            const response = await fetch(
-                'https://app-boost-labs-backend.vercel.app/api/apply',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: formData.name,
-                        age: formData.age,
-                        email: formData.email,
-                        message: formData.message,
-                        source,
-
-                        contactMethod: formData.contactMethod,
-
-                        telegram:
-                            formData.contactMethod === 'telegram'
-                                ? formData.contactValue
-                                : null,
-
-                        whatsapp:
-                            formData.contactMethod === 'whatsapp'
-                                ? formData.contactValue
-                                : null,
-
-                        phone:
-                            formData.contactMethod === 'sms_call'
-                                ? formData.contactValue
-                                : null,
-                    }),
-                }
-            )
-
-            // SAFE RESPONSE PARSE
-            let data = {}
-
-            try {
-                data = await response.json()
-            } catch {
-                data = {}
-            }
-
-            // ERROR HANDLING
-            if (!response.ok) {
-                throw new Error(
-                    data?.stack ||
-                    data?.error ||
-                    data?.message ||
-                    `Request failed (${response.status})`
-                )
-            }
-
-            // Facebook Pixel
-            if (typeof window !== 'undefined' && window.fbq) {
-                window.fbq('track', 'Lead', {
-                    value: 50,
-                    currency: 'USD',
-                    content_name: 'Job Application',
-                    content_category: 'Career',
-                })
-            }
-
-            // TikTok Pixel
-            if (typeof window !== 'undefined' && window.ttq) {
-                window.ttq.track('CompleteRegistration', {
-                    value: 50,
-                    currency: 'USD',
-                    content_name: 'Job Application',
-                })
-            }
-
-            setIsSubmitted(true)
-
-            setFormData({
-                name: '',
-                age: '',
-                email: '',
-                message: '',
-                contactMethod: 'telegram',
-                contactValue: '',
-            })
-        } catch (error) {
-            console.error('Submit Error:', error)
-
-            alert(error?.message)
-
-            setSubmitError(
-                error?.message || 'Something went wrong'
-            )
-        } finally {
-            setIsSubmitting(false)
-        }
+    if (!formData.contactMethod || !formData.contactValue) {
+        return
     }
+
+    setIsSubmitting(true)
+
+    try {
+        const response = await fetch(
+            'https://app-boost-labs-backend.vercel.app/api/apply',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    age: formData.age,
+                    email: formData.email,
+                    message: formData.message,
+                    source,
+
+                    contactMethod: formData.contactMethod,
+
+                    telegram:
+                        formData.contactMethod === 'telegram'
+                            ? formData.contactValue
+                            : null,
+
+                    whatsapp:
+                        formData.contactMethod === 'whatsapp'
+                            ? formData.contactValue
+                            : null,
+
+                    phone:
+                        formData.contactMethod === 'sms_call'
+                            ? formData.contactValue
+                            : null,
+                }),
+            }
+        )
+
+        const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(
+                data?.error ||
+                data?.message ||
+                'Something went wrong'
+            )
+        }
+
+        // Facebook Pixel
+        if (typeof window !== 'undefined' && window.fbq) {
+            window.fbq('track', 'Lead', {
+                value: 50,
+                currency: 'USD',
+                content_name: 'Job Application',
+                content_category: 'Career',
+            })
+        }
+
+        // TikTok Pixel
+        if (typeof window !== 'undefined' && window.ttq) {
+            window.ttq.track('CompleteRegistration', {
+                value: 50,
+                currency: 'USD',
+                content_name: 'Job Application',
+            })
+        }
+
+        setIsSubmitted(true)
+
+        setFormData({
+            name: '',
+            age: '',
+            email: '',
+            message: '',
+            contactMethod: 'telegram',
+            contactValue: '',
+        })
+    } catch (error) {
+        console.error('Submit Error:', error)
+
+        setSubmitError(
+            error?.message || 'Something went wrong'
+        )
+    } finally {
+        setIsSubmitting(false)
+    }
+}
 
     const benefits = [
         {
