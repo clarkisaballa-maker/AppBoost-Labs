@@ -278,7 +278,7 @@ function ApplyPageContent() {
                                                             value: 'whatsapp'
                                                         },
                                                         {
-                                                            label: 'SMS or Call',
+                                                            label: 'Message or Call',
                                                             value: 'sms_call'
                                                         }
                                                     ].map((option) => (
