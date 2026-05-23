@@ -67,7 +67,7 @@ function ApplyPageContent() {
         age: '',
         email: '',
         message: '',
-        contactMethod: '',
+        contactMethod: 'telegram',
         contactValue: ''
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -262,73 +262,64 @@ function ApplyPageContent() {
                                                 />
                                             </div>
 
-                                            <div className="space-y-4">
+                                            <div className="space-y-3">
                                                 <Label className="text-base">
                                                     How do you want us to contact you? *
                                                 </Label>
 
-                                                <div className="grid gap-3">
+                                                {/* Segmented Control */}
+                                                <div className="rounded-2xl border border-border/50 bg-background/40 backdrop-blur-sm p-1 flex overflow-hidden shadow-sm">
                                                     {[
                                                         {
                                                             label: 'Telegram',
-                                                            value: 'telegram'
+                                                            value: 'telegram',
                                                         },
                                                         {
                                                             label: 'WhatsApp',
-                                                            value: 'whatsapp'
+                                                            value: 'whatsapp',
                                                         },
                                                         {
-                                                            label: 'Message or Call',
-                                                            value: 'sms_call'
-                                                        }
-                                                    ].map((option) => (
-                                                        <label
-                                                            key={option.value}
-                                                            className={`flex items-center gap-3 rounded-lg border p-4 cursor-pointer transition-all ${formData.contactMethod === option.value
-                                                                ? 'border-primary bg-primary/10'
-                                                                : 'border-border/50'
-                                                                }`}
-                                                        >
-                                                            <input
-                                                                type="radio"
-                                                                name="contactMethod"
-                                                                value={option.value}
-                                                                checked={
-                                                                    formData.contactMethod === option.value
-                                                                }
-                                                                onChange={handleChange}
-                                                                className="h-4 w-4"
-                                                                required
-                                                            />
+                                                            label: 'Message / Call',
+                                                            value: 'sms_call',
+                                                        },
+                                                    ].map((option) => {
+                                                        const isActive =
+                                                            formData.contactMethod === option.value
 
-                                                            <span className="font-medium">
+                                                        return (
+                                                            <button
+                                                                key={option.value}
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setFormData((prev) => ({
+                                                                        ...prev,
+                                                                        contactMethod: option.value,
+                                                                        contactValue: '',
+                                                                    }))
+                                                                }
+                                                                className={`
+            flex-1 px-4 py-3 text-sm md:text-base font-medium rounded-xl transition-all duration-300
+            ${isActive
+                                                                        ? 'bg-primary text-primary-foreground shadow-[0_0_20px_rgba(59,130,246,0.35)]'
+                                                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/40'
+                                                                    }
+          `}
+                                                            >
                                                                 {option.label}
-                                                            </span>
-                                                        </label>
-                                                    ))}
+                                                            </button>
+                                                        )
+                                                    })}
                                                 </div>
 
+                                                {/* Dynamic Input */}
                                                 {formData.contactMethod && (
-                                                    <div className="animate-in fade-in duration-300">
-                                                        <Label
-                                                            htmlFor="contactValue"
-                                                            className="text-base"
-                                                        >
-                                                            {formData.contactMethod === 'telegram'
-                                                                ? 'Telegram Username *'
-                                                                : formData.contactMethod ===
-                                                                    'whatsapp'
-                                                                    ? 'WhatsApp Number *'
-                                                                    : 'Phone Number *'}
-                                                        </Label>
-
+                                                    <div className="animate-in fade-in slide-in-from-top-2 duration-300">
                                                         <Input
                                                             id="contactValue"
                                                             name="contactValue"
                                                             type="text"
                                                             placeholder={
-                                                                formData.contactMethod ===
-                                                                    'telegram'
+                                                                formData.contactMethod === 'telegram'
                                                                     ? '@username'
                                                                     : formData.contactMethod ===
                                                                         'whatsapp'
@@ -338,7 +329,7 @@ function ApplyPageContent() {
                                                             value={formData.contactValue}
                                                             onChange={handleChange}
                                                             required
-                                                            className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50 mt-2"
+                                                            className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50 mt-2 rounded-xl"
                                                         />
                                                     </div>
                                                 )}
