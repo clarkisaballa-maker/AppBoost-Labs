@@ -128,17 +128,17 @@ applicationSchema.pre("save", function () {
   this.updatedAt =
     moment.tz("America/New_York").toDate();
 
-  // Empty strings -> null
-  if (this.telegram === "") {
-    this.telegram = null;
+  // Empty strings -> remove field
+  if (!this.telegram) {
+    this.telegram = undefined;
   }
 
-  if (this.whatsapp === "") {
-    this.whatsapp = null;
+  if (!this.whatsapp) {
+    this.whatsapp = undefined;
   }
 
-  if (this.phone === "") {
-    this.phone = null;
+  if (!this.phone) {
+    this.phone = undefined;
   }
 });
 

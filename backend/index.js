@@ -313,35 +313,44 @@ app.post("/api/apply", async (req, res) => {
     const selectedSalesPerson =
       salesPersons[index];
 
-    const application = new Application({
+    const applicationData = {
       name,
       age,
       email,
       message: message || "",
       source: source || "direct",
-
       contactMethod,
-
-      telegram:
-        contactMethod === "telegram"
-          ? telegram?.trim()
-          : null,
-
-      whatsapp:
-        contactMethod === "whatsapp"
-          ? whatsapp?.trim()
-          : null,
-
-      phone:
-        contactMethod === "sms_call"
-          ? phone?.trim()
-          : null,
-
       salesPersonTg:
         selectedSalesPerson.tgUsername,
-
       ipAddress,
-    });
+    };
+
+    if (
+      contactMethod === "telegram" &&
+      telegram
+    ) {
+      applicationData.telegram =
+        telegram.trim();
+    }
+
+    if (
+      contactMethod === "whatsapp" &&
+      whatsapp
+    ) {
+      applicationData.whatsapp =
+        whatsapp.trim();
+    }
+
+    if (
+      contactMethod === "sms_call" &&
+      phone
+    ) {
+      applicationData.phone =
+        phone.trim();
+    }
+
+    const application =
+      new Application(applicationData);
 
     await application.save();
 
