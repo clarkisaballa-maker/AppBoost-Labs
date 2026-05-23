@@ -32,7 +32,6 @@ const applicationSchema = new mongoose.Schema(
     // OPTIONAL CONTACT FIELDS
     telegram: {
       type: String,
-      default: null,
       trim: true,
       unique: true,
       sparse: true,
@@ -40,7 +39,6 @@ const applicationSchema = new mongoose.Schema(
 
     whatsapp: {
       type: String,
-      default: null,
       trim: true,
       unique: true,
       sparse: true,
@@ -48,7 +46,6 @@ const applicationSchema = new mongoose.Schema(
 
     phone: {
       type: String,
-      default: null,
       trim: true,
       unique: true,
       sparse: true,
