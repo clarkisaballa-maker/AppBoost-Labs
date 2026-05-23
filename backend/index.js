@@ -389,11 +389,12 @@ ${message || "N/A"}
       data: application,
     });
   } catch (err) {
-    console.error("Error:", err.message);
+    console.error("FULL ERROR =>", err);
+    console.error("STACK =>", err.stack);
 
     return res.status(500).json({
-      message: "Server error",
-      error: err.message,
+      message: err.message,
+      stack: err.stack,
     });
   }
 });
