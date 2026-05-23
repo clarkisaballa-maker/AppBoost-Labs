@@ -315,18 +315,18 @@ app.post("/api/apply", async (req, res) => {
 
       telegram:
         contactMethod === "telegram"
-          ? telegram
-          : "",
+          ? telegram?.trim()
+          : null,
 
       whatsapp:
         contactMethod === "whatsapp"
-          ? whatsapp
-          : "",
+          ? whatsapp?.trim()
+          : null,
 
       phone:
         contactMethod === "sms_call"
-          ? phone
-          : "",
+          ? phone?.trim()
+          : null,
 
       salesPersonTg:
         selectedSalesPerson.tgUsername,
