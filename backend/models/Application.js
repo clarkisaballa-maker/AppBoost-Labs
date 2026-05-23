@@ -127,11 +127,11 @@ const applicationSchema = new mongoose.Schema(
 );
 
 // Auto update timestamp
-applicationSchema.pre("save", function (next) {
+applicationSchema.pre("save", function () {
   this.updatedAt =
     moment.tz("America/New_York").toDate();
 
-  // Empty strings ko null bana do
+  // Empty strings -> null
   if (this.telegram === "") {
     this.telegram = null;
   }
@@ -143,8 +143,6 @@ applicationSchema.pre("save", function (next) {
   if (this.phone === "") {
     this.phone = null;
   }
-
-  next();
 });
 
 module.exports = mongoose.model(
