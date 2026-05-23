@@ -212,7 +212,7 @@ export default function SocialDashboard() {
       if (sourceFilter) {
         url += `&source=${sourceFilter}`
       }
-      
+
       const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -262,7 +262,7 @@ export default function SocialDashboard() {
       if (sourceFilter) {
         url += `&source=${sourceFilter}`
       }
-      
+
       const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -316,11 +316,11 @@ export default function SocialDashboard() {
       setPhoneSearchError('Please enter a phone number')
       return
     }
-    
+
     setIsPhoneSearching(true)
     setPhoneSearchError('')
     setPhoneSearchResult(null)
-    
+
     try {
       const res = await fetch(`${API_BASE}/api/applications/search-by-phone?phone=${encodeURIComponent(phoneSearchTerm)}`, {
         method: 'GET',
@@ -845,8 +845,8 @@ export default function SocialDashboard() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {duplicateIPs.map(([ip, count]) => (
-                      <div 
-                        key={ip} 
+                      <div
+                        key={ip}
                         className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 text-amber-300 px-3 py-1.5 rounded-lg text-sm cursor-pointer hover:bg-amber-500/20 transition-colors"
                         onClick={() => setSearchTerm(ip)}
                         title="Click to search for this IP"
@@ -874,8 +874,8 @@ export default function SocialDashboard() {
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {leadsPerSalesPerson.map(([tgUsername, count]) => (
-                      <div 
-                        key={tgUsername} 
+                      <div
+                        key={tgUsername}
                         className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-300 px-3 py-1.5 rounded-lg text-sm cursor-pointer hover:bg-green-500/20 transition-colors"
                         onClick={() => setSearchTerm(tgUsername === 'Unassigned' ? '' : tgUsername)}
                         title="Click to search for this sales person"
@@ -1024,10 +1024,34 @@ export default function SocialDashboard() {
 
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                              <Phone className="h-3.5 w-3.5" />
-                              Phone
+                              {submission.contactMethod === 'telegram' ? (
+                                <AtSign className="h-3.5 w-3.5" />
+                              ) : submission.contactMethod === 'whatsapp' ? (
+                                <MessageSquare className="h-3.5 w-3.5" />
+                              ) : (
+                                <Phone className="h-3.5 w-3.5" />
+                              )}
+
+                              {/* Dynamic label */}
+                              {submission.phone
+                                ? 'Phone'
+                                : submission.contactMethod === 'telegram'
+                                  ? 'Telegram'
+                                  : submission.contactMethod === 'whatsapp'
+                                    ? 'WhatsApp'
+                                    : 'SMS / Call'}
                             </div>
-                            <p className="font-medium">{submission.phone}</p>
+
+                            <p className="font-medium break-all">
+                              {/* OLD DATA SUPPORT */}
+                              {submission.phone
+                                ? submission.phone
+                                : submission.contactMethod === 'telegram'
+                                  ? submission.telegram || 'Not provided'
+                                  : submission.contactMethod === 'whatsapp'
+                                    ? submission.whatsapp || 'Not provided'
+                                    : submission.phone || 'Not provided'}
+                            </p>
                           </div>
 
                           <div className="space-y-1">
