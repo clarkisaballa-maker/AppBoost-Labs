@@ -72,6 +72,7 @@ function ApplyPageContent() {
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [submitError, setSubmitError] = useState('')
 
     const sourceLabel = source === 'fb' ? 'Facebook' : source === 'tk' ? 'TikTok' : 'Direct'
 
@@ -85,16 +86,20 @@ function ApplyPageContent() {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+    e.preventDefault()
 
-        if (!formData.contactMethod || !formData.contactValue) {
-            return
-        }
+    setSubmitError('')
 
-        setIsSubmitting(true)
+    if (!formData.contactMethod || !formData.contactValue) {
+        return
+    }
 
-        try {
-            const response = await fetch('https://app-boost-labs-backend.vercel.app/api/apply', {
+    setIsSubmitting(true)
+
+    try {
+        const response = await fetch(
+            'https://app-boost-labs-backend.vercel.app/api/apply',
+            {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,56 +116,78 @@ function ApplyPageContent() {
                     telegram:
                         formData.contactMethod === 'telegram'
                             ? formData.contactValue
-                            : '',
+                            : null,
 
                     whatsapp:
                         formData.contactMethod === 'whatsapp'
                             ? formData.contactValue
-                            : '',
+                            : null,
 
                     phone:
                         formData.contactMethod === 'sms_call'
                             ? formData.contactValue
-                            : ''
+                            : null,
                 }),
-            })
-
-            if (response.ok) {
-                // Fire BEFORE state changes, and add a safety check
-                if (typeof fbq !== 'undefined') {
-                    fbq('track', 'Lead', {
-                        value: 50.00,
-                        currency: 'USD',
-                        content_name: 'Job Application',
-                        content_category: 'Career'
-                    });
-                }
-
-                // TikTok Pixel ✅
-                if (typeof ttq !== 'undefined') {
-                    ttq.track('CompleteRegistration', {
-                        value: 50.00,
-                        currency: 'USD',
-                        content_name: 'Job Application'
-                    });
-                }
-                setIsSubmitted(true)
-                setPhoneError('')
-                setFormData({
-                    name: '',
-                    age: '',
-                    email: '',
-                    message: '',
-                    contactMethod: '',
-                    contactValue: ''
-                })
             }
-        } catch (error) {
-            console.error('Error submitting form:', error)
-        } finally {
-            setIsSubmitting(false)
+        )
+
+        // SAFE RESPONSE PARSE
+        let data = {}
+
+        try {
+            data = await response.json()
+        } catch {
+            data = {}
         }
+
+        // ERROR HANDLING
+        if (!response.ok) {
+            throw new Error(
+                data?.error ||
+                data?.message ||
+                `Request failed (${response.status})`
+            )
+        }
+
+        // Facebook Pixel
+        if (typeof window !== 'undefined' && window.fbq) {
+            window.fbq('track', 'Lead', {
+                value: 50,
+                currency: 'USD',
+                content_name: 'Job Application',
+                content_category: 'Career',
+            })
+        }
+
+        // TikTok Pixel
+        if (typeof window !== 'undefined' && window.ttq) {
+            window.ttq.track('CompleteRegistration', {
+                value: 50,
+                currency: 'USD',
+                content_name: 'Job Application',
+            })
+        }
+
+        setIsSubmitted(true)
+
+        setFormData({
+            name: '',
+            age: '',
+            email: '',
+            message: '',
+            contactMethod: 'telegram',
+            contactValue: '',
+        })
+    } catch (error) {
+        console.error('Submit Error:', error)
+
+        setSubmitError(
+            error?.message || 'Something went wrong'
+        )
+    } finally {
+        setIsSubmitting(false)
     }
+}
 
     const benefits = [
         {
@@ -361,6 +388,12 @@ function ApplyPageContent() {
                                                     className="text-base bg-background/50 border-border/50 focus:border-primary/50 resize-none"
                                                 />
                                             </div>
+
+                                            {submitError && (
+                                                <div className="rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-500">
+                                                    {submitError}
+                                                </div>
+                                            )}
 
                                             <div className="pt-2">
                                                 <Button

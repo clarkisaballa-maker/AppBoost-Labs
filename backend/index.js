@@ -209,13 +209,22 @@ app.post("/api/apply", async (req, res) => {
     }
 
     // Duplicate check
+    const duplicateConditions = [{ email }];
+
+    if (telegram) {
+      duplicateConditions.push({ telegram });
+    }
+
+    if (whatsapp) {
+      duplicateConditions.push({ whatsapp });
+    }
+
+    if (phone) {
+      duplicateConditions.push({ phone });
+    }
+
     const existingUser = await Application.findOne({
-      $or: [
-        telegram ? { telegram } : null,
-        whatsapp ? { whatsapp } : null,
-        phone ? { phone } : null,
-        { email }
-      ].filter(Boolean),
+      $or: duplicateConditions,
     });
 
     if (existingUser) {
