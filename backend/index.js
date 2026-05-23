@@ -154,34 +154,88 @@ app.post("/api/send-email", upload.single("file"), async (req, res) => {
 
 app.post("/api/apply", async (req, res) => {
   try {
-    const { name, age, phone, message, source, email } = req.body;
+    const {
+      name,
+      age,
+      email,
+      message,
+      source,
 
-    if (!name || !age || !phone || !email) {
+      contactMethod,
+      telegram,
+      whatsapp,
+      phone,
+    } = req.body;
+
+    // Validation
+    if (!name || !age || !email || !contactMethod) {
       return res.status(400).json({
-        message: "name, age, phone and email are required",
+        message:
+          "name, age, email and contact method are required",
       });
     }
 
-    const formattedPhone = formatUSPhone(phone);
+    // Validate selected contact method
+    let contactValue = "";
 
+    if (contactMethod === "telegram") {
+      contactValue = telegram;
+
+      if (!telegram) {
+        return res.status(400).json({
+          message: "Telegram account is required",
+        });
+      }
+    }
+
+    if (contactMethod === "whatsapp") {
+      contactValue = whatsapp;
+
+      if (!whatsapp) {
+        return res.status(400).json({
+          message: "WhatsApp number is required",
+        });
+      }
+    }
+
+    if (contactMethod === "sms_call") {
+      contactValue = phone;
+
+      if (!phone) {
+        return res.status(400).json({
+          message: "Phone number is required",
+        });
+      }
+    }
+
+    // Duplicate check
     const existingUser = await Application.findOne({
-      phone: formattedPhone,
+      $or: [
+        telegram ? { telegram } : null,
+        whatsapp ? { whatsapp } : null,
+        phone ? { phone } : null,
+        { email }
+      ].filter(Boolean),
     });
 
     if (existingUser) {
       return res.status(409).json({
-        message: "You have already applied for this job",
+        message:
+          "You have already applied for this job",
       });
     }
 
     const ipAddress =
-      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.headers["x-forwarded-for"]
+        ?.split(",")[0]
+        ?.trim() ||
       req.socket?.remoteAddress ||
       req.ip ||
       "";
 
-    // ✅ DEVICE DETECTION (NEW)
-    const userAgent = req.headers["user-agent"] || "";
+    // Device detection
+    const userAgent =
+      req.headers["user-agent"] || "";
 
     let deviceType = "desktop";
     let deviceOS = "unknown";
@@ -199,22 +253,33 @@ app.post("/api/apply", async (req, res) => {
       deviceType = "mobile";
     }
 
-    if (/Windows/i.test(userAgent)) deviceOS = "Windows";
-    if (/Mac OS X/i.test(userAgent) && !/iPhone|iPad|iPod/i.test(userAgent)) {
+    if (/Windows/i.test(userAgent))
+      deviceOS = "Windows";
+
+    if (
+      /Mac OS X/i.test(userAgent) &&
+      !/iPhone|iPad|iPod/i.test(userAgent)
+    ) {
       deviceOS = "macOS";
     }
 
-    // Block submissions if the same IP has already been used 2 or more times
-    const ipUsageCount = await Application.countDocuments({ ipAddress });
+    // Anti spam IP limit
+    const ipUsageCount =
+      await Application.countDocuments({
+        ipAddress,
+      });
 
     if (ipUsageCount >= 2) {
       return res.status(403).json({
         message:
-          "Suspicious activity detected. You need to contact the live support.",
+          "Suspicious activity detected. You need to contact live support.",
       });
     }
 
-    const salesPersons = await SalesPerson.find({ applyPage: true }).sort({ createdAt: 1 });
+    const salesPersons =
+      await SalesPerson.find({
+        applyPage: true,
+      }).sort({ createdAt: 1 });
 
     if (salesPersons.length === 0) {
       return res.status(400).json({
@@ -222,23 +287,50 @@ app.post("/api/apply", async (req, res) => {
       });
     }
 
-    let counter = await Counter.findOne({ name: "salesPersonIndex" });
+    let counter = await Counter.findOne({
+      name: "salesPersonIndex",
+    });
 
     if (!counter) {
-      counter = new Counter({ name: "salesPersonIndex", value: 0 });
+      counter = new Counter({
+        name: "salesPersonIndex",
+        value: 0,
+      });
     }
 
-    const index = counter.value % salesPersons.length;
-    const selectedSalesPerson = salesPersons[index];
+    const index =
+      counter.value % salesPersons.length;
+
+    const selectedSalesPerson =
+      salesPersons[index];
 
     const application = new Application({
       name,
       age,
-      phone: formattedPhone,
-      email, // ✅ ADD THIS
+      email,
       message: message || "",
       source: source || "direct",
-      salesPersonTg: selectedSalesPerson.tgUsername,
+
+      contactMethod,
+
+      telegram:
+        contactMethod === "telegram"
+          ? telegram
+          : "",
+
+      whatsapp:
+        contactMethod === "whatsapp"
+          ? whatsapp
+          : "",
+
+      phone:
+        contactMethod === "sms_call"
+          ? phone
+          : "",
+
+      salesPersonTg:
+        selectedSalesPerson.tgUsername,
+
       ipAddress,
     });
 
@@ -252,23 +344,39 @@ app.post("/api/apply", async (req, res) => {
 
 👤 <b>Name:</b> ${application.name}
 🎂 <b>Age:</b> ${application.age}
-📞 <b>Phone:</b> ${application.phone}
 📧 <b>Email:</b> ${application.email}
-🌐 <b>Source:</b> ${application.source || "direct"}
-🌍 <b>IP:</b> ${application.ipAddress || "N/A"}
+
+📬 <b>Contact Method:</b> ${contactMethod}
+
+${telegram ? `📨 <b>Telegram:</b> ${telegram}` : ""}
+${whatsapp ? `💬 <b>WhatsApp:</b> ${whatsapp}` : ""}
+${phone ? `📞 <b>Phone:</b> ${phone}` : ""}
+
+🌐 <b>Source:</b> ${application.source || "direct"
+      }
+
+🌍 <b>IP:</b> ${application.ipAddress || "N/A"
+      }
+
 💻 <b>Device:</b> ${deviceType}
 📱 <b>OS:</b> ${deviceOS}
 
-<b>Message:</b>${message}
+📝 <b>Message:</b>
+${message || "N/A"}
 
-👨‍💼 <b>Assigned To:</b> @${selectedSalesPerson.tgUsername}
+👨‍💼 <b>Assigned To:</b>
+@${selectedSalesPerson.tgUsername}
 `;
 
-    await sendTelegramMessage(telegramMessage);
+    await sendTelegramMessage(
+      telegramMessage
+    );
 
     return res.status(201).json({
-      message: "Application submitted successfully",
-      assignedTo: selectedSalesPerson.tgUsername,
+      message:
+        "Application submitted successfully",
+      assignedTo:
+        selectedSalesPerson.tgUsername,
       data: application,
     });
   } catch (err) {

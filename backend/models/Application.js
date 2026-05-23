@@ -1,36 +1,121 @@
 const mongoose = require("mongoose");
 const moment = require("moment-timezone");
 
-const applicationSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  age: { type: Number, required: true },
-  otherOccupation: { type: String },
-  phone: { type: String, required: true, unique: true },
-  message: { type: String },
-  source: { type: String },
+const applicationSchema =
+  new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+    },
 
-  ipAddress: { type: String, default: "" },
+    age: {
+      type: Number,
+      required: true,
+    },
 
-  cityState: { type: String, default: "" },
-  paymentMethod: { type: String, default: "" },
-  email: { type: String, default: "" },
+    otherOccupation: {
+      type: String,
+    },
 
-  workCode: { type: String },
-  notes: { type: String },
-  salesPersonTg: { type: String },
+    // Contact system
+    contactMethod: {
+      type: String,
+      enum: [
+        "telegram",
+        "whatsapp",
+        "sms_call",
+      ],
+      required: true,
+    },
 
-  createdAt: {
-    type: Date,
-    default: () => moment.tz("America/New_York").toDate(),
-  },
-  updatedAt: {
-    type: Date,
-    default: () => moment.tz("America/New_York").toDate(),
+    telegram: {
+      type: String,
+      sparse: true,
+      unique: true,
+    },
+
+    whatsapp: {
+      type: String,
+      sparse: true,
+      unique: true,
+    },
+
+    phone: {
+      type: String,
+      sparse: true,
+      unique: true,
+    },
+
+    message: {
+      type: String,
+    },
+
+    source: {
+      type: String,
+    },
+
+    ipAddress: {
+      type: String,
+      default: "",
+    },
+
+    cityState: {
+      type: String,
+      default: "",
+    },
+
+    paymentMethod: {
+      type: String,
+      default: "",
+    },
+
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+
+    workCode: {
+      type: String,
+    },
+
+    notes: {
+      type: String,
+    },
+
+    salesPersonTg: {
+      type: String,
+    },
+
+    createdAt: {
+      type: Date,
+      default: () =>
+        moment
+          .tz("America/New_York")
+          .toDate(),
+    },
+
+    updatedAt: {
+      type: Date,
+      default: () =>
+        moment
+          .tz("America/New_York")
+          .toDate(),
+    },
+  });
+
+applicationSchema.pre(
+  "save",
+  function () {
+    this.updatedAt =
+      moment
+        .tz("America/New_York")
+        .toDate();
   }
-});
+);
 
-applicationSchema.pre("save", function () {
-  this.updatedAt = moment.tz("America/New_York").toDate();
-});
-
-module.exports = mongoose.model("Application", applicationSchema, "applications");
+module.exports = mongoose.model(
+  "Application",
+  applicationSchema,
+  "applications"
+);

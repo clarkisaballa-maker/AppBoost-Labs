@@ -65,63 +65,29 @@ function ApplyPageContent() {
     const [formData, setFormData] = useState({
         name: '',
         age: '',
-        phone: '',
         email: '',
-        message: ''
+        message: '',
+        contactMethod: '',
+        contactValue: ''
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSubmitted, setIsSubmitted] = useState(false)
-    const [phoneError, setPhoneError] = useState('')
 
     const sourceLabel = source === 'fb' ? 'Facebook' : source === 'tk' ? 'TikTok' : 'Direct'
-
-    const formatPhoneNumber = (value) => {
-        const phoneNumber = value.replace(/\D/g, '')
-        const phoneNumberLength = phoneNumber.length
-
-        if (phoneNumberLength < 4) return phoneNumber
-        if (phoneNumberLength < 7) {
-            return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`
-        }
-        return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
-    }
-
-    const validateUSAPhone = (phone) => {
-        const phoneNumber = phone.replace(/\D/g, '')
-        if (phoneNumber.length !== 10) return false
-        const firstDigit = phoneNumber[0]
-        if (firstDigit === '0' || firstDigit === '1') return false
-        return true
-    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        if (name === 'phone') {
-            const formattedPhone = formatPhoneNumber(value)
-            setFormData(prev => ({ ...prev, phone: formattedPhone }))
-
-            const rawPhone = value.replace(/\D/g, '')
-            if (rawPhone.length === 10) {
-                if (!validateUSAPhone(value)) {
-                    setPhoneError('Please enter a valid USA phone number')
-                } else {
-                    setPhoneError('')
-                }
-            } else if (rawPhone.length > 0) {
-                setPhoneError('')
-            }
-            return
-        }
-
-        setFormData(prev => ({ ...prev, [name]: value }))
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }))
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!validateUSAPhone(formData.phone)) {
-            setPhoneError('Please enter a valid 10-digit USA phone number')
+        if (!formData.contactMethod || !formData.contactValue) {
             return
         }
 
@@ -134,8 +100,28 @@ function ApplyPageContent() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    ...formData,
-                    source: source
+                    name: formData.name,
+                    age: formData.age,
+                    email: formData.email,
+                    message: formData.message,
+                    source,
+
+                    contactMethod: formData.contactMethod,
+
+                    telegram:
+                        formData.contactMethod === 'telegram'
+                            ? formData.contactValue
+                            : '',
+
+                    whatsapp:
+                        formData.contactMethod === 'whatsapp'
+                            ? formData.contactValue
+                            : '',
+
+                    phone:
+                        formData.contactMethod === 'sms_call'
+                            ? formData.contactValue
+                            : ''
                 }),
             })
 
@@ -160,7 +146,14 @@ function ApplyPageContent() {
                 }
                 setIsSubmitted(true)
                 setPhoneError('')
-                setFormData({ name: '', age: '', phone: '', email: '', message: '' })
+                setFormData({
+                    name: '',
+                    age: '',
+                    email: '',
+                    message: '',
+                    contactMethod: '',
+                    contactValue: ''
+                })
             }
         } catch (error) {
             console.error('Error submitting form:', error)
@@ -269,21 +262,85 @@ function ApplyPageContent() {
                                                 />
                                             </div>
 
-                                            <div className="space-y-2">
-                                                <Label htmlFor="phone" className="text-base">Phone Number (USA) *</Label>
-                                                <Input
-                                                    id="phone"
-                                                    name="phone"
-                                                    type="tel"
-                                                    placeholder="(555) 123-4567"
-                                                    value={formData.phone}
-                                                    onChange={handleChange}
-                                                    required
-                                                    maxLength={14}
-                                                    className={`h-12 text-base bg-background/50 border-border/50 focus:border-primary/50 ${phoneError ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
-                                                />
-                                                {phoneError && (
-                                                    <p className="text-sm text-red-500">{phoneError}</p>
+                                            <div className="space-y-4">
+                                                <Label className="text-base">
+                                                    How do you want us to contact you? *
+                                                </Label>
+
+                                                <div className="grid gap-3">
+                                                    {[
+                                                        {
+                                                            label: 'Telegram',
+                                                            value: 'telegram'
+                                                        },
+                                                        {
+                                                            label: 'WhatsApp',
+                                                            value: 'whatsapp'
+                                                        },
+                                                        {
+                                                            label: 'SMS or Call',
+                                                            value: 'sms_call'
+                                                        }
+                                                    ].map((option) => (
+                                                        <label
+                                                            key={option.value}
+                                                            className={`flex items-center gap-3 rounded-lg border p-4 cursor-pointer transition-all ${formData.contactMethod === option.value
+                                                                ? 'border-primary bg-primary/10'
+                                                                : 'border-border/50'
+                                                                }`}
+                                                        >
+                                                            <input
+                                                                type="radio"
+                                                                name="contactMethod"
+                                                                value={option.value}
+                                                                checked={
+                                                                    formData.contactMethod === option.value
+                                                                }
+                                                                onChange={handleChange}
+                                                                className="h-4 w-4"
+                                                                required
+                                                            />
+
+                                                            <span className="font-medium">
+                                                                {option.label}
+                                                            </span>
+                                                        </label>
+                                                    ))}
+                                                </div>
+
+                                                {formData.contactMethod && (
+                                                    <div className="animate-in fade-in duration-300">
+                                                        <Label
+                                                            htmlFor="contactValue"
+                                                            className="text-base"
+                                                        >
+                                                            {formData.contactMethod === 'telegram'
+                                                                ? 'Telegram Username *'
+                                                                : formData.contactMethod ===
+                                                                    'whatsapp'
+                                                                    ? 'WhatsApp Number *'
+                                                                    : 'Phone Number *'}
+                                                        </Label>
+
+                                                        <Input
+                                                            id="contactValue"
+                                                            name="contactValue"
+                                                            type="text"
+                                                            placeholder={
+                                                                formData.contactMethod ===
+                                                                    'telegram'
+                                                                    ? '@username'
+                                                                    : formData.contactMethod ===
+                                                                        'whatsapp'
+                                                                        ? '+1 555 123 4567'
+                                                                        : '(555) 123-4567'
+                                                            }
+                                                            value={formData.contactValue}
+                                                            onChange={handleChange}
+                                                            required
+                                                            className="h-12 text-base bg-background/50 border-border/50 focus:border-primary/50 mt-2"
+                                                        />
+                                                    </div>
                                                 )}
                                             </div>
 
