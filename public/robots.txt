@@ -2,8 +2,11 @@
 User-agent: *
 Allow: /
 
+# Block apply page
+Disallow: /apply
+
 # Host
 Host: https://www.appboostlabs.org/
 
-# Sitemaps
+# Sitemap
 Sitemap: https://www.appboostlabs.org/sitemap.xml

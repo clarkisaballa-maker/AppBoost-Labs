@@ -67,7 +67,7 @@ function ApplyPageContent() {
         age: '',
         email: '',
         message: '',
-        contactMethod: 'telegram',
+        contactMethod: 'sms_call',
         contactValue: ''
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -289,14 +289,7 @@ function ApplyPageContent() {
                                                 {/* Segmented Control */}
                                                 <div className="rounded-2xl border border-border/50 bg-background/40 backdrop-blur-sm p-1 flex overflow-hidden shadow-sm">
                                                     {[
-                                                        {
-                                                            label: 'Telegram',
-                                                            value: 'telegram',
-                                                        },
-                                                        {
-                                                            label: 'WhatsApp',
-                                                            value: 'whatsapp',
-                                                        },
+                                                        //Add more options here
                                                         {
                                                             label: 'Message / Call',
                                                             value: 'sms_call',
