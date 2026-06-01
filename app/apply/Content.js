@@ -86,100 +86,110 @@ function ApplyPageContent() {
     }
 
     const handleSubmit = async (e) => {
-    e.preventDefault()
+        e.preventDefault()
 
-    setSubmitError('')
+        setSubmitError('')
 
-    if (!formData.contactMethod || !formData.contactValue) {
-        return
-    }
+        if (!formData.contactMethod || !formData.contactValue) {
+            return
+        }
 
-    setIsSubmitting(true)
+        setIsSubmitting(true)
 
-    try {
-        const response = await fetch(
-            'https://app-boost-labs-backend.vercel.app/api/apply',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    age: formData.age,
-                    email: formData.email,
-                    message: formData.message,
-                    source,
+        try {
+            const response = await fetch(
+                'https://app-boost-labs-backend.vercel.app/api/apply',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: formData.name,
+                        age: formData.age,
+                        email: formData.email,
+                        message: formData.message,
+                        source,
 
-                    contactMethod: formData.contactMethod,
+                        contactMethod: formData.contactMethod,
 
-                    telegram:
-                        formData.contactMethod === 'telegram'
-                            ? formData.contactValue
-                            : null,
+                        ms:
+                            formData.contactMethod === 'ms'
+                                ? formData.contactValue
+                                : null,
 
-                    whatsapp:
-                        formData.contactMethod === 'whatsapp'
-                            ? formData.contactValue
-                            : null,
+                        whatsapp:
+                            formData.contactMethod === 'whatsapp'
+                                ? formData.contactValue
+                                : null,
 
-                    phone:
-                        formData.contactMethod === 'sms_call'
-                            ? formData.contactValue
-                            : null,
-                }),
-            }
-        )
-
-        const data = await response.json()
-
-        if (!response.ok) {
-            throw new Error(
-                data?.error ||
-                data?.message ||
-                'Something went wrong'
+                        phone:
+                            formData.contactMethod === 'sms_call'
+                                ? formData.contactValue
+                                : null,
+                    }),
+                }
             )
-        }
 
-        // Facebook Pixel
-        if (typeof window !== 'undefined' && window.fbq) {
-            window.fbq('track', 'Lead', {
-                value: 50,
-                currency: 'USD',
-                content_name: 'Job Application',
-                content_category: 'Career',
+            const data = await response.json()
+
+            if (!response.ok) {
+                throw new Error(
+                    data?.error ||
+                    data?.message ||
+                    'Something went wrong'
+                )
+            }
+
+            // Facebook Pixel
+            if (typeof window !== 'undefined' && window.fbq) {
+                window.fbq('track', 'Lead', {
+                    value: 50,
+                    currency: 'USD',
+                    content_name: 'Job Application',
+                    content_category: 'Career',
+                })
+            }
+
+            // TikTok Pixel
+            if (typeof window !== 'undefined' && window.ttq) {
+                window.ttq.track('CompleteRegistration', {
+                    value: 50,
+                    currency: 'USD',
+                    content_name: 'Job Application',
+                })
+            }
+
+            // Bing UET Pixel
+            if (typeof window !== 'undefined' && window.uetq) {
+                window.uetq.push('event', 'submit_lead_form', {
+                    event_category: 'Career',
+                    event_label: 'Job Application',
+                    revenue_value: 50,
+                    currency: 'USD',
+                })
+            }
+
+            setIsSubmitted(true)
+
+            setFormData({
+                name: '',
+                age: '',
+                email: '',
+                message: '',
+                contactMethod: 'sms_call',
+                contactValue: '',
             })
+        } catch (error) {
+            console.error('Submit Error:', error)
+
+            setSubmitError(
+                error?.message || 'Something went wrong'
+            )
+        } finally {
+            setIsSubmitting(false)
         }
-
-        // TikTok Pixel
-        if (typeof window !== 'undefined' && window.ttq) {
-            window.ttq.track('CompleteRegistration', {
-                value: 50,
-                currency: 'USD',
-                content_name: 'Job Application',
-            })
-        }
-
-        setIsSubmitted(true)
-
-        setFormData({
-            name: '',
-            age: '',
-            email: '',
-            message: '',
-            contactMethod: 'telegram',
-            contactValue: '',
-        })
-    } catch (error) {
-        console.error('Submit Error:', error)
-
-        setSubmitError(
-            error?.message || 'Something went wrong'
-        )
-    } finally {
-        setIsSubmitting(false)
     }
-}
 
     const benefits = [
         {
@@ -294,6 +304,10 @@ function ApplyPageContent() {
                                                             label: 'Message / Call',
                                                             value: 'sms_call',
                                                         },
+                                                        {
+                                                            label: 'Microsoft Teams',
+                                                            value: 'ms',
+                                                        },
                                                     ].map((option) => {
                                                         const isActive =
                                                             formData.contactMethod === option.value
@@ -331,7 +345,7 @@ function ApplyPageContent() {
                                                             name="contactValue"
                                                             type="text"
                                                             placeholder={
-                                                                formData.contactMethod === 'telegram'
+                                                                formData.contactMethod === 'ms'
                                                                     ? '@username'
                                                                     : formData.contactMethod ===
                                                                         'whatsapp'

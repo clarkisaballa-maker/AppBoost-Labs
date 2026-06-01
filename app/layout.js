@@ -136,6 +136,25 @@ export default function RootLayout({ children }) {
     }(window, document, 'ttq');
   `}
         </Script>
+  
+        {/* Bing UET Pixel */}
+        <Script id="bing-uet" strategy="afterInteractive">
+          {`
+    (function(w, d, t, u, o) {
+      w[u] = w[u] || [], o.ts = (new Date).getTime();
+      var n = d.createElement(t);
+      n.src = "https://bat.bing.net/bat.js?ti=" + o.ti + ("uetq" != u ? "&q=" + u : ""),
+      n.async = 1, n.onload = n.onreadystatechange = function() {
+        var s = this.readyState;
+        s && "loaded" !== s && "complete" !== s ||
+        (o.q = w[u], w[u] = new UET(o), w[u].push("pageLoad"),
+        n.onload = n.onreadystatechange = null)
+      };
+      var i = d.getElementsByTagName(t)[0];
+      i.parentNode.insertBefore(n, i);
+    })(window, document, "script", "uetq", {ti:"97248083", enableAutoSpaTracking: true});
+  `}
+        </Script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
